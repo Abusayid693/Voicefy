@@ -1,5 +1,6 @@
 import { __prod__ } from "./constants";
 import { Post } from "./entities/Post";
+import {User} from "./entities/User"
 import { MikroORM } from "@mikro-orm/core";
 import path from "path";
 
@@ -9,7 +10,7 @@ export default {
     pattern: /^[\w-]+\d+\.[tj]s$/,
     wrap:false
   },
-  entities: [Post],
+  entities: [Post,User],
   dbName: "postgres",
   user: "rehanchoudhury",
   debug: !__prod__,

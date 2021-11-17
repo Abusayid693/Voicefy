@@ -1,5 +1,5 @@
 import { Post } from "../entities/Post";
-import { Resolver, Query, Ctx, Int, Arg, Mutation } from "type-graphql";
+import { Resolver, Query, Ctx, Arg, Mutation } from "type-graphql";
 import { MyContext } from "../types";
 
 @Resolver()
@@ -39,11 +39,22 @@ export class PostResolver {
     const post = await em.find(Post, { id });
     if (!post) return null;
 
-    if(typeof title !=='undefined'){
-    post[0].title=title;
-    await em.persistAndFlush(post);
+    if (typeof title !== "undefined") {
+      post[0].title = title;
+      await em.persistAndFlush(post);
     }
 
     return post[0];
+  }
+
+  @Mutation(() => Boolean)
+  async deletePost(@Arg("id") id: number, @Ctx() { em }: MyContext) {
+    try {
+      await em.nativeDelete(Post, { id });
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+    return true;
   }
 }
