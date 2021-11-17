@@ -37,26 +37,61 @@ class UserResponse {
   user?: User;
 }
 
-
-
 @Resolver()
 export class UserResolver {
-  @Mutation(() => User)
+  @Mutation(() => UserResponse)
   async register(
     @Arg("options") options: UsernamePasswordInput,
     @Ctx() { em }: MyContext
-  ) {
+  ): Promise<UserResponse> {
+
+    // const userExist = await em.findOne(User, { username: options.username });
+    // if(userExist){
+    //   return{
+    //       errors:[{
+    //           field:"username",
+    //           message:"Selected username already exist"
+    //       }]
+    //   }
+    // }
+
     const hashedPassword = await argon2.hash(options.password);
 
     const user = em.create(User, {
       username: options.username,
       password: hashedPassword,
     });
-    await em.persistAndFlush(user);
-    return user;
+
+    try {
+      await em.persistAndFlush(user);
+    } catch (err) {
+      console.log(err);
+
+      if (err.code == '23505' && err.detail.includes('already exists')) {
+        return {
+          errors: [
+            {
+              field: "username",
+              message: "Selected username already exist",
+            },
+          ],
+        };
+      } else {
+        return {
+          errors: [
+            {
+              field: "Server error",
+              message: "Internal server error please try again later",
+            },
+          ],
+        };
+      }
+    }
+
+    return {
+      user: user,
+    };
   }
-
-
 
   @Mutation(() => UserResponse)
   async login(
@@ -80,16 +115,17 @@ export class UserResolver {
 
     if (!valid) {
       return {
-        errors:[{
-            field:"password",
-            message:"Incorrect password"
-        }]
+        errors: [
+          {
+            field: "password",
+            message: "Incorrect password",
+          },
+        ],
       };
     }
 
-    await em.persistAndFlush(user);
     return {
-        user:user
+      user: user,
     };
   }
 }
