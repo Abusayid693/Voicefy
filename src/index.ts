@@ -4,6 +4,7 @@ import { __prod__ } from "./constants";
 import { Post } from "./entities/Post";
 import microConfig from "./mikro-orm.config";
 import express from "express";
+import {MyContext} from "./types"
 
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
@@ -16,6 +17,19 @@ import { UserResolver } from "./resolvers/user";
 import redis from "redis";
 import session from "express-session";
 import connectRedis from "connect-redis";
+
+
+
+/* @https://github.com/DefinitelyTyped/DefinitelyTyped/issues/49941
+ *  Declare all your cookie variables here
+*/
+declare module 'express-session' {
+  interface Session {
+     usernumId: number;
+   }
+ }
+
+
 
 const main = async () => {
   const app = express();
@@ -39,11 +53,12 @@ const main = async () => {
         secure:__prod__,
         sameSite:'lax'
       },
+      saveUninitialized:false,
       secret:"kjjkjkkbjkbuguygyug",
       resave:false,
     })
-  )
-  // --------- Cookie setup end ----------------
+  );
+  // -------------- Cookie setup end ----------------
  
   const apolloServer = new ApolloServer({
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
@@ -51,7 +66,7 @@ const main = async () => {
       resolvers: [HelloResolver, PostResolver, UserResolver],
       validate: false,
     }),
-    context: ({req,res}) => ({ em: orm.em, req,res}),
+    context: ({req,res}): MyContext => ({ em: orm.em, req, res}),
   });
 
   await apolloServer.start();

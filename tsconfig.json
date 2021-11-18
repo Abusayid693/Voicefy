@@ -21,7 +21,11 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "typeRoots": [
+      "./src/types", 
+      "./node_modules/@types"
+    ]
   },
   "exclude": ["node_modules"],
   "include": ["./src/**/*.ts"]
