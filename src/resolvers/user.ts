@@ -8,6 +8,7 @@ import {
   Ctx,
   Mutation,
   ObjectType,
+  Query,
 } from "type-graphql";
 import argon2 from "argon2";
 
@@ -39,12 +40,22 @@ class UserResponse {
 
 @Resolver()
 export class UserResolver {
+  @Query(() => User, { nullable: true })
+  async Me(@Ctx() { req,em }: MyContext){
+    
+    // No cookie session
+    if (!req.session.usernumId) {
+      return null;
+    }
+    const user = await em.findOne(User,{id:req.session.usernumId});
+    return user;
+  }
+
   @Mutation(() => UserResponse)
   async register(
     @Arg("options") options: UsernamePasswordInput,
     @Ctx() { em }: MyContext
   ): Promise<UserResponse> {
-
     // const userExist = await em.findOne(User, { username: options.username });
     // if(userExist){
     //   return{
@@ -67,7 +78,7 @@ export class UserResolver {
     } catch (err) {
       console.log(err);
 
-      if (err.code == '23505' && err.detail.includes('already exists')) {
+      if (err.code == "23505" && err.detail.includes("already exists")) {
         return {
           errors: [
             {
@@ -96,7 +107,7 @@ export class UserResolver {
   @Mutation(() => UserResponse)
   async login(
     @Arg("options") options: UsernamePasswordInput,
-    @Ctx() { em,req }: MyContext
+    @Ctx() { em, req }: MyContext
   ): Promise<UserResponse> {
     const user = await em.findOne(User, { username: options.username });
 
@@ -122,8 +133,9 @@ export class UserResolver {
           },
         ],
       };
-    } 
-
+    }
+    
+    // cookie login session
     req.session.usernumId = user.id;
 
     return {

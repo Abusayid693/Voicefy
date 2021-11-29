@@ -4,7 +4,7 @@ import { __prod__ } from "./constants";
 import { Post } from "./entities/Post";
 import microConfig from "./mikro-orm.config";
 import express from "express";
-import {MyContext} from "./types"
+import { MyContext } from "./types";
 
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
@@ -17,19 +17,15 @@ import { UserResolver } from "./resolvers/user";
 import redis from "redis";
 import session from "express-session";
 import connectRedis from "connect-redis";
-
-
-
+import cors from "cors";
 /* @https://github.com/DefinitelyTyped/DefinitelyTyped/issues/49941
  *  Declare all your cookie variables here
-*/
-declare module 'express-session' {
+ */
+declare module "express-session" {
   interface Session {
-     usernumId: number;
-   }
- }
-
-
+    usernumId: number;
+  }
+}
 
 const main = async () => {
   const app = express();
@@ -42,35 +38,45 @@ const main = async () => {
 
   app.use(
     session({
-      name:'qid',
-      store:new RedisStore({
-        client:redisClient,
-        disableTouch:true,
+      name: "qid",
+      store: new RedisStore({
+        client: redisClient,
+        disableTouch: true,
       }),
-      cookie:{
-        maxAge:1000 * 60 * 60 * 24 * 365 * 10,
-        httpOnly:true,
-        secure:__prod__,
-        sameSite:'lax'
+      cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
+        httpOnly: true,
+        secure: __prod__,
+        sameSite: "lax",
       },
-      saveUninitialized:false,
-      secret:"kjjkjkkbjkbuguygyug",
-      resave:false,
+      saveUninitialized: false,
+      secret: "kjjkjkkbjkbuguygyug",
+      resave: false,
+    })
+  );
+  
+  app.use(
+    cors({
+      origin: "http://localhost:3001",
+      credentials: true,
     })
   );
   // -------------- Cookie setup end ----------------
- 
+
   const apolloServer = new ApolloServer({
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
     schema: await buildSchema({
       resolvers: [HelloResolver, PostResolver, UserResolver],
       validate: false,
     }),
-    context: ({req,res}): MyContext => ({ em: orm.em, req, res}),
+    context: ({ req, res }): MyContext => ({ em: orm.em, req, res }),
   });
 
   await apolloServer.start();
-  apolloServer.applyMiddleware({ app, cors: true });
+  apolloServer.applyMiddleware({
+    app,
+    cors: false,
+  });
 
   app.listen(4000, () => {
     console.log("Server listening on port 4000");
