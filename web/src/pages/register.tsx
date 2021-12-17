@@ -1,35 +1,17 @@
 import { Button } from "@chakra-ui/react";
 import { Formik, Field, Form } from "formik";
-import { useMutation } from "urql";
+import { useRegisterMutation } from "../generated/graphql";
 import { Container } from "../components/Container";
 import { InputField } from "../components/inputField";
-interface indexProps {}
 
-const GET_USER = `
-mutation Register($username:String!, $password:String!){
-    register(options:{
-      password:$password,
-      username:$username
-    }){
-      errors{
-        field
-        message
-      }
-      user{
-        username
-      }
-    }
-  }`;
-
-const Index: React.FC<indexProps> = ({}) => {
-  const [, register] = useMutation(GET_USER);
-
+const Index: React.FC = ({}) => {
+  const [registerMutation] = useRegisterMutation();
   function validateName(value) {
     let error;
     if (!value) {
       error = "Name is required";
-    } else if (value.toLowerCase() == "") {
-      error = "Jeez! You're not a fan 😱";
+    } else if (value.toLowerCase().includes("$")) {
+      error = "special characters are not allowed in name";
     }
     return error;
   }
@@ -38,12 +20,14 @@ const Index: React.FC<indexProps> = ({}) => {
     <Container varient="small">
       <Formik
         initialValues={{ username: "Sasuke", password: "" }}
-        onSubmit={(values, actions) => {
-          //   setTimeout(() => {
-          //     alert(JSON.stringify(values, null, 2));
-          //     actions.setSubmitting(false);
-          //   }, 1000);
-           return register({ username: values.username, password: values.password });
+        onSubmit={async (values, actions) => {
+          const valuest = await registerMutation({
+            variables: {
+              username: values.username,
+              password: values.password,
+            },
+          });
+          console.log(valuest);
         }}
       >
         {(props) => (
