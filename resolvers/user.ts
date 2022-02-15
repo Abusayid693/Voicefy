@@ -41,30 +41,21 @@ class UserResponse {
 @Resolver()
 export class UserResolver {
   @Query(() => User, { nullable: true })
-  async Me(@Ctx() { req,em }: MyContext){
-    
+  async Me(@Ctx() { req, em }: MyContext) {
+
     // No cookie session
     if (!req.session.usernumId) {
       return null;
     }
-    const user = await em.findOne(User,{id:req.session.usernumId});
+    const user = await em.findOne(User, { id: req.session.usernumId });
     return user;
   }
 
   @Mutation(() => UserResponse)
   async register(
     @Arg("options") options: UsernamePasswordInput,
-    @Ctx() { em }: MyContext
+    @Ctx() { em, req }: MyContext
   ): Promise<UserResponse> {
-    // const userExist = await em.findOne(User, { username: options.username });
-    // if(userExist){
-    //   return{
-    //       errors:[{
-    //           field:"username",
-    //           message:"Selected username already exist"
-    //       }]
-    //   }
-    // }
 
     const hashedPassword = await argon2.hash(options.password);
 
@@ -98,7 +89,8 @@ export class UserResolver {
         };
       }
     }
-
+    req.session.usernumId = 121332432456;
+    console.log("Session :",req.session)
     return {
       user: user,
     };
@@ -134,7 +126,7 @@ export class UserResolver {
         ],
       };
     }
-    
+
     // cookie login session
     req.session.usernumId = user.id;
 

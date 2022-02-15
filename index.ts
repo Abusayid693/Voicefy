@@ -1,10 +1,15 @@
-import "reflect-metadata";
+ 
+import dotenv from "dotenv";
+dotenv.config({ path: "./local.env" });
+
 import { MikroORM } from "@mikro-orm/core";
 import { __prod__ } from "./constants";
 import { Post } from "./entities/Post";
 import microConfig from "./mikro-orm.config";
 import express from "express";
 import { MyContext } from "./types";
+import {env} from "process";
+
 
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
@@ -18,6 +23,7 @@ import redis from "redis";
 import session from "express-session";
 import connectRedis from "connect-redis";
 import cors from "cors";
+
 /* @https://github.com/DefinitelyTyped/DefinitelyTyped/issues/49941
  *  Declare all your cookie variables here
  */
@@ -50,14 +56,14 @@ const main = async () => {
         sameSite: "lax",
       },
       saveUninitialized: false,
-      secret: "kjjkjkkbjkbuguygyug",
+      secret: env.USER_SESSION as string,
       resave: false,
     })
   );
   
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: env.CORS_ORIGIN,
       credentials: true,
     })
   );
@@ -78,7 +84,7 @@ const main = async () => {
     cors: false,
   });
 
-  app.listen(4000, () => {
+  app.listen(env.PORT, () => {
     console.log("Server listening on port 4000");
   });
 
