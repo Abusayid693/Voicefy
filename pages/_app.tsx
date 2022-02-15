@@ -1,4 +1,5 @@
 import { ChakraProvider, ColorModeProvider } from "@chakra-ui/react";
+import 'antd/dist/antd.css';
 
 import theme from "../theme";
 import {
@@ -7,7 +8,7 @@ import {
   ApolloProvider,
 } from "@apollo/client";
 
-const client =new ApolloClient({
+const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
   cache: new InMemoryCache()
 });

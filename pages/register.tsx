@@ -2,24 +2,30 @@ import { Button } from "@chakra-ui/react";
 import { Formik, Field, Form } from "formik";
 import { useRegisterMutation } from "../generated/graphql";
 import { Container } from "../components/Container";
-import { InputField } from "../components/inputField";
+import { InputField, SecureInputField } from "../components/inputField";
 import { ErrorFormat } from "../util/error";
+import { useRouter } from "next/router";
+import ProfileUploader from "../components/ImageUpload"
 
-const Index: React.FC = ({}) => {
+
+const Index: React.FC = ({ }) => {
   const [registerMutation] = useRegisterMutation();
 
-  // function validateName(value: string): string {
-  //   let error = "";
-  //   if (!value) {
-  //     error = "Name is required";
-  //   } else if (value.toLowerCase().includes("$")) {
-  //     error = "special characters are not allowed in name";
-  //   }
-  //   return error;
-  // }
+  const router = useRouter()
+
+  const formValidation = (value: string): string => {
+    let error = "";
+    if (!value) {
+      error = "This field is required";
+    } else if (value.toLowerCase().includes("$")) {
+      error = "special characters are not allowed";
+    }
+    return error;
+  }
 
   return (
     <Container varient="small">
+      <ProfileUploader />
       <Formik
         initialValues={{ username: "Sasuke", password: "" }}
         onSubmit={async (values, { setErrors }) => {
@@ -33,6 +39,9 @@ const Index: React.FC = ({}) => {
           if (response.data?.register.errors) {
             setErrors(ErrorFormat(response.data?.register.errors));
           }
+          else if (response.data?.register.user) {
+            router.push("/")
+          }
         }}
       >
         {(props) => (
@@ -41,14 +50,15 @@ const Index: React.FC = ({}) => {
               name="username"
               placeholder="username"
               label="username"
-              // validate={validateName}
+              validate={formValidation}
             />
 
-            <InputField
+            <SecureInputField
               name="password"
               placeholder="password"
               label="password"
               type="password"
+              validate={formValidation}
             />
             <Button
               mt={4}
