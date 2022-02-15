@@ -6,28 +6,28 @@ import { ErrorFormat } from "../../util/error";
 import { Heading } from "@chakra-ui/react";
 
 const LoginUI: React.FC<{
-  registerMutation: any;
+  loginMutation: any;
   router: any;
   formValidation: any;
-}> = ({ registerMutation, router, formValidation }) => {
+}> = ({ loginMutation, router, formValidation }) => {
   return (
     <Container varient="small">
       <Heading as="h3" size="xl" isTruncated marginBottom={10} marginTop={20}>
         Login
       </Heading>
       <Formik
-        initialValues={{ username: "Sasuke", password: "" }}
+        initialValues={{ username: "", password: "" }}
         onSubmit={async (values, { setErrors }) => {
-          const response = await registerMutation({
+          const response = await loginMutation({
             variables: {
               username: values.username,
               password: values.password,
             },
           });
           console.log(response);
-          if (response.data?.register.errors) {
-            setErrors(ErrorFormat(response.data?.register.errors));
-          } else if (response.data?.register.user) {
+          if (response.data?.login.errors) {
+            setErrors(ErrorFormat(response.data?.login.errors));
+          } else if (response.data?.login.user) {
             router.push("/");
           }
         }}

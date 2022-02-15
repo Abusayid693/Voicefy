@@ -1,4 +1,3 @@
-
 mutation Register($username:String!, $password:String!){
     register(options:{
       password:$password,
