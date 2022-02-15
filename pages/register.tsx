@@ -6,7 +6,7 @@ import { InputField, SecureInputField } from "../components/inputField";
 import { ErrorFormat } from "../util/error";
 import { useRouter } from "next/router";
 import ProfileUploader from "../components/ImageUpload"
-
+import { Heading } from '@chakra-ui/react'
 
 const Index: React.FC = ({ }) => {
   const [registerMutation] = useRegisterMutation();
@@ -25,6 +25,9 @@ const Index: React.FC = ({ }) => {
 
   return (
     <Container varient="small">
+      <Heading as='h3' size='xl' isTruncated marginBottom={10} marginTop={20}>
+        Register
+      </Heading>
       <ProfileUploader />
       <Formik
         initialValues={{ username: "Sasuke", password: "" }}
@@ -65,6 +68,7 @@ const Index: React.FC = ({ }) => {
               colorScheme="teal"
               isLoading={props.isSubmitting}
               type="submit"
+              alignSelf={'left'}
             >
               Submit
             </Button>
