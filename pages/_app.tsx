@@ -3,6 +3,7 @@ import "antd/dist/antd.css";
 
 import theme from "../theme";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import {AuthProvider} from "../contexts/Auth"
 import {Box} from "@chakra-ui/react"
 
 const client = new ApolloClient({
@@ -15,6 +16,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <ApolloProvider client={client}>
       <ChakraProvider resetCSS theme={theme}>
+        <AuthProvider>
         <ColorModeProvider
           options={{
             useSystemColorMode: true,
@@ -28,6 +30,7 @@ function MyApp({ Component, pageProps }) {
           />
           <Component {...pageProps} />
         </ColorModeProvider>
+        </AuthProvider>
       </ChakraProvider>
     </ApolloProvider>
   );

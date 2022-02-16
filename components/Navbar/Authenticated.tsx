@@ -14,17 +14,14 @@ import {
 } from "@chakra-ui/icons";
 import { Box } from "@chakra-ui/layout";
 import NavPanel from "../NavPanel";
-import UserPanel from "../UserPanel"
+import UserPanel from "../UserPanel";
 import { useSessionCheckQuery } from "../../generated/graphql";
-
-
+import { useAuth } from "../../contexts/Auth";
 
 const NavigationWrapper: React.FC = ({ children }) => {
-  const { data } = useSessionCheckQuery();
-  
-  const Panel = ()=> data?.Me!=null ? <UserPanel/> : <NavPanel/>;
+  const auth = useAuth();
 
-  console.log(data)
+  const Panel = () => (auth.isAuthenticated() ? <UserPanel /> : <NavPanel />);
 
   return (
     <>
@@ -34,7 +31,7 @@ const NavigationWrapper: React.FC = ({ children }) => {
         mb={50}
         display={"flex"}
         flexDirection="row"
-        justifyContent={'space-between'}
+        justifyContent={"space-between"}
         pt={4}
       >
         <Menu colorScheme="teal">

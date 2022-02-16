@@ -4,12 +4,17 @@ import { Container } from "../../components/Container";
 import { InputField, SecureInputField } from "../../components/inputField";
 import { ErrorFormat } from "../../util/error";
 import { Heading } from "@chakra-ui/react";
+import { useAuth } from "../../contexts/Auth";
 
 const LoginUI: React.FC<{
   loginMutation: any;
   router: any;
   formValidation: any;
 }> = ({ loginMutation, router, formValidation }) => {
+  const auth = useAuth();
+
+  const { login } = auth;
+
   return (
     <Container varient="small">
       <Heading as="h3" size="xl" isTruncated marginBottom={10} marginTop={20}>
@@ -28,6 +33,10 @@ const LoginUI: React.FC<{
           if (response.data?.login.errors) {
             setErrors(ErrorFormat(response.data?.login.errors));
           } else if (response.data?.login.user) {
+            login({
+              user: response.data?.login.user,
+              token: response.data?.login.token,
+            });
             router.push("/");
           }
         }}

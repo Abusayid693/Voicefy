@@ -34,14 +34,18 @@ const login = async (data:any) => {
     setCurrentUser(null);
   };
 
+  const isAuthenticated = () => {
+    return currentUser!=null ? true : false;
+  };
+
+
   const value = {
     currentUser,
     login,
     signup,
-    logout
+    logout,
+    isAuthenticated
   }
-
-
   return (
     <AuthContext.Provider value={value}>
       {children}

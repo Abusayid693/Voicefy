@@ -1,25 +1,15 @@
-import { useSessionCheckQuery } from "../generated/graphql";
 import { useRouter } from "next/router";
 import Login from "../containers/Login";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useAuth } from "../contexts/Auth";
 
 const Index = () => {
-  // const { data } = useSessionCheckQuery();
-  const GET_DOCS = gql`
-    query {
-      Me {
-        id
-        username
-      }
-    }
-  `;
-  const { loading, error, data } = useQuery(GET_DOCS, {
-    fetchPolicy: "no-cache",
-  });
-  console.log('Login :',data)
+  const auth = useAuth();
+
+  console.log('Login :',auth.currentUser)
   const router = useRouter();
 
-  // if (data) router.push("/");
+  if (auth.isAuthenticated()) router.push("/");
+  
   return <Login />;
 };
 
