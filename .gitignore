@@ -15,6 +15,7 @@
 # misc
 .DS_Store
 .env
+production.config.db.ts
 local.env
 .env.development.local
 .env.test.local

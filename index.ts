@@ -1,4 +1,3 @@
- 
 import dotenv from "dotenv";
 dotenv.config({ path: "./local.env" });
 
@@ -8,8 +7,7 @@ import { Post } from "./entities/Post";
 import microConfig from "./mikro-orm.config";
 import express from "express";
 import { MyContext } from "./types";
-import {env} from "process";
-
+import { env } from "process";
 
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
@@ -33,10 +31,17 @@ declare module "express-session" {
   }
 }
 
+const app = express();
+let orm: any;
+
 const main = async () => {
-  const app = express();
-  const orm = await MikroORM.init(microConfig);
-  await orm.getMigrator().up();
+  try {
+    orm = await MikroORM.init(microConfig);
+    await orm.getMigrator().up();
+    console.log("Database successfully connected");
+  } catch (error) {
+    console.log("Database error :", error);
+  }
 
   // --------- Cookie setup ----------------
   const RedisStore = connectRedis(session);
@@ -60,7 +65,7 @@ const main = async () => {
       resave: false,
     })
   );
-  
+
   app.use(
     cors({
       origin: env.CORS_ORIGIN,
@@ -98,5 +103,3 @@ const main = async () => {
 main().catch((err) => {
   console.error(err);
 });
-
-console.log("Helo World");
