@@ -14,8 +14,18 @@ import {
 } from "@chakra-ui/icons";
 import { Box } from "@chakra-ui/layout";
 import NavPanel from "../NavPanel";
+import UserPanel from "../UserPanel"
+import { useSessionCheckQuery } from "../../generated/graphql";
+
+
 
 const NavigationWrapper: React.FC = ({ children }) => {
+  const { data } = useSessionCheckQuery();
+  
+  const Panel = ()=> data?.Me!=null ? <UserPanel/> : <NavPanel/>;
+
+  console.log(data)
+
   return (
     <>
       <Box
@@ -25,6 +35,7 @@ const NavigationWrapper: React.FC = ({ children }) => {
         display={"flex"}
         flexDirection="row"
         justifyContent={'space-between'}
+        pt={4}
       >
         <Menu colorScheme="teal">
           <MenuButton
@@ -33,7 +44,6 @@ const NavigationWrapper: React.FC = ({ children }) => {
             icon={<HamburgerIcon />}
             variant="outline"
             colorScheme="teal"
-            mt={4}
             width="100"
           />
           <MenuList colorScheme="teal" backgroundColor={"#fff"}>
@@ -51,7 +61,7 @@ const NavigationWrapper: React.FC = ({ children }) => {
             </MenuItem>
           </MenuList>
         </Menu>
-        <NavPanel />
+        <Panel />
       </Box>
       <Box paddingLeft={20} paddingRight={20}>
         {children}

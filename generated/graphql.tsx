@@ -93,6 +93,7 @@ export type User = {
 export type UserResponse = {
   __typename?: 'UserResponse';
   errors?: Maybe<Array<FieldError>>;
+  token?: Maybe<Scalars['String']>;
   user?: Maybe<User>;
 };
 
@@ -107,7 +108,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', username: string } | null | undefined } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', token?: string | null | undefined, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', username: string } | null | undefined } };
 
 export type RegisterMutationVariables = Exact<{
   username: Scalars['String'];
@@ -115,7 +116,7 @@ export type RegisterMutationVariables = Exact<{
 }>;
 
 
-export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', username: string } | null | undefined } };
+export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', token?: string | null | undefined, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', username: string } | null | undefined } };
 
 export type SessionCheckQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -133,6 +134,7 @@ export const LoginDocument = gql`
     user {
       username
     }
+    token
   }
 }
     `;
@@ -173,6 +175,7 @@ export const RegisterDocument = gql`
     user {
       username
     }
+    token
   }
 }
     `;
