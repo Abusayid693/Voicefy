@@ -66,9 +66,9 @@ export class UserResolver {
 
     try {
       await em.persistAndFlush(user);
-    } catch (err) {
-      console.log(err);
 
+    } catch (err) {
+      console.log(" Registration error :", err);
       if (err.code == "23505" && err.detail.includes("already exists")) {
         return {
           errors: [
@@ -89,8 +89,7 @@ export class UserResolver {
         };
       }
     }
-    req.session.usernumId = 121332432456;
-    console.log("Session :",req.session)
+    req.session.usernumId = user.id;
     return {
       user: user,
     };
