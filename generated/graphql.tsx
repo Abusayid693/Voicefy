@@ -117,6 +117,11 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', username: string } | null | undefined } };
 
+export type SessionCheckQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SessionCheckQuery = { __typename?: 'Query', Me?: { __typename?: 'User', id: number } | null | undefined };
+
 
 export const LoginDocument = gql`
     mutation Login($username: String!, $password: String!) {
@@ -198,3 +203,37 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const SessionCheckDocument = gql`
+    query SessionCheck {
+  Me {
+    id
+  }
+}
+    `;
+
+/**
+ * __useSessionCheckQuery__
+ *
+ * To run a query within a React component, call `useSessionCheckQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSessionCheckQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSessionCheckQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSessionCheckQuery(baseOptions?: Apollo.QueryHookOptions<SessionCheckQuery, SessionCheckQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SessionCheckQuery, SessionCheckQueryVariables>(SessionCheckDocument, options);
+      }
+export function useSessionCheckLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SessionCheckQuery, SessionCheckQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SessionCheckQuery, SessionCheckQueryVariables>(SessionCheckDocument, options);
+        }
+export type SessionCheckQueryHookResult = ReturnType<typeof useSessionCheckQuery>;
+export type SessionCheckLazyQueryHookResult = ReturnType<typeof useSessionCheckLazyQuery>;
+export type SessionCheckQueryResult = Apollo.QueryResult<SessionCheckQuery, SessionCheckQueryVariables>;
