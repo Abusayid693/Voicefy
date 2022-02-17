@@ -11,6 +11,7 @@ import {
   Query,
 } from "type-graphql";
 import argon2 from "argon2";
+import { generateToken } from "../helpers";
 
 @InputType()
 class UsernamePasswordInput {
@@ -36,17 +37,20 @@ class UserResponse {
 
   @Field(() => User, { nullable: true })
   user?: User;
+
+  @Field(() => String, { nullable: true })
+  token?: String;
 }
 
 @Resolver()
 export class UserResolver {
   @Query(() => User, { nullable: true })
   async Me(@Ctx() { req, em }: MyContext) {
-
     // No cookie session
     if (!req.session.usernumId) {
       return null;
     }
+
     const user = await em.findOne(User, { id: req.session.usernumId });
     return user;
   }
@@ -56,7 +60,6 @@ export class UserResolver {
     @Arg("options") options: UsernamePasswordInput,
     @Ctx() { em, req }: MyContext
   ): Promise<UserResponse> {
-
     const hashedPassword = await argon2.hash(options.password);
 
     const user = em.create(User, {
@@ -66,7 +69,6 @@ export class UserResolver {
 
     try {
       await em.persistAndFlush(user);
-
     } catch (err) {
       console.log(" Registration error :", err);
       if (err.code == "23505" && err.detail.includes("already exists")) {
@@ -89,9 +91,12 @@ export class UserResolver {
         };
       }
     }
+    // @ts-ignore
+    const token = generateToken(user.id);
     req.session.usernumId = user.id;
     return {
       user: user,
+      token,
     };
   }
 
@@ -126,11 +131,14 @@ export class UserResolver {
       };
     }
 
+    // @ts-ignore
+    const token = generateToken(user.id);
     // cookie login session
     req.session.usernumId = user.id;
 
     return {
       user: user,
+      token,
     };
   }
 }

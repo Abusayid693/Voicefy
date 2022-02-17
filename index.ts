@@ -57,12 +57,13 @@ const main = async () => {
       cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
         httpOnly: true,
-        secure: __prod__,
+        secure: false,
         sameSite: "lax",
       },
       saveUninitialized: false,
-      secret: env.USER_SESSION as string,
+      secret: 'kjjkjkkbjkbuguygyug',
       resave: false,
+      proxy: true
     })
   );
 

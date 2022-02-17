@@ -1,1 +1,1 @@
-export const __prod__ = true;
+export const __prod__ = false;
