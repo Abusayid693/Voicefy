@@ -31,6 +31,7 @@
     "apollo-server-core": "^3.5.0",
     "apollo-server-express": "^3.5.0",
     "argon2": "^0.28.2",
+    "aws-sdk": "^2.1076.0",
     "connect-redis": "^6.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
