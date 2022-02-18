@@ -118,10 +118,15 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', token?: string | null | undefined, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', username: string } | null | undefined } };
 
+export type AuthTestingQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AuthTestingQuery = { __typename?: 'Query', hello: string };
+
 export type SessionCheckQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SessionCheckQuery = { __typename?: 'Query', Me?: { __typename?: 'User', id: number } | null | undefined };
+export type SessionCheckQuery = { __typename?: 'Query', Me?: { __typename?: 'User', id: number, username: string } | null | undefined };
 
 
 export const LoginDocument = gql`
@@ -206,10 +211,43 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const AuthTestingDocument = gql`
+    query AuthTesting {
+  hello(options: "testing")
+}
+    `;
+
+/**
+ * __useAuthTestingQuery__
+ *
+ * To run a query within a React component, call `useAuthTestingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAuthTestingQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAuthTestingQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAuthTestingQuery(baseOptions?: Apollo.QueryHookOptions<AuthTestingQuery, AuthTestingQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AuthTestingQuery, AuthTestingQueryVariables>(AuthTestingDocument, options);
+      }
+export function useAuthTestingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AuthTestingQuery, AuthTestingQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AuthTestingQuery, AuthTestingQueryVariables>(AuthTestingDocument, options);
+        }
+export type AuthTestingQueryHookResult = ReturnType<typeof useAuthTestingQuery>;
+export type AuthTestingLazyQueryHookResult = ReturnType<typeof useAuthTestingLazyQuery>;
+export type AuthTestingQueryResult = Apollo.QueryResult<AuthTestingQuery, AuthTestingQueryVariables>;
 export const SessionCheckDocument = gql`
     query SessionCheck {
   Me {
     id
+    username
   }
 }
     `;
