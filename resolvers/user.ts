@@ -9,9 +9,11 @@ import {
   Mutation,
   ObjectType,
   Query,
+  UseMiddleware,
 } from "type-graphql";
 import argon2 from "argon2";
 import { generateToken } from "../helpers";
+import { protect } from "../middlewares/protect";
 
 @InputType()
 class UsernamePasswordInput {
@@ -45,13 +47,9 @@ class UserResponse {
 @Resolver()
 export class UserResolver {
   @Query(() => User, { nullable: true })
-  async Me(@Ctx() { req, em }: MyContext) {
-    // No cookie session
-    if (!req.session.usernumId) {
-      return null;
-    }
-
-    const user = await em.findOne(User, { id: req.session.usernumId });
+  @UseMiddleware(protect)
+  Me(@Ctx() { req, em }: MyContext) {
+    const user = req.user;
     return user;
   }
 
@@ -91,8 +89,7 @@ export class UserResolver {
         };
       }
     }
-    // @ts-ignore
-    const token = generateToken(user.id);
+    const token = generateToken({ _id: user.id });
     req.session.usernumId = user.id;
     return {
       user: user,
@@ -131,8 +128,7 @@ export class UserResolver {
       };
     }
 
-    // @ts-ignore
-    const token = generateToken(user.id);
+    const token = generateToken({ _id: user.id });
     // cookie login session
     req.session.usernumId = user.id;
 
@@ -142,3 +138,13 @@ export class UserResolver {
     };
   }
 }
+
+// @Query(() => User, { nullable: true })
+// me(@Ctx() { req }: MyContext) {
+//   // you are not logged in
+//   if (!req.session.userId) {
+//     return null;
+//   }
+
+//   return User.findOne(req.session.userId);
+// }
