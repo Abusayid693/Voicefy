@@ -13,6 +13,8 @@
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
     "antd": "^4.18.7",
+    "apollo-upload-client": "^17.0.0",
+    "axios": "^0.26.0",
     "formik": "^2.2.9",
     "framer-motion": "^4.0.3",
     "graphql": "^16.0.1",
@@ -28,6 +30,7 @@
     "@graphql-codegen/typescript-operations": "2.2.1",
     "@graphql-codegen/typescript-react-apollo": "^3.2.2",
     "@graphql-codegen/typescript-urql": "^3.4.1",
+    "@types/apollo-upload-client": "^17.0.0",
     "@types/styled-components": "^5.1.22",
     "typescript": "^4.5.2"
   }

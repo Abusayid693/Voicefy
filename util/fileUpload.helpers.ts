@@ -1,5 +1,6 @@
 import { message } from "antd";
 
+
 interface IFile {
   lastModified: Number;
   name: string;
@@ -40,17 +41,4 @@ export const handleChange = (info: any, setState: any) => {
       });
     });
   }
-};
-
-export const uploadFile = ({
-  file,
-  onSuccess,
-}: {
-  file: any;
-  onSuccess: any;
-}) => {
-  console.log("file : ", file);
-  setTimeout(() => {
-    onSuccess("ok");
-  }, 1000);
 };
