@@ -6,6 +6,7 @@ import { __prod__ } from "./constants";
 import { Post } from "./entities/Post";
 import microConfig from "./mikro-orm.config";
 import express from "express";
+import fileupload from "express-fileupload";
 import { MyContext } from "./types";
 import { env } from "process";
 
@@ -21,6 +22,7 @@ import redis from "redis";
 import session from "express-session";
 import connectRedis from "connect-redis";
 import cors from "cors";
+import fileUpload from "./isolated/file.upload";
 
 /* @https://github.com/DefinitelyTyped/DefinitelyTyped/issues/49941
  *  Declare all your cookie variables here
@@ -61,9 +63,9 @@ const main = async () => {
         sameSite: "lax",
       },
       saveUninitialized: false,
-      secret: 'kjjkjkkbjkbuguygyug',
+      secret: "kjjkjkkbjkbuguygyug",
       resave: false,
-      proxy: true
+      proxy: true,
     })
   );
 
@@ -73,6 +75,8 @@ const main = async () => {
       credentials: true,
     })
   );
+  app.use(fileupload());
+  app.use("/upload", fileUpload);
   // -------------- Cookie setup end ----------------
 
   const apolloServer = new ApolloServer({
