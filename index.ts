@@ -75,8 +75,9 @@ const main = async () => {
       credentials: true,
     })
   );
+  
   app.use(fileupload());
-  app.use("/upload", fileUpload);
+  app.use("/", fileUpload);
   // -------------- Cookie setup end ----------------
 
   const apolloServer = new ApolloServer({
