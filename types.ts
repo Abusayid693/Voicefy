@@ -14,7 +14,7 @@ export interface IFile {
 
 interface IRequest extends Request{
   user?:any
-  files:any
+  // files:any
 }
 
 export type MyContext = {
