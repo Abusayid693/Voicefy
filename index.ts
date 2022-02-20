@@ -96,7 +96,7 @@ const main = async () => {
   });
 
   app.listen(env.PORT, () => {
-    console.log("Server listening on port 4000");
+    console.log(`Server listening on port ${env.PORT}`);
   });
 
   // const post = orm.em.create(Post, { title: "Testing first post" });
