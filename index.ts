@@ -18,20 +18,8 @@ import { HelloResolver } from "./resolvers/hello";
 import { PostResolver } from "./resolvers/post";
 import { UserResolver } from "./resolvers/user";
 
-import redis from "redis";
-import session from "express-session";
-import connectRedis from "connect-redis";
 import cors from "cors";
 import fileUpload from "./isolated/file.upload";
-
-/* @https://github.com/DefinitelyTyped/DefinitelyTyped/issues/49941
- *  Declare all your cookie variables here
- */
-declare module "express-session" {
-  interface Session {
-    usernumId: number;
-  }
-}
 
 const app = express();
 let orm: any;
@@ -45,39 +33,19 @@ const main = async () => {
     console.log("Database error :", error);
   }
 
-  // --------- Cookie setup ----------------
-  const RedisStore = connectRedis(session);
-  const redisClient = redis.createClient();
-
-  app.use(
-    session({
-      name: "qid",
-      store: new RedisStore({
-        client: redisClient,
-        disableTouch: true,
-      }),
-      cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
-        httpOnly: true,
-        secure: false,
-        sameSite: "lax",
-      },
-      saveUninitialized: false,
-      secret: "kjjkjkkbjkbuguygyug",
-      resave: false,
-      proxy: true,
-    })
-  );
-
   app.use(
     cors({
       origin: env.CORS_ORIGIN,
       credentials: true,
     })
   );
-  
+
   app.use(fileupload());
+  app.get("/", (req, res) => {
+    res.send("Welcome to server baby");
+  });
   app.use("/", fileUpload);
+
   // -------------- Cookie setup end ----------------
 
   const apolloServer = new ApolloServer({
@@ -95,12 +63,9 @@ const main = async () => {
     cors: false,
   });
 
-  app.listen(env.PORT, () => {
-    console.log(`Server listening on port ${env.PORT}`);
-  });
-
-  // const post = orm.em.create(Post, { title: "Testing first post" });
-  // await orm.em.persistAndFlush(post);
+  const listener = app.listen(env.PORT || 4000);
+  // @ts-ignore
+  console.log(`Server listening on port ${listener.address().port}`);
 
   const posts = await orm.em.find(Post, {});
   console.log(posts);
