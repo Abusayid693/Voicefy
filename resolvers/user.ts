@@ -1,4 +1,4 @@
-import { User } from "../entities/User";
+import { EatherUser } from "../entities/User";
 import { MyContext } from "../types";
 import {
   Resolver,
@@ -14,6 +14,7 @@ import {
 import argon2 from "argon2";
 import { generateToken } from "../helpers";
 import { protect } from "../middlewares/protect";
+import { getConnection } from "typeorm"
 
 @InputType()
 class UsernamePasswordInput {
@@ -37,8 +38,8 @@ class UserResponse {
   @Field(() => [FieldError], { nullable: true })
   errors?: FieldError[];
 
-  @Field(() => User, { nullable: true })
-  user?: User;
+  @Field(() => EatherUser, { nullable: true })
+  user?: EatherUser;
 
   @Field(() => String, { nullable: true })
   token?: String;
@@ -46,9 +47,9 @@ class UserResponse {
 
 @Resolver()
 export class UserResolver {
-  @Query(() => User, { nullable: true })
+  @Query(() => EatherUser, { nullable: true })
   @UseMiddleware(protect)
-  Me(@Ctx() { req, em }: MyContext) {
+  Me(@Ctx() { req }: MyContext) {
     const user = req.user;
     return user;
   }
@@ -56,29 +57,36 @@ export class UserResolver {
   @Mutation(() => UserResponse)
   async register(
     @Arg("options") options: UsernamePasswordInput,
-    @Ctx() { em, req }: MyContext
+    @Ctx() { req }: MyContext
   ): Promise<UserResponse> {
     const hashedPassword = await argon2.hash(options.password);
-
-    const user = em.create(User, {
-      username: options.username,
-      password: hashedPassword,
-    });
-
+    let user;
     try {
-      await em.persistAndFlush(user);
+      // User.create({}).save()
+      const result = await getConnection()
+        .createQueryBuilder()
+        .insert()
+        .into(EatherUser)
+        .values({
+          username: options.username,
+          password: hashedPassword,
+          email: `${options.username}@gmail.com`
+        })
+        .returning("*")
+        .execute();
+      user = result.raw[0];
     } catch (err) {
-      console.log(" Registration error :", err);
-      if (err.code == "23505" && err.detail.includes("already exists")) {
+      if (err.code === "23505") {
         return {
           errors: [
             {
               field: "username",
-              message: "Selected username already exist",
+              message: "username already taken",
             },
           ],
         };
-      } else {
+      }
+      else {
         return {
           errors: [
             {
@@ -90,7 +98,6 @@ export class UserResolver {
       }
     }
     const token = generateToken({ _id: user.id });
-    // req.session.usernumId = user.id;
     return {
       user: user,
       token,
@@ -100,9 +107,11 @@ export class UserResolver {
   @Mutation(() => UserResponse)
   async login(
     @Arg("options") options: UsernamePasswordInput,
-    @Ctx() { em, req }: MyContext
+    @Ctx() { req }: MyContext
   ): Promise<UserResponse> {
-    const user = await em.findOne(User, { username: options.username });
+
+    const { username } = options;
+    const user = await EatherUser.findOne({ where: { username } });
 
     if (!user) {
       return {
@@ -127,24 +136,10 @@ export class UserResolver {
         ],
       };
     }
-
     const token = generateToken({ _id: user.id });
-    // cookie login session
-    // req.session.usernumId = user.id;
-
     return {
       user: user,
       token,
     };
   }
 }
-
-// @Query(() => User, { nullable: true })
-// me(@Ctx() { req }: MyContext) {
-//   // you are not logged in
-//   if (!req.session.userId) {
-//     return null;
-//   }
-
-//   return User.findOne(req.session.userId);
-// }

@@ -2,11 +2,11 @@ import { MiddlewareFn } from "type-graphql";
 import { JWT_SECRET, JWT_EXPIRE } from "../local.config";
 import jwt from "jsonwebtoken";
 import { MyContext } from "../types";
-import { User } from "../entities/User";
+import { EatherUser } from "../entities/User";
 
-export const protect:MiddlewareFn<MyContext>  = async ({ context }, next) => {
+export const protect: MiddlewareFn<MyContext> = async ({ context }, next) => {
   let token;
-  const { em, req } = context;
+  const { req } = context;
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
@@ -22,10 +22,10 @@ export const protect:MiddlewareFn<MyContext>  = async ({ context }, next) => {
     const decoded = jwt.verify(token, JWT_SECRET);
     console.log(decoded)
     // @ts-ignore
-    const user = await em.findOne(User, { id:decoded.id });
+    const user = await EatherUser.findOne(decoded.id);
 
     if (!user) {
-        throw new Error("not authenticated");
+      throw new Error("not authenticated");
     }
     req.user = user;
 

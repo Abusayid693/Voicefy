@@ -6,7 +6,7 @@ export class HelloResolver {
   @Query(() => String)
   hello(
     @Arg("options") options: string,
-    @Ctx() { em, req }: MyContext
+    @Ctx() {req }: MyContext
   ): String {
     
     console.log(req.headers.authorization);

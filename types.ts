@@ -18,7 +18,7 @@ interface IRequest extends Request{
 }
 
 export type MyContext = {
-  em: EntityManager<IDatabaseDriver<Connection>>;
+  // em: EntityManager<IDatabaseDriver<Connection>>;
   req: IRequest ;
   res: Response;
 };

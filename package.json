@@ -46,7 +46,8 @@
     "multer": "^1.4.4",
     "pg": "^8.7.1",
     "redis": "^3.1.2",
-    "type-graphql": "^1.1.1"
+    "type-graphql": "^1.1.1",
+    "typeorm": "^0.2.43"
   },
   "mikro-orm": {
     "useTsNode": true,

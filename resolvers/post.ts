@@ -1,6 +1,6 @@
 import { Post } from "../entities/Post";
-import { Resolver, Query, Ctx, Arg, Mutation } from "type-graphql";
-import { MyContext } from "../types";
+import { Resolver, Query,Arg, Mutation } from "type-graphql";
+import {getConnection} from "typeorm"
 
 @Resolver()
 export class PostResolver {
@@ -8,25 +8,20 @@ export class PostResolver {
   post(
     // @Arg("id", ()=> Int) id: number,
     @Arg("id") id: number,
-    @Ctx() { em }: MyContext
   ) {
-    return em.find(Post, { id });
+    return Post.findOne(id);
   }
 
   @Query(() => [Post], { nullable: true })
-  posts(@Ctx() { em }: MyContext): Promise<Post[]> {
-    return em.find(Post, {});
+  posts(): Promise<Post[]> {
+    return Post.find();
   }
 
   @Mutation(() => Post)
   async createPosts(
     @Arg("title") title: string,
-    //  @Arg("title", ()=>String) title: string,
-    //  @Arg("id") id: number,
-    @Ctx() { em }: MyContext
   ) {
-    const post = em.create(Post, { title });
-    await em.persistAndFlush(post);
+    const post = Post.create({ title }).save();
     return post;
   }
 
@@ -34,23 +29,25 @@ export class PostResolver {
   async updatePost(
     @Arg("id") id: number,
     @Arg("title", () => String, { nullable: true }) title: string,
-    @Ctx() { em }: MyContext
   ): Promise<Post | null> {
-    const post = await em.find(Post, { id });
-    if (!post) return null;
+    const result = await getConnection()
+      .createQueryBuilder()
+      .update(Post)
+      .set({ title })
+      .where('id = :id', {
+        id
+      })
+      .returning("*")
+      .execute();
 
-    if (typeof title !== "undefined") {
-      post[0].title = title;
-      await em.persistAndFlush(post);
-    }
-
-    return post[0];
+      console.log("Update Post :", result)
+      return result.raw[0];
   }
 
   @Mutation(() => Boolean)
-  async deletePost(@Arg("id") id: number, @Ctx() { em }: MyContext) {
+  async deletePost(@Arg("id") id: number) {
     try {
-      await em.nativeDelete(Post, { id });
+      await Post.delete({ id});
     } catch (err) {
       console.log(err);
       return false;
