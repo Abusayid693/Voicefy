@@ -90,7 +90,7 @@ export class UserResolver {
       }
     }
     const token = generateToken({ _id: user.id });
-    req.session.usernumId = user.id;
+    // req.session.usernumId = user.id;
     return {
       user: user,
       token,
@@ -130,7 +130,7 @@ export class UserResolver {
 
     const token = generateToken({ _id: user.id });
     // cookie login session
-    req.session.usernumId = user.id;
+    // req.session.usernumId = user.id;
 
     return {
       user: user,

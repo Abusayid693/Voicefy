@@ -20,6 +20,7 @@ import { UserResolver } from "./resolvers/user";
 
 import cors from "cors";
 import fileUpload from "./isolated/file.upload";
+import { User } from "./entities/User";
 
 const app = express();
 let orm: any;
@@ -66,9 +67,9 @@ const main = async () => {
   const listener = app.listen(env.PORT || 4000);
   // @ts-ignore
   console.log(`Server listening on port ${listener.address().port}`);
-
-  const posts = await orm.em.find(Post, {});
-  console.log(posts);
+  await orm.em.transactional(async () => {
+    await orm.em.find(User, {});
+  });
 };
 
 main().catch((err) => {
