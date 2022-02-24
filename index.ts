@@ -17,7 +17,8 @@ import { PostResolver } from "./resolvers/post";
 import { UserResolver } from "./resolvers/user";
 import production from "./production.config.db"
 import cors from "cors";
-import fileUpload from "./isolated/file.upload";
+import fileUpload from "./isolated/s3/file.upload";
+import tts from "./isolated/tts/tts.demo"
 
 const app = express();
 let orm: any;
@@ -37,7 +38,7 @@ const main = async () => {
     res.send("Welcome to server baby");
   });
   app.use("/", fileUpload);
-
+  app.use("/",tts)
   // -------------- Cookie setup end ----------------
 
   const apolloServer = new ApolloServer({

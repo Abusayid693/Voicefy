@@ -1,19 +1,12 @@
 import express from "express";
 import { Request, Response, NextFunction } from "express";
 import multer from "multer";
-import { AWS_ID, AWS_SECRET, AWS_BUCKET_NAME } from "../local.config";
-import { IFile } from "../types";
-import AWS from "aws-sdk";
+import { AWS_BUCKET_NAME } from "../../local.config";
+import { IFile } from "../../types";
 import crypto from "crypto";
+import { s3 } from "../aws.config"
 
 const router = express.Router();
-
-const s3 = new AWS.S3({
-  credentials: {
-    accessKeyId: AWS_ID,
-    secretAccessKey: AWS_SECRET,
-  },
-});
 
 // @ts-ignore
 const storage = multer.memoryStorage({
