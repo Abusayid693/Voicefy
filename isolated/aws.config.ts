@@ -1,4 +1,4 @@
-import { AWS_ID, AWS_SECRET, AWS_BUCKET_NAME } from "../local.config";
+import { AWS_ID, AWS_SECRET } from "../local.config";
 
 import AWS from "aws-sdk";
 

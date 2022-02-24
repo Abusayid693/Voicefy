@@ -1,10 +1,12 @@
 import express from "express";
 import { Request, Response, NextFunction } from "express";
+import {ErrorResponse} from "../../utils/errorResponse"
 import multer from "multer";
 import { AWS_BUCKET_NAME } from "../../local.config";
 import { IFile } from "../../types";
 import crypto from "crypto";
 import { s3 } from "../aws.config"
+
 
 const router = express.Router();
 
@@ -35,9 +37,8 @@ const S3UploadFile = (req: Request, res: Response, next: NextFunction) => {
 
   s3.upload(params, (error: any, data: any) => {
     if (error) {
-      res.status(500).send(error);
+      res.send(new ErrorResponse('S3 image upload error', 500));
     }
-    console.log("S3 :", data);
     res.status(200).send(data);
   });
 };

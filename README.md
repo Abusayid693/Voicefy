@@ -37,7 +37,7 @@ add
 -- ...... MORE QUERIES IN MIGRATION
 ```
 
-## Guide
+## GraphQL
 
 - Getting Started
 
@@ -99,6 +99,26 @@ mutation {
       }
     }
   }
+```
 
+## Isolated routes
 
+1. S3 Image Upload
+```bash
+# File accepted as body
+http://localhost:4000/upload
+```
+
+2. TTS Demo Voice
+```bash
+# file accepted as body
+http://localhost:4000/tts
+
+# Required body 
+
+{
+ "ssmlText" : "Fuck you",
+  "VoiceId" : "Aditi",
+ "lan" :"arb"  
+}
 ```

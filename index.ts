@@ -21,7 +21,7 @@ import fileUpload from "./isolated/s3/file.upload";
 import tts from "./isolated/tts/tts.demo"
 
 const app = express();
-let orm: any;
+app.use(express.json());
 
 const main = async () => {
   // @ts-ignore
