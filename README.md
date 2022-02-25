@@ -109,7 +109,7 @@ mutation {
 http://localhost:4000/upload
 ```
 
-2. TTS Demo Voice
+2. TTS Voice Routes
 ```bash
 # file accepted as body
 http://localhost:4000/tts
@@ -117,8 +117,15 @@ http://localhost:4000/tts
 # Required body 
 
 {
- "ssmlText" : "Fuck you",
-  "VoiceId" : "Aditi",
+"provider":"aws", # aws or ibm
+ "ssmlText" : "Testing voice",
+ "VoiceId" : "Aditi",
  "lan" :"arb"  
+}
+
+# Response
+{
+  "success" : true,
+  "url" : "https://............s3.ap-south-1.amazonaws.com/........
 }
 ```
