@@ -38,7 +38,10 @@ const AwsTTSDemo = (req: Request, res: Response, next: NextFunction) => {
       Key: `${randomBytes}.mp3`,
     };
     let url = s3.getSignedUrl("getObject", params_);
-    res.status(200).send(url);
+    res.status(200).send({
+      success: true,
+      url,
+    });
   });
 };
 
