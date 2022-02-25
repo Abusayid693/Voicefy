@@ -18,7 +18,7 @@ import { UserResolver } from "./resolvers/user";
 import production from "./production.config.db"
 import cors from "cors";
 import fileUpload from "./isolated/s3/file.upload";
-import tts from "./isolated/tts/tts.demo"
+import tts from "./isolated/tts/tts.route"
 
 const app = express();
 app.use(express.json());
