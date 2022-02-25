@@ -11,13 +11,9 @@ const router = express.Router();
 const AwsTTSDemo = (req: Request, res: Response, next: NextFunction) => {
   const { ssmlText, VoiceId, lan, provider } = req.body;
 
-  const input = {
-    Text: ssmlText,
-    OutputFormat: "mp3",
-    VoiceId: VoiceId,
-    LanguageCode: lan,
-  };
+  const input = { ssmlText, VoiceId, lan };
 
+  console.log(input);
   const data = ttsCommonService(res, input, provider);
   let randomBytes = crypto.randomBytes(64).toString("hex");
 

@@ -1,8 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import { ErrorResponse } from "../../utils/errorResponse";
 import { polly, ibmTts } from "../cloud.config";
-import fs from "fs";
+import {
+  getParamsObjectForPolly,
+  getParamsObjectForIbmWatson,
+} from "./tts.helper";
 
+import fs from "fs";
 export const ttsCommonService = (res: Response, input: any, type: string) => {
   switch (type) {
     case "aws":
@@ -16,7 +20,8 @@ export const ttsCommonService = (res: Response, input: any, type: string) => {
 };
 
 export const ttsPollyVoice = (res: Response, input: any) => {
-  polly.synthesizeSpeech(input, (error, data) => {
+  const params = getParamsObjectForPolly(input);
+  polly.synthesizeSpeech(params, (error, data) => {
     if (error) {
       console.log(error);
       return res.send(new ErrorResponse("Aws polly error", 404));
@@ -33,14 +38,10 @@ export const ttsPollyVoice = (res: Response, input: any) => {
 };
 
 export const ttsIbmWatsonVoice = (res: Response, input: any) => {
-  const synthesizeParams = {
-    text: input.ssmlText,
-    accept: "audio/wav",
-    voice: "en-US_AllisonV3Voice",  // input.VoiceId
-  };
-
+  const params = getParamsObjectForIbmWatson(input);
+  console.log(params);
   ibmTts
-    .synthesize(synthesizeParams)
+    .synthesize(params)
     .then((response) => {
       //@ts-ignore
       return ibmTts.repairWavHeaderStream(response.result);
