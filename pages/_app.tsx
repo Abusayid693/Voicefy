@@ -11,6 +11,7 @@ import {
 import { AuthProvider } from "../contexts/Auth";
 import { Box } from "@chakra-ui/react";
 import { createUploadLink } from "apollo-upload-client";
+import 'carbon-components/css/carbon-components.min.css';
 
 
 const uploadLink = createUploadLink({

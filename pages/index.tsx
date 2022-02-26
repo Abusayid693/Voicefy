@@ -1,5 +1,6 @@
 import NavigationWrapper from "../components/Navbar/Authenticated";
 import { useSessionCheckQuery } from "../generated/graphql";
+import Editor from "../containers/Editor"
 
 const Index = () => {
   //   const { data, error, loading } = useSessionCheckQuery();
@@ -15,6 +16,7 @@ const Index = () => {
   return (
     <NavigationWrapper>
       <h1>{JSON.stringify({ data: 4 })}</h1>
+      <Editor/>
     </NavigationWrapper>
   );
 };
