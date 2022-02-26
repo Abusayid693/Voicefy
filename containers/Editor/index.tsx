@@ -5,7 +5,7 @@ const Editor = () => {
   return (
     <S.wrapper>
       <S.header>
-        <h1>Try out our Text to Speech Editor here👇</h1>
+        <h1>Convert Text to Speech using our editor</h1>
         <h2>Watson Text to Speech Voices</h2>
       </S.header>
       <S.gridWrapper>
