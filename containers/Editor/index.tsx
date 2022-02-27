@@ -1,68 +1,31 @@
-import * as S from "./style";
-import { Dropdown, Slider } from "carbon-components-react";
+import { useState } from "react";
+import EditorUI from "./indexUI";
+
+interface IForm {
+  provider: string;
+  language: string;
+  gender: "F" | "M";
+  voice: string;
+  pitch: string;
+  speed: number;
+}
+const initialState: IForm = {
+  provider: "aws",
+  language: "English (Australian)",
+  gender: "F",
+  voice: "Nicole",
+  pitch: "Default",
+  speed: 20,
+};
 
 const Editor = () => {
-  return (
-    <S.wrapper>
-      <S.header>
-        <h1>Convert Text to Speech using our editor</h1>
-        <h2>Watson Text to Speech Voices</h2>
-      </S.header>
-      <S.gridWrapper>
-        <Dropdown
-          ariaLabel="Dropdown"
-          id="carbon-dropdown-example"
-          items={["ff"]}
-          label="Dropdown menu options"
-          titleText="Dropdown title"
-          style={{ width: "200px" }}
-        />
-        <Dropdown
-          ariaLabel="Dropdown"
-          id="carbon-dropdown-example"
-          items={["ff"]}
-          label="Dropdown menu options"
-          titleText="Dropdown title"
-          style={{ width: "200px" }}
-        />
-        <Dropdown
-          ariaLabel="Dropdown"
-          id="carbon-dropdown-example"
-          items={["ff"]}
-          label="Dropdown menu options"
-          titleText="Dropdown title"
-          style={{ width: "200px" }}
-        />
-        <Dropdown
-          ariaLabel="Dropdown"
-          id="carbon-dropdown-example"
-          items={["ff"]}
-          label="Dropdown menu options"
-          titleText="Dropdown title"
-          style={{ width: "200px" }}
-        />
-        <Dropdown
-          ariaLabel="Dropdown"
-          id="carbon-dropdown-example"
-          items={["ff"]}
-          label="Dropdown menu options"
-          titleText="Dropdown title"
-          style={{ width: "200px" }}
-        />
-        <Slider
-          ariaLabelInput="Label for slider value"
-          id="slider"
-          labelText="Slider label"
-          max={100}
-          min={0}
-          step={1}
-          value={50}
-          onChange={(e) => console.log(e)}
-          hideTextInput
-        />
-      </S.gridWrapper>
-    </S.wrapper>
-  );
+  const [formData, setFormData] = useState(initialState);
+
+  const handleFormData = (value: any, name: string) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  return <EditorUI formData={formData} handleFormData={handleFormData} />;
 };
 
 export default Editor;
