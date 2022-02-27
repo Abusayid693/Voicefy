@@ -1,5 +1,6 @@
 import { useState } from "react";
 import EditorUI from "./indexUI";
+import { voices } from "../../static/polly"
 
 interface IForm {
   provider: string;
@@ -8,6 +9,9 @@ interface IForm {
   voice: string;
   pitch: string;
   speed: number;
+  availableProvider?: any;
+  availableLanguage?: any;
+  availableVoice?: any;
 }
 const initialState: IForm = {
   provider: "aws",
@@ -16,6 +20,9 @@ const initialState: IForm = {
   voice: "Nicole",
   pitch: "Default",
   speed: 20,
+  availableProvider: ['aws'],
+  availableLanguage: voices.filter((item) => item.provider === 'aws'),
+  availableVoice: voices.filter((item) => item.language === 'Danish'),
 };
 
 const Editor = () => {
@@ -24,6 +31,8 @@ const Editor = () => {
   const handleFormData = (value: any, name: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
+  console.log(formData.availableVoice)
 
   return <EditorUI formData={formData} handleFormData={handleFormData} />;
 };
