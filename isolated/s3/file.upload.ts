@@ -5,7 +5,7 @@ import multer from "multer";
 import { AWS_BUCKET_NAME } from "../../local.config";
 import { IFile } from "../../types";
 import crypto from "crypto";
-import { s3 } from "../aws.config"
+import { s3 } from "../cloud.config"
 
 
 const router = express.Router();
