@@ -17,8 +17,8 @@ const uploadLink = createUploadLink({
 
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql",
-  // uri: "http://3.110.130.198:4000/graphql"
+  // uri: "http://localhost:4000/graphql",
+  uri: "http://3.110.130.198:4000/graphql"
   // @ts-ignore
 }).concat(uploadLink);
 
