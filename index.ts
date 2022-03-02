@@ -50,10 +50,12 @@ const main = async () => {
     context: ({ req, res }): MyContext => ({req, res }),
   });
 
+
+
   await apolloServer.start();
   apolloServer.applyMiddleware({
     app,
-    cors: false,
+    cors: true,
   });
 
   const listener = app.listen(env.PORT || 4000);
