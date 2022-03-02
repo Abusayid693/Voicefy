@@ -6,17 +6,20 @@ export const gradientHeading = styled.h1`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
-// background-image: linear-gradient( 68.4deg,  rgba(99,251,215,1) -0.4%, rgba(5,222,250,1) 100.2% );
 export const wrapper = styled.div`
-  padding: 10% 8%;
+  padding: 10% 10%;
   display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;
 
 export const gridWrapper = styled.div`
   display: grid;
   grid-template-columns: auto auto auto !important;
   gap: 10px;
-  justify-items: center;
+  align-items: flex-end;
+
 `;
 export const header = styled.div`
   display: flex;

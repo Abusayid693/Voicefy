@@ -1,17 +1,14 @@
-import { ChakraProvider, ColorModeProvider } from "@chakra-ui/react";
-import "antd/dist/antd.css";
-import { setContext } from "@apollo/client/link/context";
-import theme from "../theme";
 import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
+  ApolloClient, ApolloProvider,
+  createHttpLink, InMemoryCache
 } from "@apollo/client";
-import { AuthProvider } from "../contexts/Auth";
-import { Box } from "@chakra-ui/react";
+import { setContext } from "@apollo/client/link/context";
+import { Box, ChakraProvider, ColorModeProvider } from "@chakra-ui/react";
+import "antd/dist/antd.css";
 import { createUploadLink } from "apollo-upload-client";
 import 'carbon-components/css/carbon-components.min.css';
+import { AuthProvider } from "../contexts/Auth";
+import theme from "../theme";
 
 
 const uploadLink = createUploadLink({
@@ -21,6 +18,7 @@ const uploadLink = createUploadLink({
 
 const httpLink = createHttpLink({
   uri: "http://localhost:4000/graphql",
+  // uri: "http://3.110.130.198:4000/graphql"
   // @ts-ignore
 }).concat(uploadLink);
 

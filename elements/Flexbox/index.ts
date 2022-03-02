@@ -20,7 +20,7 @@ interface FlexBoxTypes {
     flexColLg?: boolean;
 }
 
-export const Flexbox = styled.div<FlexBoxTypes>`
+ const Flexbox = styled.div<FlexBoxTypes>`
   display: flex;
   flex-direction: column;
   flex-direction: ${({ flexRow }) => flexRow && 'row'};
@@ -43,3 +43,5 @@ export const Flexbox = styled.div<FlexBoxTypes>`
     flex-direction: ${({ flexColLg }) => flexColLg && 'column'};
   }
 `;
+
+export default Flexbox

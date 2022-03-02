@@ -1,6 +1,7 @@
-import * as S from "./style";
 import { Slider } from "carbon-components-react";
-import CustomDropdown from "../../elements/Dropdown";
+import { CustomDropdown, Flexbox, IconButton, PrimaryButton, TextInputArea } from "../../elements";
+import * as S from "./style";
+
 
 const EditorUI: React.FC<{
   formData: any;
@@ -33,6 +34,10 @@ const EditorUI: React.FC<{
           label={"Voices"}
           title={"Select Voices"}
         />
+        <IconButton />
+      </S.gridWrapper>
+      <TextInputArea />
+      <Flexbox flexRow alignStart>
         <Slider
           ariaLabelInput="Label for slider value"
           id="slider"
@@ -44,7 +49,8 @@ const EditorUI: React.FC<{
           onChange={(e: any) => handleFormData(e.value, "speed")}
           hideTextInput
         />
-      </S.gridWrapper>
+        <PrimaryButton />
+      </Flexbox>
     </S.wrapper>
   );
 };
