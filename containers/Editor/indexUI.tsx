@@ -2,11 +2,12 @@ import { Slider } from "carbon-components-react";
 import { CustomDropdown, Flexbox, IconButton, PrimaryButton, TextInputArea } from "../../elements";
 import * as S from "./style";
 
-
 const EditorUI: React.FC<{
   formData: any;
   handleFormData: any;
-}> = ({ handleFormData }) => {
+  handleLanguageChange: any;
+  handleGenderChange: any;
+}> = ({ handleFormData,formData, handleLanguageChange, handleGenderChange }) => {
   return (
     <S.wrapper>
       <S.header>
@@ -18,21 +19,33 @@ const EditorUI: React.FC<{
           onChangeEvent={(e: any) => handleFormData(e.selectedItem, "provider")}
           label={"Provider"}
           title={"Select Provider"}
+          items={formData.availableProvider}
+          key={'null'}
         />
         <CustomDropdown
-          onChangeEvent={(e: any) => handleFormData(e.selectedItem, "language")}
+          onChangeEvent={(e: any) => handleLanguageChange(e.selectedItem, "language")}
           label={"Languages"}
           title={"Select Languages"}
+          // @ts-ignore
+          items={[...new Set(formData.availableLanguage.map((item:any) => item.language))]}
+          key={'language'}
         />
         <CustomDropdown
-          onChangeEvent={(e: any) => handleFormData(e.selectedItem, "gender")}
+          onChangeEvent={(e: any) => handleGenderChange(e.selectedItem, "gender")}
           label={"Gender"}
           title={"Select Gender"}
+          // @ts-ignore
+          // items={[...new Set(formData.availableGender.map((item:any) => item.sex))]}
+          items={ formData.availableGender!==null ? [...new Set(formData.availableGender.map((item:any) => item.sex))] : []}
+          key={'language'}
         />
         <CustomDropdown
           onChangeEvent={(e: any) => handleFormData(e.selectedItem, "voice")}
           label={"Voices"}
           title={"Select Voices"}
+          // @ts-ignore
+          items={ formData.availableVoice!==null ? [...new Set(formData.availableVoice.map((item:any) => item.id))] : []}
+          key={'language'}
         />
         <IconButton />
       </S.gridWrapper>

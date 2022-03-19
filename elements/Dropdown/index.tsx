@@ -4,12 +4,18 @@ const CustomDropdown: React.FC<{
   onChangeEvent: any;
   label: string;
   title: string;
-}> = ({ onChangeEvent, label, title }) => {
+  items: [any];
+  key: string ;
+}> = ({ onChangeEvent, label, title, items, key }) => {
   return (
     <Dropdown
       ariaLabel="Dropdown"
       id="carbon-dropdown-example"
-      items={["ff"]}
+      // @ts-ignore
+      disabled={items.length === 0}
+      defaultValue={'title'}
+      items={items}
+      key={key}
       label={label}
       titleText={title}
       style={{ width: "200px" }}

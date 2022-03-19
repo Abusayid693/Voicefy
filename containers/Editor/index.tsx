@@ -1,6 +1,6 @@
 import { useState } from "react";
+import { voices } from "../../static/polly";
 import EditorUI from "./indexUI";
-import { voices } from "../../static/polly"
 
 interface IForm {
   provider: string;
@@ -9,8 +9,11 @@ interface IForm {
   voice: string;
   pitch: string;
   speed: number;
+  text: string;
+  //-----------------------//
   availableProvider?: any;
   availableLanguage?: any;
+  availableGender?: any;
   availableVoice?: any;
 }
 const initialState: IForm = {
@@ -19,10 +22,22 @@ const initialState: IForm = {
   gender: "F",
   voice: "Nicole",
   pitch: "Default",
+  text:"Hello World",
   speed: 20,
-  availableProvider: ['aws'],
-  availableLanguage: voices.filter((item) => item.provider === 'aws'),
-  availableVoice: voices.filter((item) => item.language === 'Danish'),
+  availableProvider: ["aws", "ibm"],
+  availableLanguage: voices.filter((item) => item.provider === "aws"),
+  // availableGender: voices.filter(
+  //   (item) =>
+  //     item.provider === "aws" && item.language === "English (Australian)"
+  // ),
+  availableGender: null,
+  availableVoice: null,
+  // availableVoice: voices.filter(
+  //   (item) =>
+  //     item.provider === "aws" &&
+  //     item.language === "English (Australian)" &&
+  //     item.sex == "F"
+  // ),
 };
 
 const Editor = () => {
@@ -32,9 +47,38 @@ const Editor = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  console.log(formData.availableVoice)
+  const handleLanguageChange = (value: any, name: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      ["language"]: value,
+      availableGender: voices.filter(
+        (item) => item.provider === "aws" && item.language === value
+      ),
+      availableVoice: null,
+    }));
+  };
 
-  return <EditorUI formData={formData} handleFormData={handleFormData} />;
+  const handleGenderChange = (value: any, name: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      ["gender"]: value,
+      availableVoice: voices.filter(
+        (item) =>
+          item.provider === "aws" &&
+          item.language === formData.language &&
+          item.sex == value
+      ),
+    }));
+  };
+
+  return (
+    <EditorUI
+      formData={formData}
+      handleFormData={handleFormData}
+      handleLanguageChange={handleLanguageChange}
+      handleGenderChange={handleGenderChange}
+    />
+  );
 };
 
 export default Editor;
