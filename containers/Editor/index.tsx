@@ -26,18 +26,8 @@ const initialState: IForm = {
   speed: 20,
   availableProvider: ["aws", "ibm"],
   availableLanguage: voices.filter((item) => item.provider === "aws"),
-  // availableGender: voices.filter(
-  //   (item) =>
-  //     item.provider === "aws" && item.language === "English (Australian)"
-  // ),
   availableGender: null,
   availableVoice: null,
-  // availableVoice: voices.filter(
-  //   (item) =>
-  //     item.provider === "aws" &&
-  //     item.language === "English (Australian)" &&
-  //     item.sex == "F"
-  // ),
 };
 
 const Editor = () => {

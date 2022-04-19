@@ -1,10 +1,8 @@
-import { Button } from "@chakra-ui/react";
-import { Formik, Form } from "formik";
-import { Container } from "../../components/Container";
+import { Box, Button, Heading } from "@chakra-ui/react";
+import { Form, Formik } from "formik";
 import { InputField, SecureInputField } from "../../components/inputField";
-import { ErrorFormat } from "../../util/error";
-import { Heading } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/Auth";
+import { ErrorFormat } from "../../util/error";
 
 const LoginUI: React.FC<{
   loginMutation: any;
@@ -16,8 +14,8 @@ const LoginUI: React.FC<{
   const { login } = auth;
 
   return (
-    <Container varient="small">
-      <Heading as="h3" size="xl" isTruncated marginBottom={10} marginTop={20}>
+    <Box width={"100vw"} mt={0} height="100vh" mx={"auto"} bg="black.primary" padding={'0 35%'}>
+      <Heading as="h3" size="xl" isTruncated marginBottom={10} marginTop={0} color="white.100">
         Login
       </Heading>
       <Formik
@@ -63,13 +61,14 @@ const LoginUI: React.FC<{
               isLoading={props.isSubmitting}
               type="submit"
               alignSelf={"left"}
+              variant="primary"
             >
               Submit
             </Button>
           </Form>
         )}
       </Formik>
-    </Container>
+    </Box>
   );
 };
 export default LoginUI;

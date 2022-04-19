@@ -28,6 +28,14 @@ const theme = extendTheme({
     },
     white:{
       100:"#F2F1EF"
+    },
+    blue:{
+      100: "#0353e9",
+      200:"#126ED1"
+    },
+    grey:{
+      100:"grey",
+      200:"#D0D6DC"
     }
   },
 
@@ -43,6 +51,10 @@ const theme = extendTheme({
           color:'#fff',
           border : '1px',
           borderColor: 'white.100'
+        },
+        twitter:{
+          bg: 'blue.100',
+          color:'#fff',
         }
       }
     }
