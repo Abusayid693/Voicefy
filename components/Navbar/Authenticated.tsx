@@ -1,22 +1,21 @@
 import {
-  Menu,
-  MenuButton,
-  IconButton,
-  MenuList,
-  MenuItem,
-} from "@chakra-ui/react";
-import {
-  HamburgerIcon,
   AddIcon,
-  ExternalLinkIcon,
-  RepeatIcon,
   EditIcon,
+  ExternalLinkIcon,
+  HamburgerIcon,
+  RepeatIcon
 } from "@chakra-ui/icons";
 import { Box } from "@chakra-ui/layout";
+import {
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList
+} from "@chakra-ui/react";
+import { useAuth } from "../../contexts/Auth";
 import NavPanel from "../NavPanel";
 import UserPanel from "../UserPanel";
-import { useSessionCheckQuery } from "../../generated/graphql";
-import { useAuth } from "../../contexts/Auth";
 
 const NavigationWrapper: React.FC = ({ children }) => {
   const auth = useAuth();
@@ -28,10 +27,10 @@ const NavigationWrapper: React.FC = ({ children }) => {
       <Box
         paddingLeft={20}
         paddingRight={20}
-        mb={50}
         display={"flex"}
         flexDirection="row"
         justifyContent={"space-between"}
+        bg="black.primary"
         pt={4}
       >
         <Menu colorScheme="teal">
@@ -40,7 +39,7 @@ const NavigationWrapper: React.FC = ({ children }) => {
             aria-label="Options"
             icon={<HamburgerIcon />}
             variant="outline"
-            colorScheme="teal"
+            bg="white.100"
             width="100"
           />
           <MenuList colorScheme="teal" backgroundColor={"#fff"}>

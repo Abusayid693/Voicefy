@@ -3,12 +3,13 @@ import {
   createHttpLink, InMemoryCache
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { Box, ChakraProvider, ColorModeProvider } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import "antd/dist/antd.css";
 import { createUploadLink } from "apollo-upload-client";
 import 'carbon-components/css/carbon-components.min.css';
+import ThemeProvider from "contexts/Theme";
+import "style/_reset.css";
 import { AuthProvider } from "../contexts/Auth";
-import theme from "../theme";
 
 
 const uploadLink = createUploadLink({
@@ -43,13 +44,8 @@ const client = new ApolloClient({
 function MyApp({ Component, pageProps }) {
   return (
     <ApolloProvider client={client}>
-      <ChakraProvider resetCSS theme={theme}>
+      <ThemeProvider>
         <AuthProvider>
-          <ColorModeProvider
-            options={{
-              useSystemColorMode: true,
-            }}
-          >
             <Box
               backgroundImage={
                 "linear-gradient( 102.4deg,  rgba(253,189,85,1) 7.8%, rgba(249,131,255,1) 100.3% );"
@@ -57,9 +53,8 @@ function MyApp({ Component, pageProps }) {
               height={20}
             />
             <Component {...pageProps} />
-          </ColorModeProvider>
         </AuthProvider>
-      </ChakraProvider>
+      </ThemeProvider>
     </ApolloProvider>
   );
 }

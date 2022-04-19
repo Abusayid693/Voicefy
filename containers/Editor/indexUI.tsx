@@ -1,5 +1,5 @@
 import { Slider } from "carbon-components-react";
-import { CustomDropdown, Flexbox, IconButton, PrimaryButton, TextInputArea } from "../../elements";
+import { CarbonIconButton, CarbonPrimaryButton, CustomDropdown, Flexbox, TextInputArea } from "elements";
 import * as S from "./style";
 
 const EditorUI: React.FC<{
@@ -47,7 +47,7 @@ const EditorUI: React.FC<{
           items={ formData.availableVoice!==null ? [...new Set(formData.availableVoice.map((item:any) => item.id))] : []}
           key={'language'}
         />
-        <IconButton />
+        <CarbonIconButton />
       </S.gridWrapper>
       <TextInputArea />
       <Flexbox flexRow alignStart>
@@ -62,7 +62,7 @@ const EditorUI: React.FC<{
           onChange={(e: any) => handleFormData(e.value, "speed")}
           hideTextInput
         />
-        <PrimaryButton />
+        <CarbonPrimaryButton />
       </Flexbox>
     </S.wrapper>
   );

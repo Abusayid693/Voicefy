@@ -15,7 +15,6 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
-          <title>My page</title>
           {/* @ts-ignore */}
           {this.props.styleTags}
         </Head>

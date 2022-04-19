@@ -1,11 +1,11 @@
 import {
-    CloudDataOps32,
-    PauseFilled32,
-    PlayFilledAlt32
+  CloudDataOps32,
+  PauseFilled32,
+  PlayFilledAlt32
 } from "@carbon/icons-react";
 import { Button } from "carbon-components-react";
 
-const IconButton: React.FC<{
+const CarbonIconButton: React.FC<{
   hanldeClickEvent?: any;
   status?: boolean;
 }> = ({ hanldeClickEvent, status = false }) => {
@@ -22,11 +22,11 @@ const IconButton: React.FC<{
   );
 };
 
-const PrimaryButton: React.FC<{
+const CarbonPrimaryButton: React.FC<{
   title?: string;
   placeholder?: string;
 }> = () => {
   return <Button renderIcon={CloudDataOps32}>Button</Button>;
 };
 
-export { IconButton, PrimaryButton };
+export { CarbonIconButton, CarbonPrimaryButton };

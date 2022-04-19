@@ -1,4 +1,29 @@
 import { Dropdown } from "carbon-components-react";
+import styled, { css } from "styled-components";
+
+export const Styles = styled.div`
+  ${({ theme }) => css`
+  
+  width: 200px; !important;
+
+  .bx--dropdown{
+    background-color: ${theme.colors.black[100]};
+    border: 1px solid ${theme.colors.white[100]};
+    border-radius: 8px;
+
+    &:hover{
+      background-color: ${theme.colors.black[200]} !important;
+    }
+  }
+
+  .bx--list-box__label{
+    color: ${theme.colors.white[100]};
+  }
+
+  `}
+  
+`;
+
 
 const CustomDropdown: React.FC<{
   onChangeEvent: any;
@@ -8,6 +33,7 @@ const CustomDropdown: React.FC<{
   key: string ;
 }> = ({ onChangeEvent, label, title, items, key }) => {
   return (
+    <Styles>
     <Dropdown
       ariaLabel="Dropdown"
       id="carbon-dropdown-example"
@@ -18,9 +44,9 @@ const CustomDropdown: React.FC<{
       key={key}
       label={label}
       titleText={title}
-      style={{ width: "200px" }}
       onChange={onChangeEvent}
     />
+    </Styles>
   );
 };
 

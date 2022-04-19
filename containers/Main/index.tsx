@@ -1,14 +1,38 @@
+import { Box, Heading } from "@chakra-ui/layout";
+import { GradientHeading, ImageContainer } from "elements";
 import Editor from "../Editor";
-import * as S from "./style";
 
 const Main = () => {
   return (
     <>
-      <S.wrapper>
-          <img height={"320px"} width= {"320px"} src="https://i.pinimg.com/564x/d5/e6/9c/d5e69cfa02480e40c4af28930131cb64.jpg"/>
-        <S.gradientHeading>Hey, Try Our Editor Now</S.gradientHeading>
-        <h2>A Software developer specialising in building <br/> performant frontend applications</h2>
-      </S.wrapper>
+      <Box
+        bg={"black.primary"}
+        display="flex"
+        alignItems={"center"}
+        justifyContent="center"
+        flexDirection={"column"}
+        paddingBottom={40}
+      >
+        <ImageContainer
+          h={320}
+          w={320}
+          src="/icons/brand-large.jpg"
+          title=""
+          alt=""
+        />
+        <GradientHeading fontSize={52} mt={20} mb={5}>
+          Hey, Try Our Editor Now
+        </GradientHeading>
+        <Heading
+          color={"white.100"}
+          fontSize={25}
+          fontWeight={400}
+          textAlign="center"
+        >
+          A Software developer specialising in building <br /> performant
+          frontend applications
+        </Heading>
+      </Box>
       <Editor />
     </>
   );

@@ -11,9 +11,44 @@ const breakpoints = createBreakpoints({
 })
 
 const theme = extendTheme({
-  colors: {
-    black: '#16161D',
+  global:{
+    padding: 0,
   },
+  colors: {
+    black: {
+      primary: '#121417',
+      secondary: "#23272D",
+      100:"#1F242A",
+      200:"#2E343C",
+      300:"#3F4750"
+    },
+    yellow:{
+      100:"#E2D26C",
+      200:"#E7DA8B"
+    },
+    white:{
+      100:"#F2F1EF"
+    }
+  },
+
+  components: {
+    Button: {
+      variants: {
+        primary:{
+          bg:'yellow.100',
+          color:'black.primary'
+        },
+        secondary:{
+          bg:'black.primary',
+          color:'#fff',
+          border : '1px',
+          borderColor: 'white.100'
+        }
+      }
+    }
+
+  },
+
   fonts,
   breakpoints,
   icons: {

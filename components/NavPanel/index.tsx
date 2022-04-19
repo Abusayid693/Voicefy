@@ -1,18 +1,17 @@
-import { Stack, Button } from "@chakra-ui/react";
+import { Button, Stack } from "@chakra-ui/react";
 import Link from "next/link";
-import { Box } from "@chakra-ui/layout";
 
 const NavPanel: React.FC = () => {
   return (
     <>
       <Stack direction="row" spacing={4} align="center">
         <Link href="/register">
-          <Button colorScheme="teal" variant="solid">
+          <Button colorScheme="teal" variant="primary">
             Register
           </Button>
         </Link>
         <Link href="/login">
-          <Button colorScheme="teal" variant="outline">
+          <Button colorScheme="teal" variant="secondary">
             Login
           </Button>
         </Link>

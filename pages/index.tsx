@@ -1,6 +1,6 @@
-import NavigationWrapper from "../components/Navbar/Authenticated";
+import NavigationWrapper from "components/Navbar/Authenticated";
+import Main from "containers/Main";
 
-import Main from "../containers/Main"
 
 const Index = () => {
 

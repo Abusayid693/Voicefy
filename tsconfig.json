@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "--downlevelIteration":true,
+    "baseUrl": ".",
+    "downlevelIteration":true,
     "target": "es5",
     "lib": [
       "dom",
