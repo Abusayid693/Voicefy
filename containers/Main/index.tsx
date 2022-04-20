@@ -29,8 +29,8 @@ const Main = () => {
           fontWeight={400}
           textAlign="center"
         >
-          A Software developer specialising in building <br /> performant
-          frontend applications
+          A Software for creating short<br /> videos, instagram reels
+          with high quality AI voices.
         </Heading>
       </Box>
       <Editor />

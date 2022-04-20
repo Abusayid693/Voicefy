@@ -5,10 +5,7 @@ import styled, { css } from "styled-components";
 export const GradientHeading = styled(Heading)`
   ${({ theme }) => css`
     font-size: 72px;
-    background: -webkit-linear-gradient(
-      rgba(99, 251, 215, 1),
-      rgba(5, 222, 250, 1)
-    );
+    background: linear-gradient( 102.4deg,  rgba(253,189,85,1) 7.8%, rgba(249,131,255,1) 100.3% );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 600;

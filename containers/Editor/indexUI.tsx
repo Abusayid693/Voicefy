@@ -1,22 +1,22 @@
-import { ExternalLinkIcon, InfoIcon, RepeatIcon } from "@chakra-ui/icons";
-import { Box, Button, Grid, Heading, IconButton } from "@chakra-ui/react";
+import { RepeatIcon } from "@chakra-ui/icons";
+import { Box, Button, Grid, IconButton } from "@chakra-ui/react";
 import { Slider } from "carbon-components-react";
-import {
-  CustomDropdown,
-  Flexbox,
-  TextInputArea
-} from "elements";
+import EditorHeading from "components/EditorHeading";
+import { CustomDropdown, Flexbox, TextInputArea } from "elements";
+import { filterDataUsingSet } from "util/filter";
 
 const EditorUI: React.FC<{
   formData: any;
   handleFormData: any;
   handleLanguageChange: any;
   handleGenderChange: any;
+  handleProviderChange: any;
 }> = ({
   handleFormData,
   formData,
   handleLanguageChange,
   handleGenderChange,
+  handleProviderChange,
 }) => {
   return (
     <Box
@@ -25,40 +25,7 @@ const EditorUI: React.FC<{
       padding={"5% 10%"}
       bg="black.primary"
     >
-      <Box
-        display={"flex"}
-        alignItems="center"
-        flexDirection={"column"}
-        bg="black.200"
-        borderTopRightRadius={10}
-        borderTopLeftRadius={10}
-        pt={9}
-        pb={9}
-        position="relative"
-      >
-        <ExternalLinkIcon
-          h={6}
-          w={6}
-          color="grey.200"
-          position={"absolute"}
-          top={5}
-          right={5}
-        />
-          <InfoIcon
-          h={6}
-          w={6}
-          color="grey.200"
-          position={"absolute"}
-          top={5}
-          right={20}
-        />
-        <Heading color={"white.100"}>
-          Convert Text to Speech using our editor
-        </Heading>
-        <Heading color={"white.100"} fontSize={25} fontWeight={300}>
-          Watson Text to Speech Voices
-        </Heading>
-      </Box>
+      <EditorHeading/>
       <Grid
         templateColumns="repeat(3, 1fr)"
         gridRowGap={30}
@@ -67,11 +34,15 @@ const EditorUI: React.FC<{
         p={10}
       >
         <CustomDropdown
-          onChangeEvent={(e: any) => handleFormData(e.selectedItem, "provider")}
+          onChangeEvent={(e: any) =>
+            handleProviderChange(e.selectedItem, "provider")
+          }
           label={"Provider"}
           title={"Select Provider"}
           items={formData.availableProvider}
           key={"null"}
+          id={"Provider"}
+          value={formData.provider}
         />
         <CustomDropdown
           onChangeEvent={(e: any) =>
@@ -79,13 +50,10 @@ const EditorUI: React.FC<{
           }
           label={"Languages"}
           title={"Select Languages"}
-          // @ts-ignore
-          items={[
-            ...new Set(
-              formData.availableLanguage.map((item: any) => item.language)
-            ),
-          ]}
+          items={filterDataUsingSet(formData.availableLanguage, "language")}
           key={"language"}
+          value={formData.language}
+          id={'language'}
         />
         <CustomDropdown
           onChangeEvent={(e: any) =>
@@ -93,34 +61,20 @@ const EditorUI: React.FC<{
           }
           label={"Gender"}
           title={"Select Gender"}
-          // @ts-ignore
-          // items={[...new Set(formData.availableGender.map((item:any) => item.sex))]}
-          items={
-            formData.availableGender !== null
-              ? [
-                  ...new Set(
-                    formData.availableGender.map((item: any) => item.sex)
-                  ),
-                ]
-              : []
-          }
-          key={"language"}
+          items={filterDataUsingSet(formData.availableGender, "sex")}
+          key={"gender"}
+          value={formData.gender}
+          id={'gender'}
         />
         <CustomDropdown
           onChangeEvent={(e: any) => handleFormData(e.selectedItem, "voice")}
           label={"Voices"}
           title={"Select Voices"}
-          // @ts-ignore
-          items={
-            formData.availableVoice !== null
-              ? [
-                  ...new Set(
-                    formData.availableVoice.map((item: any) => item.id)
-                  ),
-                ]
-              : []
-          }
-          key={"language"}
+          items={filterDataUsingSet(formData.availableVoice, "id")}
+          key={"voice"}
+          value={formData.voice}
+          id={'voice'}
+          
         />
         <IconButton
           w={45}
@@ -144,7 +98,12 @@ const EditorUI: React.FC<{
           onChange={(e: any) => handleFormData(e.value, "speed")}
           hideTextInput
         />
-        <Button rightIcon={<RepeatIcon color={"white.100"} />}  variant="twitter" pl={8} pr={8}>
+        <Button
+          rightIcon={<RepeatIcon color={"white.100"} />}
+          variant="twitter"
+          pl={8}
+          pr={8}
+        >
           Submit
         </Button>
       </Flexbox>

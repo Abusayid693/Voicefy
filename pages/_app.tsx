@@ -7,10 +7,10 @@ import { Box } from "@chakra-ui/react";
 import "antd/dist/antd.css";
 import { createUploadLink } from "apollo-upload-client";
 import 'carbon-components/css/carbon-components.min.css';
+import Footer from "components/Footer";
 import ThemeProvider from "contexts/Theme";
 import "style/_reset.css";
 import { AuthProvider } from "../contexts/Auth";
-
 
 const uploadLink = createUploadLink({
   uri: "http://localhost:4000/graphql",
@@ -53,6 +53,7 @@ function MyApp({ Component, pageProps }) {
               height={20}
             />
             <Component {...pageProps} />
+            <Footer/>
         </AuthProvider>
       </ThemeProvider>
     </ApolloProvider>

@@ -1,4 +1,4 @@
-import { Dropdown } from "carbon-components-react";
+import { Dropdown, DropdownProps } from "carbon-components-react";
 import styled, { css } from "styled-components";
 
 export const Styles = styled.div`
@@ -55,26 +55,29 @@ export const Styles = styled.div`
   `}
 `;
 
-const CustomDropdown: React.FC<{
+
+interface Props extends DropdownProps {
   onChangeEvent: any;
-  label: string;
   title: string;
-  items: [any];
+  items: [any] | any[];
   key: string;
-}> = ({ onChangeEvent, label, title, items, key }) => {
+  value: string | null
+}
+
+
+const CustomDropdown: React.FC<Props> = ({ onChangeEvent, label, title, items,value ,key, ...rest }) => {
   return (
     <Styles>
       <Dropdown
         ariaLabel="Dropdown"
-        id="carbon-dropdown-example"
-        // @ts-ignore
         disabled={items.length === 0}
-        defaultValue={"title"}
         items={items}
         key={key}
         label={label}
         titleText={title}
         onChange={onChangeEvent}
+        {...rest}
+        selectedItem={value}
       />
     </Styles>
   );
