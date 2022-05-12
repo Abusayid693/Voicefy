@@ -1,0 +1,6 @@
+query SessionCheck{
+  Me{
+    id
+    username
+  }
+}

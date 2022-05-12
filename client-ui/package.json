@@ -1,0 +1,44 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "gen": "graphql-codegen --config codegen.yml"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.5.6",
+    "@carbon/icons-react": "^10.47.0",
+    "@chakra-ui/icons": "^1.1.7",
+    "@chakra-ui/react": "^1.4.2",
+    "@emotion/react": "^11.0.0",
+    "@emotion/styled": "^11.0.0",
+    "antd": "^4.18.7",
+    "apollo-upload-client": "^17.0.0",
+    "axios": "^0.26.0",
+    "carbon-components": "^10.54.0",
+    "carbon-components-react": "^7.54.0",
+    "carbon-icons": "^7.0.7",
+    "formik": "^2.2.9",
+    "framer-motion": "^4.0.3",
+    "graphql": "^16.0.1",
+    "next": "latest",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "styled-components": "^5.3.3",
+    "urql": "^2.0.5"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "2.3.0",
+    "@graphql-codegen/typescript": "^2.4.1",
+    "@graphql-codegen/typescript-operations": "2.2.1",
+    "@graphql-codegen/typescript-react-apollo": "^3.2.2",
+    "@graphql-codegen/typescript-urql": "^3.4.1",
+    "@types/apollo-upload-client": "^17.0.0",
+    "@types/carbon-components-react": "^7.49.0",
+    "@types/carbon__icons-react": "^10.31.2",
+    "@types/styled-components": "^5.1.22",
+    "babel-plugin-styled-components": "^2.0.6",
+    "typescript": "^4.6.3"
+  }
+}
