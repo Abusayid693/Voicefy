@@ -1,44 +1,46 @@
-import {Request, Response, NextFunction} from 'express';
+import {NextFunction, Request, Response} from 'express';
 import {ErrorResponse} from '../../utils/errorResponse';
-import {polly, ibmTts} from '../cloud.config';
+import {ibmTts, polly} from '../cloud.config';
 import {
+  getParamsObjectForIbmWatson,
   getParamsObjectForPolly,
-  getParamsObjectForIbmWatson
+  storeVoiceInAWS
 } from './tts.helper';
 
-import fs from 'fs';
-export const ttsCommonService = (res: Response, input: any, type: string) => {
-  switch (type) {
-    case 'aws':
-      return ttsPollyVoice(res, input);
+export const cloudVoice = (req: Request, res: Response, next: NextFunction) => {
+  const {ssmlText, VoiceId, lan, provider} = req.body;
 
-    case 'ibm':
+  switch (provider) {
+    case 'aws': {
+      const input = getParamsObjectForPolly(ssmlText, VoiceId, lan);
+      return ttsPollyVoice(input, res, next);
+    }
+    case 'ibm': {
+      const input = getParamsObjectForIbmWatson(ssmlText, VoiceId, lan);
       return ttsIbmWatsonVoice(res, input);
+    }
     default:
-      return ttsPollyVoice(res, input);
+      const input = getParamsObjectForPolly(ssmlText, VoiceId, lan);
+      return ttsPollyVoice(input, res, next);
   }
 };
 
-export const ttsPollyVoice = (res: Response, input: any) => {
-  const params = getParamsObjectForPolly(input);
+export const ttsPollyVoice = (
+  params: any,
+  res: Response,
+  next: NextFunction
+) => {
   polly.synthesizeSpeech(params, (error, data) => {
     if (error) {
-      console.log(error);
-      return res.send(new ErrorResponse('Aws polly error', 404));
+      res.status(500).send(error);
     }
     if (data.AudioStream instanceof Buffer) {
-      fs.writeFile('hello.mp3', data.AudioStream, error => {
-        if (error) console.log('Unable to write file locally for testing');
-      });
-
-      return data.AudioStream;
+      storeVoiceInAWS(res, data.AudioStream);
     }
-    return res.send(new ErrorResponse('Aws polly error', 404));
   });
 };
 
-export const ttsIbmWatsonVoice = (res: Response, input: any) => {
-  const params = getParamsObjectForIbmWatson(input);
+export const ttsIbmWatsonVoice = (res: Response, params: any) => {
   console.log(params);
   ibmTts
     .synthesize(params)
@@ -47,11 +49,10 @@ export const ttsIbmWatsonVoice = (res: Response, input: any) => {
       return ibmTts.repairWavHeaderStream(response.result);
     })
     .then(buffer => {
-      fs.writeFileSync('hello_world.mp3', buffer);
-      return buffer;
+      storeVoiceInAWS(res, buffer);
     })
     .catch(err => {
       console.log('error:', err);
-      return res.send(new ErrorResponse('Aws polly error', 404));
+      return res.send(new ErrorResponse('IMB Watson error', 404));
     });
 };
