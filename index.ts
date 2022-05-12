@@ -7,13 +7,13 @@ import fileupload from "express-fileupload";
 import { env } from "process";
 import { buildSchema } from "type-graphql";
 import { createConnection } from "typeorm";
+import { MyContext } from "./@types/types";
 import db from "./db.config";
 import fileUpload from "./isolated/s3/file.upload";
 import tts from "./isolated/tts/tts.route";
 import { HelloResolver } from "./resolvers/hello";
 import { PostResolver } from "./resolvers/post";
 import { UserResolver } from "./resolvers/user";
-import { MyContext } from "./types";
 dotenv.config({ path: "./local.env" });
 
 

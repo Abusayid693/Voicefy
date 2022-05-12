@@ -7,7 +7,8 @@
     "watch": "tsc -w",
     "start": "ts-node index.ts",
     "dev": "nodemon dist/index.js",
-    "create:migration": "mikro-orm migration:create"
+    "create:migration": "mikro-orm migration:create",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx}\""
   },
   "keywords": [],
   "author": "",
@@ -42,10 +43,13 @@
     "express-session": "^1.17.2",
     "graphql": "15.3.0",
     "graphql-upload": "^13.0.0",
+    "husky": "^8.0.1",
     "ibm-watson": "^6.2.2",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.4",
     "pg": "^8.7.1",
+    "prettier": "^2.6.2",
+    "prettierrc": "^0.0.0-5",
     "redis": "^3.1.2",
     "type-graphql": "^1.1.1",
     "typeorm": "^0.2.43"

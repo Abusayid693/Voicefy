@@ -1,12 +1,10 @@
-import express from "express";
-import { Request, Response, NextFunction } from "express";
-import {ErrorResponse} from "../../utils/errorResponse"
-import multer from "multer";
-import { AWS_BUCKET_NAME } from "../../local.config";
-import { IFile } from "../../types";
-import crypto from "crypto";
-import { s3 } from "../cloud.config"
-
+import crypto from 'crypto';
+import express, {NextFunction, Request, Response} from 'express';
+import multer from 'multer';
+import {IFile} from '../../@types/types';
+import {AWS_BUCKET_NAME} from '../../local.config';
+import {ErrorResponse} from '../../utils/errorResponse';
+import {s3} from '../cloud.config';
 
 const router = express.Router();
 
@@ -17,22 +15,22 @@ const storage = multer.memoryStorage({
     file: Express.Multer.File,
     callback: any
   ) {
-    callback(null, "");
-  },
+    callback(null, '');
+  }
 });
 
-const upload = multer({ storage }).single("image");
+const upload = multer({storage}).single('image');
 
 const S3UploadFile = (req: Request, res: Response, next: NextFunction) => {
   // @ts-ignore
   let image = req.files.file as IFile;
-  let imageType = image.mimetype.split("/")[1];
-  let randomBytes = crypto.randomBytes(64).toString("hex");
+  let imageType = image.mimetype.split('/')[1];
+  let randomBytes = crypto.randomBytes(64).toString('hex');
 
   const params = {
     Bucket: AWS_BUCKET_NAME,
     Key: `${randomBytes}.${imageType}`,
-    Body: image.data,
+    Body: image.data
   };
 
   s3.upload(params, (error: any, data: any) => {
@@ -43,6 +41,6 @@ const S3UploadFile = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-router.route("/upload").post(upload, S3UploadFile);
+router.route('/upload').post(upload, S3UploadFile);
 
 export default router;

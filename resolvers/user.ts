@@ -1,20 +1,14 @@
-import { EatherUser } from "../entities/User";
-import { MyContext } from "../types";
-import {
-  Resolver,
-  Arg,
-  InputType,
-  Field,
-  Ctx,
-  Mutation,
-  ObjectType,
-  Query,
-  UseMiddleware,
-} from "type-graphql";
 import argon2 from "argon2";
+import {
+  Arg, Ctx, Field, InputType, Mutation,
+  ObjectType,
+  Query, Resolver, UseMiddleware
+} from "type-graphql";
+import { getConnection } from "typeorm";
+import { MyContext } from "../@types/types";
+import { EatherUser } from "../entities/User";
 import { generateToken } from "../helpers";
 import { protect } from "../middlewares/protect";
-import { getConnection } from "typeorm"
 
 @InputType()
 class UsernamePasswordInput {
