@@ -1,27 +1,27 @@
-import { useState } from "react";
-import { Upload } from "antd";
-import { LoadingOutlined, UserOutlined } from "@ant-design/icons";
-import { Center } from "@chakra-ui/react";
-import { validateImage, handleChange } from "../../util/fileUpload.helpers";
+import {useState} from 'react';
+import {Upload} from 'antd';
+import {LoadingOutlined, UserOutlined} from '@ant-design/icons';
+import {Center} from '@chakra-ui/react';
+import {validateImage, handleChange} from '../../util/fileUpload.helpers';
 
 const ProfileUploader: React.FC<{
   uploadFile: any;
-}> = ({ uploadFile }) => {
+}> = ({uploadFile}) => {
   const [state, setState] = useState<any>({
     loading: false,
-    imageUrl: null,
+    imageUrl: null
   });
 
-  const { loading, imageUrl } = state;
+  const {loading, imageUrl} = state;
 
   const uploadButton = (
     <div>
       {loading ? (
         <LoadingOutlined />
       ) : (
-        <UserOutlined style={{ fontSize: "220%" }} />
+        <UserOutlined style={{fontSize: '220%'}} />
       )}
-      <div style={{ marginTop: 8, fontWeight: 300 }}>Upload</div>
+      <div style={{marginTop: 8, fontWeight: 300}}>Upload</div>
     </div>
   );
 
@@ -33,13 +33,13 @@ const ProfileUploader: React.FC<{
         className="avatar-uploader"
         showUploadList={false}
         beforeUpload={validateImage}
-        onChange={(info) => handleChange(info, setState)}
+        onChange={info => handleChange(info, setState)}
         // @ts-ignore
         customRequest={uploadFile}
-        style={{ borderRadius: "500px" }}
+        style={{borderRadius: '500px'}}
       >
         {imageUrl ? (
-          <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
+          <img src={imageUrl} alt="avatar" style={{width: '100%'}} />
         ) : (
           uploadButton
         )}

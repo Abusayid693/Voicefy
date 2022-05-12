@@ -1,16 +1,16 @@
-import { Box, Heading } from "@chakra-ui/layout";
-import { GradientHeading, ImageContainer } from "elements";
-import Editor from "../Editor";
+import {Box, Heading} from '@chakra-ui/layout';
+import {GradientHeading, ImageContainer} from 'elements';
+import Editor from '../Editor';
 
 const Main = () => {
   return (
     <>
       <Box
-        bg={"black.primary"}
+        bg={'black.primary'}
         display="flex"
-        alignItems={"center"}
+        alignItems={'center'}
         justifyContent="center"
-        flexDirection={"column"}
+        flexDirection={'column'}
         paddingBottom={40}
       >
         <ImageContainer
@@ -24,13 +24,13 @@ const Main = () => {
           Hey, Try Our Editor Now
         </GradientHeading>
         <Heading
-          color={"white.100"}
+          color={'white.100'}
           fontSize={25}
           fontWeight={400}
           textAlign="center"
         >
-          A Software for creating short<br /> videos, instagram reels
-          with high quality AI voices.
+          A Software for creating short
+          <br /> videos, instagram reels with high quality AI voices.
         </Heading>
       </Box>
       <Editor />

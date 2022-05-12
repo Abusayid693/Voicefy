@@ -4,20 +4,20 @@ import {
   ExternalLinkIcon,
   HamburgerIcon,
   RepeatIcon
-} from "@chakra-ui/icons";
-import { Box } from "@chakra-ui/layout";
+} from '@chakra-ui/icons';
+import {Box} from '@chakra-ui/layout';
 import {
   IconButton,
   Menu,
   MenuButton,
   MenuItem,
   MenuList
-} from "@chakra-ui/react";
-import { useAuth } from "../../contexts/Auth";
-import NavPanel from "../NavPanel";
-import UserPanel from "../UserPanel";
+} from '@chakra-ui/react';
+import {useAuth} from '../../contexts/Auth';
+import NavPanel from '../NavPanel';
+import UserPanel from '../UserPanel';
 
-const NavigationWrapper: React.FC = ({ children }) => {
+const NavigationWrapper: React.FC = ({children}) => {
   const auth = useAuth();
 
   const Panel = () => (auth.isAuthenticated() ? <UserPanel /> : <NavPanel />);
@@ -27,9 +27,9 @@ const NavigationWrapper: React.FC = ({ children }) => {
       <Box
         paddingLeft={20}
         paddingRight={20}
-        display={"flex"}
+        display={'flex'}
         flexDirection="row"
-        justifyContent={"space-between"}
+        justifyContent={'space-between'}
         bg="black.primary"
         pt={4}
       >
@@ -42,7 +42,7 @@ const NavigationWrapper: React.FC = ({ children }) => {
             bg="white.100"
             width="100"
           />
-          <MenuList colorScheme="teal" backgroundColor={"#fff"}>
+          <MenuList colorScheme="teal" backgroundColor={'#fff'}>
             <MenuItem icon={<AddIcon />} command="⌘T">
               New Tab
             </MenuItem>

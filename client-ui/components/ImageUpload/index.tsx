@@ -1,18 +1,12 @@
-import ProfileUploaderUI from "./indexUI";
-import { uploadFileToS3 } from "../../services/RestAPI/index";
+import ProfileUploaderUI from './indexUI';
+import {uploadFileToS3} from '../../services/RestAPI/index';
 
 const ProfileUploader = () => {
-  const uploadFile = async ({
-    file,
-    onSuccess,
-  }: {
-    file: any;
-    onSuccess: any;
-  }) => {
+  const uploadFile = async ({file, onSuccess}: {file: any; onSuccess: any}) => {
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append('file', file);
     await uploadFileToS3(formData);
-    onSuccess("ok");
+    onSuccess('ok');
   };
 
   return <ProfileUploaderUI uploadFile={uploadFile} />;

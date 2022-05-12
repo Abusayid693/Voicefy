@@ -1,12 +1,10 @@
-import NavigationWrapper from "components/Navbar/Authenticated";
-import Main from "containers/Main";
-
+import NavigationWrapper from 'components/Navbar/Authenticated';
+import Main from 'containers/Main';
 
 const Index = () => {
-
   return (
     <NavigationWrapper>
-      <Main/>
+      <Main />
     </NavigationWrapper>
   );
 };

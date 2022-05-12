@@ -1,64 +1,63 @@
-import { extendTheme } from '@chakra-ui/react'
-import { createBreakpoints } from '@chakra-ui/theme-tools'
+import {extendTheme} from '@chakra-ui/react';
+import {createBreakpoints} from '@chakra-ui/theme-tools';
 
-const fonts = { mono: `'Menlo', monospace` }
+const fonts = {mono: `'Menlo', monospace`};
 
 const breakpoints = createBreakpoints({
   sm: '40em',
   md: '52em',
   lg: '64em',
-  xl: '80em',
-})
+  xl: '80em'
+});
 
 const theme = extendTheme({
-  global:{
-    padding: 0,
+  global: {
+    padding: 0
   },
   colors: {
     black: {
       primary: '#121417',
-      secondary: "#23272D",
-      100:"#1F242A",
-      200:"#2E343C",
-      300:"#3F4750"
+      secondary: '#23272D',
+      100: '#1F242A',
+      200: '#2E343C',
+      300: '#3F4750'
     },
-    yellow:{
-      100:"#E2D26C",
-      200:"#E7DA8B"
+    yellow: {
+      100: '#E2D26C',
+      200: '#E7DA8B'
     },
-    white:{
-      100:"#F2F1EF"
+    white: {
+      100: '#F2F1EF'
     },
-    blue:{
-      100: "#0353e9",
-      200:"#126ED1"
+    blue: {
+      100: '#0353e9',
+      200: '#126ED1'
     },
-    grey:{
-      100:"grey",
-      200:"#D0D6DC"
+    grey: {
+      100: 'grey',
+      200: '#D0D6DC'
     }
   },
 
   components: {
     Button: {
       variants: {
-        primary:{
-          bg:'yellow.100',
-          color:'black.primary'
+        primary: {
+          bg: 'yellow.100',
+          color: 'black.primary'
         },
-        secondary:{
-          bg:'black.primary',
-          color:'#fff',
-          border : '1px',
+        secondary: {
+          bg: 'black.primary',
+          color: '#fff',
+          border: '1px',
           borderColor: 'white.100'
         },
-        twitter:{
+        twitter: {
           bg: 'blue.100',
-          color:'#fff',
+          color: '#fff'
         }
       }
     }
-
   },
 
   fonts,
@@ -80,9 +79,9 @@ const theme = extendTheme({
           />
         </svg>
       ),
-      viewBox: '0 0 3000 3163',
-    },
-  },
-})
+      viewBox: '0 0 3000 3163'
+    }
+  }
+});
 
-export default theme
+export default theme;

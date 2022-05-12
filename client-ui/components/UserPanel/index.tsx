@@ -1,23 +1,27 @@
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import {ChevronDownIcon} from '@chakra-ui/icons';
 import {
-  Button, Image, Menu,
-  MenuButton, MenuItem, MenuList
-} from "@chakra-ui/react";
+  Button,
+  Image,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList
+} from '@chakra-ui/react';
 
 const UserPanel = () => {
   return (
     <Menu>
       <MenuButton
         as={Button}
-        rightIcon={<ChevronDownIcon color={"black.primary"} />}
-        backgroundColor={"yellow.100"}
+        rightIcon={<ChevronDownIcon color={'black.primary'} />}
+        backgroundColor={'yellow.100'}
         border={'10px'}
-        borderColor={"yellow.100"}
+        borderColor={'yellow.100'}
         _hover={{
-          backgroundColor:"yellow.200"
+          backgroundColor: 'yellow.200'
         }}
         _active={{
-          backgroundColor:"yellow.200"
+          backgroundColor: 'yellow.200'
         }}
       >
         <Image
@@ -28,8 +32,8 @@ const UserPanel = () => {
           mr="12px"
         />
       </MenuButton>
-      <MenuList backgroundColor={"white.100"}>
-        <MenuItem minH="48px" onClick={()=> alert('profile')}>
+      <MenuList backgroundColor={'white.100'}>
+        <MenuItem minH="48px" onClick={() => alert('profile')}>
           <span>Profile</span>
         </MenuItem>
         <MenuItem minH="40px">

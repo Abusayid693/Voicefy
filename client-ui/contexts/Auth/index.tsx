@@ -1,9 +1,9 @@
-import React, { useContext, createContext, useState, useEffect } from "react";
+import React, {useContext, createContext, useState, useEffect} from 'react';
 import {
   removeUserFromLocalStorage,
-  saveUserInLocalStorage,
-} from "../../util/auth.helpers";
-import { useSessionCheckQuery } from "../../generated/graphql";
+  saveUserInLocalStorage
+} from '../../util/auth.helpers';
+import {useSessionCheckQuery} from '../../generated/graphql';
 
 const AuthContext = createContext<any>(null);
 
@@ -11,12 +11,12 @@ export function useAuth() {
   return useContext(AuthContext);
 }
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
+export const AuthProvider: React.FC<{children: React.ReactNode}> = ({
+  children
 }) => {
   const [currentUser, setCurrentUser] = useState<any>(null);
-  const { data, error, loading } = useSessionCheckQuery();
-  
+  const {data, error, loading} = useSessionCheckQuery();
+
   useEffect(() => {
     if (data) {
       setCurrentUser(data.Me);
@@ -24,15 +24,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [loading]);
 
   const login = async (data: any) => {
-    const { token, user } = data;
+    const {token, user} = data;
     setCurrentUser(user);
-    saveUserInLocalStorage({ token, user });
+    saveUserInLocalStorage({token, user});
   };
 
   const signup = async (data: any) => {
-    const { token, user } = data;
+    const {token, user} = data;
     setCurrentUser(user);
-    saveUserInLocalStorage({ token, user });
+    saveUserInLocalStorage({token, user});
   };
 
   const logout = () => {
@@ -51,7 +51,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     login,
     signup,
     logout,
-    isAuthenticated,
+    isAuthenticated
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

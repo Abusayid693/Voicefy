@@ -1,5 +1,4 @@
-import { message } from "antd";
-
+import {message} from 'antd';
 
 interface IFile {
   lastModified: Number;
@@ -12,32 +11,32 @@ interface IFile {
 
 export const getBase64 = (img: any, callback: any) => {
   const reader = new FileReader();
-  reader.addEventListener("load", () => callback(reader.result));
+  reader.addEventListener('load', () => callback(reader.result));
   reader.readAsDataURL(img);
 };
 
 export const validateImage = (file: IFile) => {
-  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
   if (!isJpgOrPng) {
-    message.error("You can only upload JPG/PNG file!");
+    message.error('You can only upload JPG/PNG file!');
   }
   const isLt2M = file.size / 1024 / 1024 < 2;
   if (!isLt2M) {
-    message.error("Image must smaller than 2MB!");
+    message.error('Image must smaller than 2MB!');
   }
   return isJpgOrPng && isLt2M;
 };
 
 export const handleChange = (info: any, setState: any) => {
-  if (info.file.status === "uploading") {
-    setState({ loading: true });
+  if (info.file.status === 'uploading') {
+    setState({loading: true});
     return;
   }
-  if (info.file.status === "done") {
+  if (info.file.status === 'done') {
     getBase64(info.file.originFileObj, (imageUrl: BlobPropertyBag) => {
       setState({
         imageUrl,
-        loading: false,
+        loading: false
       });
     });
   }

@@ -1,14 +1,20 @@
-import argon2 from "argon2";
+import argon2 from 'argon2';
 import {
-  Arg, Ctx, Field, InputType, Mutation,
+  Arg,
+  Ctx,
+  Field,
+  InputType,
+  Mutation,
   ObjectType,
-  Query, Resolver, UseMiddleware
-} from "type-graphql";
-import { getConnection } from "typeorm";
-import { MyContext } from "../@types/types";
-import { EatherUser } from "../entities/User";
-import { generateToken } from "../helpers";
-import { protect } from "../middlewares/protect";
+  Query,
+  Resolver,
+  UseMiddleware
+} from 'type-graphql';
+import {getConnection} from 'typeorm';
+import {MyContext} from '../@types/types';
+import {EatherUser} from '../entities/User';
+import {generateToken} from '../helpers';
+import {protect} from '../middlewares/protect';
 
 @InputType()
 class UsernamePasswordInput {
@@ -29,29 +35,29 @@ class FieldError {
 
 @ObjectType()
 class UserResponse {
-  @Field(() => [FieldError], { nullable: true })
+  @Field(() => [FieldError], {nullable: true})
   errors?: FieldError[];
 
-  @Field(() => EatherUser, { nullable: true })
+  @Field(() => EatherUser, {nullable: true})
   user?: EatherUser;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String, {nullable: true})
   token?: String;
 }
 
 @Resolver()
 export class UserResolver {
-  @Query(() => EatherUser, { nullable: true })
+  @Query(() => EatherUser, {nullable: true})
   @UseMiddleware(protect)
-  Me(@Ctx() { req }: MyContext) {
+  Me(@Ctx() {req}: MyContext) {
     const user = req.user;
     return user;
   }
 
   @Mutation(() => UserResponse)
   async register(
-    @Arg("options") options: UsernamePasswordInput,
-    @Ctx() { req }: MyContext
+    @Arg('options') options: UsernamePasswordInput,
+    @Ctx() {req}: MyContext
   ): Promise<UserResponse> {
     const hashedPassword = await argon2.hash(options.password);
     let user;
@@ -66,55 +72,53 @@ export class UserResolver {
           password: hashedPassword,
           email: `${options.username}@gmail.com`
         })
-        .returning("*")
+        .returning('*')
         .execute();
       user = result.raw[0];
     } catch (err) {
-      if (err.code === "23505") {
+      if (err.code === '23505') {
         return {
           errors: [
             {
-              field: "username",
-              message: "username already taken",
-            },
-          ],
+              field: 'username',
+              message: 'username already taken'
+            }
+          ]
         };
-      }
-      else {
+      } else {
         return {
           errors: [
             {
-              field: "Server error",
-              message: "Internal server error please try again later",
-            },
-          ],
+              field: 'Server error',
+              message: 'Internal server error please try again later'
+            }
+          ]
         };
       }
     }
-    const token = generateToken({ _id: user.id });
+    const token = generateToken({_id: user.id});
     return {
       user: user,
-      token,
+      token
     };
   }
 
   @Mutation(() => UserResponse)
   async login(
-    @Arg("options") options: UsernamePasswordInput,
-    @Ctx() { req }: MyContext
+    @Arg('options') options: UsernamePasswordInput,
+    @Ctx() {req}: MyContext
   ): Promise<UserResponse> {
-
-    const { username } = options;
-    const user = await EatherUser.findOne({ where: { username } });
+    const {username} = options;
+    const user = await EatherUser.findOne({where: {username}});
 
     if (!user) {
       return {
         errors: [
           {
-            field: "username",
-            message: "User name does not exist",
-          },
-        ],
+            field: 'username',
+            message: 'User name does not exist'
+          }
+        ]
       };
     }
 
@@ -124,16 +128,16 @@ export class UserResolver {
       return {
         errors: [
           {
-            field: "password",
-            message: "Incorrect password",
-          },
-        ],
+            field: 'password',
+            message: 'Incorrect password'
+          }
+        ]
       };
     }
-    const token = generateToken({ _id: user.id });
+    const token = generateToken({_id: user.id});
     return {
       user: user,
-      token,
+      token
     };
   }
 }

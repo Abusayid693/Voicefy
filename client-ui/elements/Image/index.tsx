@@ -1,4 +1,4 @@
-import Image, { ImageProps } from "next/image";
+import Image, {ImageProps} from 'next/image';
 
 interface Props extends ImageProps {
   title?: string;
@@ -10,29 +10,21 @@ interface Props extends ImageProps {
   ml?: number;
 }
 
-const ImageContainer: React.FC<Props> = ({
-  title,
-  alt,
-  w,
-  h,
-  src,
-  mr,
-  ml,
-}) => {
+const ImageContainer: React.FC<Props> = ({title, alt, w, h, src, mr, ml}) => {
   return (
     <div
       style={{
         width: `${w}px`,
         height: `${h}px`,
-        position: "relative",
+        position: 'relative',
         marginLeft: `${ml}px`,
-        marginRight: `${mr}px`,
+        marginRight: `${mr}px`
       }}
     >
       <Image
         src={src}
-        alt={alt ?? "simple icon"}
-        title={title ?? "simple icon"}
+        alt={alt ?? 'simple icon'}
+        title={title ?? 'simple icon'}
         layout="fill"
       />
     </div>

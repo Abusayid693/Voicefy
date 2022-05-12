@@ -1,6 +1,6 @@
-import { useRegisterMutation } from "../../generated/graphql";
-import { useRouter } from "next/router";
-import RegisterUI from "./indexUI";
+import {useRegisterMutation} from '../../generated/graphql';
+import {useRouter} from 'next/router';
+import RegisterUI from './indexUI';
 
 const Register: React.FC = ({}) => {
   const [registerMutation] = useRegisterMutation();
@@ -8,11 +8,11 @@ const Register: React.FC = ({}) => {
   const router = useRouter();
 
   const formValidation = (value: string): string => {
-    let error = "";
+    let error = '';
     if (!value) {
-      error = "This field is required";
-    } else if (value.toLowerCase().includes("$")) {
-      error = "special characters are not allowed";
+      error = 'This field is required';
+    } else if (value.toLowerCase().includes('$')) {
+      error = 'special characters are not allowed';
     }
     return error;
   };
