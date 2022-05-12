@@ -1,10 +1,14 @@
-import crypto from "crypto";
-import { Response } from 'express';
-import { AWS_BUCKET_NAME } from '../../local.config';
-import { TTSSuccessResponse } from "../../utils/successResponse";
-import { s3 } from '../cloud.config';
+import crypto from 'crypto';
+import {Response} from 'express';
+import {AWS_BUCKET_NAME} from '../../local.config';
+import {TTSSuccessResponse} from '../../utils/successResponse';
+import {s3} from '../cloud.config';
 
-export const getParamsObjectForPolly = (ssmlText: string, VoiceId: string, lan: string) => {
+export const getParamsObjectForPolly = (
+  ssmlText: string,
+  VoiceId: string,
+  lan: string
+) => {
   return {
     Text: ssmlText,
     OutputFormat: 'mp3',
@@ -13,7 +17,11 @@ export const getParamsObjectForPolly = (ssmlText: string, VoiceId: string, lan: 
   };
 };
 
-export const getParamsObjectForIbmWatson = (ssmlText: string, VoiceId: string, lan: string) => {
+export const getParamsObjectForIbmWatson = (
+  ssmlText: string,
+  VoiceId: string,
+  lan: string
+) => {
   return {
     text: ssmlText,
     accept: 'audio/wav',
@@ -21,14 +29,13 @@ export const getParamsObjectForIbmWatson = (ssmlText: string, VoiceId: string, l
   };
 };
 
-export const storeVoiceInAWS = (res: Response, stream: any) =>{
-  let randomBytes = crypto.randomBytes(64).toString("hex");
+export const storeVoiceInAWS = (res: Response, stream: any) => {
+  let randomBytes = crypto.randomBytes(64).toString('hex');
 
   const params = {
     Bucket: AWS_BUCKET_NAME,
     Key: `${randomBytes}.mp3`,
-    Body: stream,
-
+    Body: stream
   };
 
   s3.putObject(params, (error: any) => {
@@ -37,9 +44,9 @@ export const storeVoiceInAWS = (res: Response, stream: any) =>{
     }
     const params_ = {
       Bucket: AWS_BUCKET_NAME,
-      Key: `${randomBytes}.mp3`,
+      Key: `${randomBytes}.mp3`
     };
-    let url = s3.getSignedUrl("getObject", params_);
+    let url = s3.getSignedUrl('getObject', params_);
     res.status(200).send(new TTSSuccessResponse(url));
   });
-}
+};

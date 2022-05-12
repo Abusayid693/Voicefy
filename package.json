@@ -8,7 +8,8 @@
     "start": "ts-node index.ts",
     "dev": "nodemon dist/index.js",
     "create:migration": "mikro-orm migration:create",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx}\""
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",

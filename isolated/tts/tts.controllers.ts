@@ -1,8 +1,10 @@
-import { NextFunction, Request, Response } from 'express';
-import { ErrorResponse } from '../../utils/errorResponse';
-import { ibmTts, polly } from '../cloud.config';
+import {NextFunction, Request, Response} from 'express';
+import {ErrorResponse} from '../../utils/errorResponse';
+import {ibmTts, polly} from '../cloud.config';
 import {
-  getParamsObjectForIbmWatson, getParamsObjectForPolly, storeVoiceInAWS
+  getParamsObjectForIbmWatson,
+  getParamsObjectForPolly,
+  storeVoiceInAWS
 } from './tts.helper';
 
 export const cloudVoice = (req: Request, res: Response, next: NextFunction) => {

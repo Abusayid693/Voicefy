@@ -1,5 +1,5 @@
-import express, { NextFunction, Request, Response } from 'express';
-import { cloudVoice } from './tts.controllers';
+import express, {NextFunction, Request, Response} from 'express';
+import {cloudVoice} from './tts.controllers';
 
 const router = express.Router();
 
