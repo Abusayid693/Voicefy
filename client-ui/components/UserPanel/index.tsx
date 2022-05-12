@@ -1,17 +1,17 @@
-import { ChevronDownIcon } from '@chakra-ui/icons';
+import {ChevronDownIcon} from '@chakra-ui/icons';
 import {
   Button,
   Image,
   Menu,
   MenuButton,
   MenuItem,
-  MenuList, useColorMode
+  MenuList,
+  useColorMode
 } from '@chakra-ui/react';
-import colors from "style/mode";
-
+import colors from 'style/mode';
 
 const UserPanel = () => {
-  const { colorMode, } = useColorMode()
+  const {colorMode} = useColorMode();
   return (
     <Menu>
       <MenuButton

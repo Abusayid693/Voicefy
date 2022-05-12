@@ -1,11 +1,11 @@
-import { Box, Heading } from '@chakra-ui/layout';
-import { useColorMode } from "@chakra-ui/react";
-import { GradientHeading, ImageContainer } from 'elements';
-import colors from "style/mode";
+import {Box, Heading} from '@chakra-ui/layout';
+import {useColorMode} from '@chakra-ui/react';
+import {GradientHeading, ImageContainer} from 'elements';
+import colors from 'style/mode';
 import Editor from '../Editor';
 
 const Main = () => {
-  const { colorMode, } = useColorMode()
+  const {colorMode} = useColorMode();
 
   return (
     <>

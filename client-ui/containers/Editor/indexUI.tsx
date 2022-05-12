@@ -1,10 +1,10 @@
-import { RepeatIcon } from '@chakra-ui/icons';
-import { Box, Button, Grid, IconButton, useColorMode } from '@chakra-ui/react';
-import { Slider } from 'carbon-components-react';
+import {RepeatIcon} from '@chakra-ui/icons';
+import {Box, Button, Grid, IconButton, useColorMode} from '@chakra-ui/react';
+import {Slider} from 'carbon-components-react';
 import EditorHeading from 'components/EditorHeading';
-import { CustomDropdown, Flexbox, TextInputArea } from 'elements';
-import colors from "style/mode";
-import { filterDataUsingSet } from 'util/filter';
+import {CustomDropdown, Flexbox, TextInputArea} from 'elements';
+import colors from 'style/mode';
+import {filterDataUsingSet} from 'util/filter';
 
 const EditorUI: React.FC<{
   formData: any;
@@ -19,8 +19,7 @@ const EditorUI: React.FC<{
   handleGenderChange,
   handleProviderChange
 }) => {
-
-  const {colorMode, } = useColorMode()
+  const {colorMode} = useColorMode();
 
   return (
     <Box

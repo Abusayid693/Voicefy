@@ -5,9 +5,10 @@ import {
   HamburgerIcon,
   RepeatIcon
 } from '@chakra-ui/icons';
-import { Box } from '@chakra-ui/layout';
+import {Box} from '@chakra-ui/layout';
 import {
-  HStack, IconButton,
+  HStack,
+  IconButton,
   Menu,
   MenuButton,
   MenuItem,
@@ -15,7 +16,7 @@ import {
   useColorMode
 } from '@chakra-ui/react';
 import colors from 'style/mode';
-import { useAuth } from '../../contexts/Auth';
+import {useAuth} from '../../contexts/Auth';
 import NavPanel from '../NavPanel';
 import ThemeToggle from '../ThemeSwitch';
 import UserPanel from '../UserPanel';
@@ -60,7 +61,7 @@ const NavigationWrapper: React.FC = ({children}) => {
             </MenuItem>
           </MenuList>
         </Menu>
-        <HStack >
+        <HStack>
           <ThemeToggle />
           <Panel />
         </HStack>
