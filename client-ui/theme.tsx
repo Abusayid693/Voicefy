@@ -1,5 +1,5 @@
-import {extendTheme} from '@chakra-ui/react';
-import {createBreakpoints} from '@chakra-ui/theme-tools';
+import { extendTheme } from '@chakra-ui/react';
+import { createBreakpoints } from '@chakra-ui/theme-tools';
 
 const fonts = {mono: `'Menlo', monospace`};
 
@@ -13,6 +13,10 @@ const breakpoints = createBreakpoints({
 const theme = extendTheme({
   global: {
     padding: 0
+  },
+  config : {
+    initialColorMode: 'light',
+    useSystemColorMode: false,
   },
   colors: {
     black: {
@@ -41,10 +45,15 @@ const theme = extendTheme({
 
   components: {
     Button: {
+      baseStyle:{
+        _hover: {
+          opacity: 0.7,
+        },
+      },
       variants: {
         primary: {
           bg: 'yellow.100',
-          color: 'black.primary'
+          color: 'black.primary',
         },
         secondary: {
           bg: 'black.primary',
@@ -55,6 +64,9 @@ const theme = extendTheme({
         twitter: {
           bg: 'blue.100',
           color: '#fff'
+        },
+        round:{
+          borderRadius: '50%'
         }
       }
     }

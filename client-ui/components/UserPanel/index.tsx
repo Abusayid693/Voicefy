@@ -1,20 +1,23 @@
-import {ChevronDownIcon} from '@chakra-ui/icons';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
   Button,
   Image,
   Menu,
   MenuButton,
   MenuItem,
-  MenuList
+  MenuList, useColorMode
 } from '@chakra-ui/react';
+import colors from "style/mode";
+
 
 const UserPanel = () => {
+  const { colorMode, } = useColorMode()
   return (
     <Menu>
       <MenuButton
         as={Button}
         rightIcon={<ChevronDownIcon color={'black.primary'} />}
-        backgroundColor={'yellow.100'}
+        bg={colors.fgd_1[colorMode]}
         border={'10px'}
         borderColor={'yellow.100'}
         _hover={{
