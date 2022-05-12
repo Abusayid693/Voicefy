@@ -1,4 +1,4 @@
-import NavigationWrapper from 'components/Navbar/Authenticated';
+import NavigationWrapper from 'components/Navbar';
 import Main from 'containers/Main';
 
 const Index = () => {

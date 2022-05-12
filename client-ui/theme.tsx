@@ -14,6 +14,10 @@ const theme = extendTheme({
   global: {
     padding: 0
   },
+  config: {
+    initialColorMode: 'light',
+    useSystemColorMode: false
+  },
   colors: {
     black: {
       primary: '#121417',
@@ -41,6 +45,11 @@ const theme = extendTheme({
 
   components: {
     Button: {
+      baseStyle: {
+        _hover: {
+          opacity: 0.7
+        }
+      },
       variants: {
         primary: {
           bg: 'yellow.100',
@@ -55,6 +64,9 @@ const theme = extendTheme({
         twitter: {
           bg: 'blue.100',
           color: '#fff'
+        },
+        round: {
+          borderRadius: '50%'
         }
       }
     }

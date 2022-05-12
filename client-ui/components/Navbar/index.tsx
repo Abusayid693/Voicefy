@@ -7,19 +7,23 @@ import {
 } from '@chakra-ui/icons';
 import {Box} from '@chakra-ui/layout';
 import {
+  HStack,
   IconButton,
   Menu,
   MenuButton,
   MenuItem,
-  MenuList
+  MenuList,
+  useColorMode
 } from '@chakra-ui/react';
+import colors from 'style/mode';
 import {useAuth} from '../../contexts/Auth';
 import NavPanel from '../NavPanel';
+import ThemeToggle from '../ThemeSwitch';
 import UserPanel from '../UserPanel';
 
 const NavigationWrapper: React.FC = ({children}) => {
   const auth = useAuth();
-
+  const {colorMode} = useColorMode();
   const Panel = () => (auth.isAuthenticated() ? <UserPanel /> : <NavPanel />);
 
   return (
@@ -30,7 +34,7 @@ const NavigationWrapper: React.FC = ({children}) => {
         display={'flex'}
         flexDirection="row"
         justifyContent={'space-between'}
-        bg="black.primary"
+        bg={colors.fgd_2[colorMode]}
         pt={4}
       >
         <Menu colorScheme="teal">
@@ -57,17 +61,14 @@ const NavigationWrapper: React.FC = ({children}) => {
             </MenuItem>
           </MenuList>
         </Menu>
-        <Panel />
+        <HStack>
+          <ThemeToggle />
+          <Panel />
+        </HStack>
       </Box>
       <Box paddingLeft={20} paddingRight={20}>
         {children}
       </Box>
-      {/* <Box
-        backgroundImage={
-          "linear-gradient( 102.4deg,  rgba(253,189,85,1) 7.8%, rgba(249,131,255,1) 100.3% );"
-        }
-        height={20}
-      /> */}
     </>
   );
 };
