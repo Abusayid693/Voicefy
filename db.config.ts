@@ -1,7 +1,7 @@
 import { __prod__ } from "./constants";
 import { Post } from "./entities/Post";
-import { EatherUser } from "./entities/User"
-import production from "./production.config.db"
+import { EatherUser } from "./entities/User";
+import production from "./production.config.db";
 
 const local = {
   type: "postgres",
@@ -13,4 +13,4 @@ const local = {
 
 const dbConfig = !__prod__ ? local: production;
 
-export default dbConfig
+export default local

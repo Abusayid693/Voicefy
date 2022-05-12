@@ -1,31 +1,30 @@
+import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+import { ApolloServer } from "apollo-server-express";
+import cors from "cors";
 import dotenv from "dotenv";
-dotenv.config({ path: "./local.env" });
-
-import { createConnection } from "typeorm"
-import { __prod__ } from "./constants";
 import express from "express";
 import fileupload from "express-fileupload";
-import { MyContext } from "./types";
 import { env } from "process";
-
-import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
-
+import { createConnection } from "typeorm";
+import db from "./db.config";
+import fileUpload from "./isolated/s3/file.upload";
+import tts from "./isolated/tts/tts.route";
 import { HelloResolver } from "./resolvers/hello";
 import { PostResolver } from "./resolvers/post";
 import { UserResolver } from "./resolvers/user";
-import production from "./production.config.db"
-import cors from "cors";
-import fileUpload from "./isolated/s3/file.upload";
-import tts from "./isolated/tts/tts.route"
+import { MyContext } from "./types";
+dotenv.config({ path: "./local.env" });
+
+
+
 
 const app = express();
 app.use(express.json());
 
 const main = async () => {
   // @ts-ignore
-  const conn = await createConnection(production)
+  const conn = await createConnection(db)
   app.use(
     cors({
       origin: env.CORS_ORIGIN,

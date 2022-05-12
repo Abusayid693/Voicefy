@@ -8,7 +8,7 @@
 ```bash
 ssh -i your_file_name.pem ec2-user@<-- YOUR INSTANCE PUBLIC IP -->
 # Example
-ssh -i Eather_Server_3.pem ec2-user@52.66.143.30
+ssh -i Ec_2_secret.pem ec2-user@3.110.130.198
 # If it throws error try running
 chmod 400 Eather_Server_3.pem
 ```
