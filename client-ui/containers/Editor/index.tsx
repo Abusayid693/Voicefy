@@ -1,7 +1,6 @@
-import { useState } from 'react';
-import { voices } from '../../static/polly';
+import {useState} from 'react';
+import {voices} from '../../static/polly';
 import EditorUI from './indexUI';
-
 
 export interface IForm {
   provider: string | null;
@@ -76,7 +75,6 @@ const Editor = () => {
       voice: null
     }));
   };
-
 
   return (
     <EditorUI

@@ -1,4 +1,4 @@
-import { FieldError } from '../generated/graphql';
+import {FieldError} from '../generated/graphql';
 
 export const saveUserInLocalStorage = (data: {token: string; user: any}) => {
   const {token, user} = data;
@@ -26,9 +26,7 @@ export const ErrorFormat = (erors: FieldError[]) => {
   return errors;
 };
 
-export const isAnyNull = (obj: Record<string, any>):boolean => {
-  for(const key in obj)
-    if(obj[key] === null || undefined)
-     return true;
-return false;
-}
+export const isAnyNull = (obj: Record<string, any>): boolean => {
+  for (const key in obj) if (obj[key] === null || undefined) return true;
+  return false;
+};

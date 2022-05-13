@@ -1,14 +1,14 @@
-import { RepeatIcon } from '@chakra-ui/icons';
-import { Box, Button, Grid, IconButton, useColorMode } from '@chakra-ui/react';
-import { Slider } from 'carbon-components-react';
+import {RepeatIcon} from '@chakra-ui/icons';
+import {Box, Button, Grid, IconButton, useColorMode} from '@chakra-ui/react';
+import {Slider} from 'carbon-components-react';
 import EditorHeading from 'components/EditorHeading';
-import { AudioPlayer, CustomDropdown, Flexbox, TextInputArea } from 'elements';
+import {AudioPlayer, CustomDropdown, Flexbox, TextInputArea} from 'elements';
 import useModalState from 'hooks/useModalState';
 import useTtsVoice from 'hooks/useTtsVoice';
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 import colors from 'style/mode';
-import { filterDataUsingSet, isAnyNull } from 'util/utils';
-import { IForm } from './index';
+import {filterDataUsingSet, isAnyNull} from 'util/utils';
+import {IForm} from './index';
 
 const EditorUI: React.FC<{
   formData: IForm;
@@ -138,17 +138,17 @@ const EditorUI: React.FC<{
         )}
         {data?.url && (
           <>
-          <Button
-            rightIcon={<RepeatIcon color={'white.100'} />}
-            variant="twitter"
-            pl={8}
-            pr={8}
-            onClick={setOpen}
-          >
-            Play
-          </Button>
-(
-          <AudioPlayer url={data.url} isOpen={isOpen} onClose={setClose} />
+            <Button
+              rightIcon={<RepeatIcon color={'white.100'} />}
+              variant="twitter"
+              pl={8}
+              pr={8}
+              onClick={setOpen}
+            >
+              Play
+            </Button>
+            (
+            <AudioPlayer url={data.url} isOpen={isOpen} onClose={setClose} />
           </>
         )}
       </Flexbox>

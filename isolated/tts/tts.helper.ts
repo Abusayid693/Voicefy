@@ -29,12 +29,18 @@ export const getParamsObjectForIbmWatson = (
   };
 };
 
+const getAWSBucketLink = (file: string) => {
+  return `https://${AWS_BUCKET_NAME}.s3.ap-south-1.amazonaws.com/${file}`;
+};
+
 export const storeVoiceInAWS = (res: Response, stream: any) => {
-  let randomBytes = crypto.randomBytes(64).toString('hex');
+  const randomBytes = crypto.randomBytes(64).toString('hex');
+
+  const key = `${randomBytes}.mp3`;
 
   const params = {
     Bucket: AWS_BUCKET_NAME,
-    Key: `${randomBytes}.mp3`,
+    Key: key,
     Body: stream
   };
 
@@ -42,11 +48,6 @@ export const storeVoiceInAWS = (res: Response, stream: any) => {
     if (error) {
       res.status(500).send(error);
     }
-    const params_ = {
-      Bucket: AWS_BUCKET_NAME,
-      Key: `${randomBytes}.mp3`
-    };
-    let url = s3.getSignedUrl('getObject', params_);
-    res.status(200).send(new TTSSuccessResponse(url));
+    res.status(200).send(new TTSSuccessResponse(getAWSBucketLink(key)));
   });
 };

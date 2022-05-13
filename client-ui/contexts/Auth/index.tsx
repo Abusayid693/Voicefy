@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useSessionCheckQuery } from '../../generated/graphql';
+import React, {createContext, useContext, useEffect, useState} from 'react';
+import {useSessionCheckQuery} from '../../generated/graphql';
 import {
   removeUserFromLocalStorage,
   saveUserInLocalStorage

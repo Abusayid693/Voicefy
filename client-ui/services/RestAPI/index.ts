@@ -22,6 +22,6 @@ export const ttsVoiceService = async (form: any) => {
     console.log(data);
     return data;
   } catch (error) {
-    throw new Error()
+    throw new Error();
   }
 };
