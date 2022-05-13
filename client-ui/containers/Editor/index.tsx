@@ -1,8 +1,9 @@
-import {useState} from 'react';
-import {voices} from '../../static/polly';
+import { useState } from 'react';
+import { voices } from '../../static/polly';
 import EditorUI from './indexUI';
 
-interface IForm {
+
+export interface IForm {
   provider: string | null;
   language: string | null;
   gender: 'F' | 'M' | null;
@@ -54,7 +55,7 @@ const Editor = () => {
       ...prev,
       ['language']: value,
       availableGender: voices.filter(
-        item => item.provider === 'aws' && item.language === value
+        item => item.provider === 'aws' && item.lanCode === value
       ),
       gender: null,
       voice: null,
@@ -69,12 +70,13 @@ const Editor = () => {
       availableVoice: voices.filter(
         item =>
           item.provider === 'aws' &&
-          item.language === formData.language &&
+          item.lanCode === formData.language &&
           item.sex == value
       ),
       voice: null
     }));
   };
+
 
   return (
     <EditorUI

@@ -1,5 +1,5 @@
-import NavigationWrapper from '../components/Navbar/Authenticated';
 import React from 'react';
+import NavigationWrapper from '../components/Navbar';
 
 const UploadFile = () => {
   return (

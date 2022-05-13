@@ -1,13 +1,17 @@
-import {RepeatIcon} from '@chakra-ui/icons';
-import {Box, Button, Grid, IconButton, useColorMode} from '@chakra-ui/react';
-import {Slider} from 'carbon-components-react';
+import { RepeatIcon } from '@chakra-ui/icons';
+import { Box, Button, Grid, IconButton, useColorMode } from '@chakra-ui/react';
+import { Slider } from 'carbon-components-react';
 import EditorHeading from 'components/EditorHeading';
-import {CustomDropdown, Flexbox, TextInputArea} from 'elements';
+import { AudioPlayer, CustomDropdown, Flexbox, TextInputArea } from 'elements';
+import useModalState from 'hooks/useModalState';
+import useTtsVoice from 'hooks/useTtsVoice';
+import { useEffect } from 'react';
 import colors from 'style/mode';
-import {filterDataUsingSet} from 'util/filter';
+import { filterDataUsingSet, isAnyNull } from 'util/utils';
+import { IForm } from './index';
 
 const EditorUI: React.FC<{
-  formData: any;
+  formData: IForm;
   handleFormData: any;
   handleLanguageChange: any;
   handleGenderChange: any;
@@ -20,6 +24,20 @@ const EditorUI: React.FC<{
   handleProviderChange
 }) => {
   const {colorMode} = useColorMode();
+
+  const {data, loading, resetCachedData, convertTextToAudio} = useTtsVoice();
+  const {isOpen, setOpen, setClose} = useModalState();
+
+  useEffect(() => {
+    resetCachedData();
+  }, [formData]);
+
+  const ttsInputData = {
+    provider: 'aws',
+    ssmlText: formData.text,
+    VoiceId: formData.voice,
+    lan: formData.language
+  };
 
   return (
     <Box
@@ -53,7 +71,7 @@ const EditorUI: React.FC<{
           }
           label={'Languages'}
           title={'Select Languages'}
-          items={filterDataUsingSet(formData.availableLanguage, 'language')}
+          items={filterDataUsingSet(formData.availableLanguage, 'lanCode')}
           key={'language'}
           value={formData.language}
           id={'language'}
@@ -87,7 +105,13 @@ const EditorUI: React.FC<{
           variant="twitter"
         />
       </Grid>
-      <TextInputArea />
+      <TextInputArea
+        value={formData.text}
+        loading={loading}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          handleFormData(e.target.value, 'text')
+        }
+      />
       <Flexbox flexRow alignStart>
         <Slider
           ariaLabelInput="Label for slider value"
@@ -100,14 +124,33 @@ const EditorUI: React.FC<{
           onChange={(e: any) => handleFormData(e.value, 'speed')}
           hideTextInput
         />
-        <Button
-          rightIcon={<RepeatIcon color={'white.100'} />}
-          variant="twitter"
-          pl={8}
-          pr={8}
-        >
-          Submit
-        </Button>
+        {!data?.url && (
+          <Button
+            rightIcon={<RepeatIcon color={'white.100'} />}
+            variant="twitter"
+            disabled={isAnyNull(formData)}
+            pl={8}
+            pr={8}
+            onClick={() => convertTextToAudio(ttsInputData)}
+          >
+            Submit
+          </Button>
+        )}
+        {data?.url && (
+          <>
+          <Button
+            rightIcon={<RepeatIcon color={'white.100'} />}
+            variant="twitter"
+            pl={8}
+            pr={8}
+            onClick={setOpen}
+          >
+            Play
+          </Button>
+(
+          <AudioPlayer url={data.url} isOpen={isOpen} onClose={setClose} />
+          </>
+        )}
       </Flexbox>
     </Box>
   );

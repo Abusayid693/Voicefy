@@ -11,3 +11,17 @@ export const uploadFileToS3 = async (data: any) => {
     return res;
   } catch (error) {}
 };
+
+export const ttsVoiceService = async (form: any) => {
+  try {
+    const {data} = await axios.post('http://localhost:4000/tts', form, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    console.log(data);
+    return data;
+  } catch (error) {
+    throw new Error()
+  }
+};

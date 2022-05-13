@@ -1,9 +1,9 @@
-import React, {useContext, createContext, useState, useEffect} from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { useSessionCheckQuery } from '../../generated/graphql';
 import {
   removeUserFromLocalStorage,
   saveUserInLocalStorage
-} from '../../util/auth.helpers';
-import {useSessionCheckQuery} from '../../generated/graphql';
+} from '../../util/utils';
 
 const AuthContext = createContext<any>(null);
 

@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
-import {TextArea} from 'carbon-components-react';
+import { TextArea } from 'carbon-components-react';
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<any>`
   position: relative;
   text-align: center;
   height: fit-content;
   padding: 4px;
+  
 
   &::after {
     position: absolute;
@@ -21,21 +22,26 @@ const Wrapper = styled.div`
     justify-content: center;
     pointer-events: none;
     text-transform: uppercase;
-    display: none;
+    display: ${(props) => props.loading ? 'static' : 'none'};
   }
 `;
 
-const TextInputArea = () => {
+const TextInputArea:React.FC<{
+  loading: boolean
+  value: string
+  onChange: any;
+}> = ({loading, value, onChange}) => {
   return (
-    <Wrapper>
+    <Wrapper loading={loading}>
       <TextArea
         id="test2"
-        // disabled={true}
+        disabled={loading}
         invalidText="A valid value is required"
         labelText=""
         placeholder="Placeholder text"
         style={{height: 300}}
-        onChange={e => console.log(e.target.value)}
+        value={value}
+        onChange={onChange}
       />
     </Wrapper>
   );
