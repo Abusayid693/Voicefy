@@ -16,7 +16,7 @@ import {
   useColorMode
 } from '@chakra-ui/react';
 import colors from 'style/mode';
-import {useAuth} from '../../contexts/Auth';
+import useAuth from '../../hooks/useAuth';
 import NavPanel from '../NavPanel';
 import ThemeToggle from '../ThemeSwitch';
 import UserPanel from '../UserPanel';

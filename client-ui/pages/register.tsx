@@ -1,6 +1,6 @@
-import Register from '../containers/register';
 import {useRouter} from 'next/router';
-import {useAuth} from '../contexts/Auth';
+import Register from '../containers/register';
+import useAuth from '../hooks/useAuth';
 
 const Index = () => {
   const auth = useAuth();

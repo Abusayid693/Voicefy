@@ -31,7 +31,8 @@ const theme = extendTheme({
       200: '#E7DA8B'
     },
     white: {
-      100: '#F2F1EF'
+      100: '#fff',
+      200: '#F2F1EF'
     },
     blue: {
       100: '#0353e9',

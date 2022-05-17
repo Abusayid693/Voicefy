@@ -1,8 +1,8 @@
 import {Box, Button, Heading} from '@chakra-ui/react';
 import {Form, Formik} from 'formik';
 import {InputField, SecureInputField} from '../../components/inputField';
-import {useAuth} from '../../contexts/Auth';
-import {ErrorFormat} from '../../util/error';
+import useAuth from '../../hooks/useAuth';
+import {ErrorFormat} from '../../util/utils';
 
 const LoginUI: React.FC<{
   loginMutation: any;

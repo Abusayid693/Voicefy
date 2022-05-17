@@ -9,8 +9,10 @@ import {
   useColorMode
 } from '@chakra-ui/react';
 import colors from 'style/mode';
+import useAuth from '../../hooks/useAuth';
 
 const UserPanel = () => {
+  const {logout} = useAuth();
   const {colorMode} = useColorMode();
   return (
     <Menu>
@@ -21,10 +23,10 @@ const UserPanel = () => {
         border={'10px'}
         borderColor={'yellow.100'}
         _hover={{
-          backgroundColor: 'yellow.200'
+          opacity: 0.8
         }}
         _active={{
-          backgroundColor: 'yellow.200'
+          opacity: 0.8
         }}
       >
         <Image
@@ -35,11 +37,34 @@ const UserPanel = () => {
           mr="12px"
         />
       </MenuButton>
-      <MenuList backgroundColor={'white.100'}>
-        <MenuItem minH="48px" onClick={() => alert('profile')}>
+      <MenuList color={colors.fgd_2[colorMode]} bg={colors.fgd_3[colorMode]}>
+        <MenuItem
+          minH="48px"
+          _hover={{
+            bg: colors.fgd_4[colorMode]
+          }}
+          _active={{
+            bg: colors.fgd_4[colorMode]
+          }}
+          _focus={{
+            bg: colors.fgd_4[colorMode]
+          }}
+        >
           <span>Profile</span>
         </MenuItem>
-        <MenuItem minH="40px">
+        <MenuItem
+          minH="40px"
+          onClick={logout}
+          _hover={{
+            bg: colors.fgd_4[colorMode]
+          }}
+          _active={{
+            bg: colors.fgd_4[colorMode]
+          }}
+          _focus={{
+            bg: colors.fgd_4[colorMode]
+          }}
+        >
           <span>Logout</span>
         </MenuItem>
       </MenuList>

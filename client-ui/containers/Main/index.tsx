@@ -28,7 +28,7 @@ const Main = () => {
           Hey, Try Our Editor Now
         </GradientHeading>
         <Heading
-          color={'white.100'}
+          color={colors.fgd_3[colorMode]}
           fontSize={25}
           fontWeight={400}
           textAlign="center"

@@ -1,15 +1,10 @@
-import React, {createContext, useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSessionCheckQuery} from '../../generated/graphql';
+import {AuthContext} from '../../hooks/useAuth';
 import {
   removeUserFromLocalStorage,
   saveUserInLocalStorage
 } from '../../util/utils';
-
-const AuthContext = createContext<any>(null);
-
-export function useAuth() {
-  return useContext(AuthContext);
-}
 
 export const AuthProvider: React.FC<{children: React.ReactNode}> = ({
   children

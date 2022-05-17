@@ -1,6 +1,6 @@
 import {useRouter} from 'next/router';
 import Login from '../containers/Login';
-import {useAuth} from '../contexts/Auth';
+import useAuth from '../hooks/useAuth';
 
 const Index = () => {
   const auth = useAuth();
