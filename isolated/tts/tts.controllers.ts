@@ -1,5 +1,7 @@
 import {NextFunction, Request, Response} from 'express';
-import {ErrorResponse} from '../../utils/errorResponse';
+import {Readable} from 'stream';
+import {returnError} from '../../middlewares/errorHandler';
+import {Api404Error} from '../../utils/errorResponse';
 import {ibmTts, polly} from '../cloud.config';
 import {
   getParamsObjectForIbmWatson,
@@ -32,9 +34,9 @@ export const ttsPollyVoice = (
 ) => {
   polly.synthesizeSpeech(params, (error, data) => {
     if (error) {
-      res.status(500).send(error);
+      returnError(new Api404Error(error.message), res);
     }
-    if (data.AudioStream instanceof Buffer) {
+    if (data?.AudioStream instanceof Buffer) {
       storeVoiceInAWS(res, data.AudioStream);
     }
   });
@@ -45,14 +47,12 @@ export const ttsIbmWatsonVoice = (res: Response, params: any) => {
   ibmTts
     .synthesize(params)
     .then(response => {
-      //@ts-ignore
-      return ibmTts.repairWavHeaderStream(response.result);
+      return ibmTts.repairWavHeaderStream(response.result as Readable);
     })
     .then(buffer => {
       storeVoiceInAWS(res, buffer);
     })
     .catch(err => {
-      console.log('error:', err);
-      return res.send(new ErrorResponse('IMB Watson error', 404));
+      returnError(new Api404Error(err.message), res);
     });
 };

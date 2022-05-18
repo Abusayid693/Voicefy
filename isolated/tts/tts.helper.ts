@@ -1,6 +1,8 @@
 import crypto from 'crypto';
 import {Response} from 'express';
 import {AWS_BUCKET_NAME} from '../../local.config';
+import {returnError} from '../../middlewares/errorHandler';
+import {InternalServerError} from '../../utils/errorResponse';
 import {TTSSuccessResponse} from '../../utils/successResponse';
 import {s3} from '../cloud.config';
 
@@ -46,7 +48,7 @@ export const storeVoiceInAWS = (res: Response, stream: any) => {
 
   s3.putObject(params, (error: any) => {
     if (error) {
-      res.status(500).send(error);
+      returnError(new InternalServerError('S3 object error'), res);
     }
     res.status(200).send(new TTSSuccessResponse(getAWSBucketLink(key)));
   });
