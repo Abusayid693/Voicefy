@@ -1,0 +1,5 @@
+query Posts($limit: Int!) {
+  posts(limit: $limit){
+    title
+  }
+}

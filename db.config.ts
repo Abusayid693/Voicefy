@@ -8,7 +8,8 @@ const local = {
   username: 'rehanchoudhury',
   database: 'postgres',
   logging: true,
-  entities: [Post, EatherUser]
+  entities: [Post, EatherUser],
+  synchronize: true
 };
 
 const dbConfig = !__prod__ ? local : production;

@@ -19,6 +19,15 @@ export type Scalars = {
   Float: number;
 };
 
+export type EatherUser = {
+  __typename?: 'EatherUser';
+  createdAt: Scalars['String'];
+  email: Scalars['String'];
+  id: Scalars['Float'];
+  updatedAt: Scalars['String'];
+  username: Scalars['String'];
+};
+
 export type FieldError = {
   __typename?: 'FieldError';
   field: Scalars['String'];
@@ -65,7 +74,7 @@ export type Post = {
 
 export type Query = {
   __typename?: 'Query';
-  Me?: Maybe<User>;
+  Me?: Maybe<EatherUser>;
   hello: Scalars['String'];
   post?: Maybe<Post>;
   posts?: Maybe<Array<Post>>;
@@ -79,19 +88,15 @@ export type QueryPostArgs = {
   id: Scalars['Float'];
 };
 
-export type User = {
-  __typename?: 'User';
-  createdAt: Scalars['String'];
-  id: Scalars['Float'];
-  updatedAt: Scalars['String'];
-  username: Scalars['String'];
+export type QueryPostsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 export type UserResponse = {
   __typename?: 'UserResponse';
   errors?: Maybe<Array<FieldError>>;
   token?: Maybe<Scalars['String']>;
-  user?: Maybe<User>;
+  user?: Maybe<EatherUser>;
 };
 
 export type UsernamePasswordInput = {
@@ -113,7 +118,7 @@ export type LoginMutation = {
       | Array<{__typename?: 'FieldError'; field: string; message: string}>
       | null
       | undefined;
-    user?: {__typename?: 'User'; username: string} | null | undefined;
+    user?: {__typename?: 'EatherUser'; username: string} | null | undefined;
   };
 };
 
@@ -131,7 +136,7 @@ export type RegisterMutation = {
       | Array<{__typename?: 'FieldError'; field: string; message: string}>
       | null
       | undefined;
-    user?: {__typename?: 'User'; username: string} | null | undefined;
+    user?: {__typename?: 'EatherUser'; username: string} | null | undefined;
   };
 };
 
@@ -139,11 +144,23 @@ export type AuthTestingQueryVariables = Exact<{[key: string]: never}>;
 
 export type AuthTestingQuery = {__typename?: 'Query'; hello: string};
 
+export type PostsQueryVariables = Exact<{
+  limit: Scalars['Int'];
+}>;
+
+export type PostsQuery = {
+  __typename?: 'Query';
+  posts?: Array<{__typename?: 'Post'; title: string}> | null | undefined;
+};
+
 export type SessionCheckQueryVariables = Exact<{[key: string]: never}>;
 
 export type SessionCheckQuery = {
   __typename?: 'Query';
-  Me?: {__typename?: 'User'; id: number; username: string} | null | undefined;
+  Me?:
+    | {__typename?: 'EatherUser'; id: number; username: string}
+    | null
+    | undefined;
 };
 
 export const LoginDocument = gql`
@@ -308,6 +325,54 @@ export type AuthTestingLazyQueryHookResult = ReturnType<
 export type AuthTestingQueryResult = Apollo.QueryResult<
   AuthTestingQuery,
   AuthTestingQueryVariables
+>;
+export const PostsDocument = gql`
+  query Posts($limit: Int!) {
+    posts(limit: $limit) {
+      title
+    }
+  }
+`;
+
+/**
+ * __usePostsQuery__
+ *
+ * To run a query within a React component, call `usePostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function usePostsQuery(
+  baseOptions: Apollo.QueryHookOptions<PostsQuery, PostsQueryVariables>
+) {
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useQuery<PostsQuery, PostsQueryVariables>(
+    PostsDocument,
+    options
+  );
+}
+export function usePostsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<PostsQuery, PostsQueryVariables>
+) {
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useLazyQuery<PostsQuery, PostsQueryVariables>(
+    PostsDocument,
+    options
+  );
+}
+export type PostsQueryHookResult = ReturnType<typeof usePostsQuery>;
+export type PostsLazyQueryHookResult = ReturnType<typeof usePostsLazyQuery>;
+export type PostsQueryResult = Apollo.QueryResult<
+  PostsQuery,
+  PostsQueryVariables
 >;
 export const SessionCheckDocument = gql`
   query SessionCheck {
