@@ -1,7 +1,6 @@
 import {RepeatIcon} from '@chakra-ui/icons';
 import {Box, Button, Grid, IconButton, useColorMode} from '@chakra-ui/react';
 import {Slider} from 'carbon-components-react';
-import EditorHeading from 'components/EditorHeading';
 import {AudioPlayer, CustomDropdown, Flexbox, TextInputArea} from 'elements';
 import useModalState from 'hooks/useModalState';
 import useTtsVoice from 'hooks/useTtsVoice';
@@ -43,15 +42,15 @@ const EditorUI: React.FC<{
     <Box
       display={'flex'}
       flexDirection="column"
-      padding={'5% 10%'}
-      bg={colors.fgd_2[colorMode]}
+      bg={'transparent'}
+      width={'100%'}
     >
-      <EditorHeading />
+      {/* <EditorHeading /> */}
       <Grid
         templateColumns="repeat(3, 1fr)"
         gridRowGap={30}
         templateRows="repeat(2, 1fr)"
-        bg="black.100"
+        bg={colors.fgd_5[colorMode]}
         p={10}
       >
         <CustomDropdown

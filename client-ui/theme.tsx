@@ -24,7 +24,8 @@ const theme = extendTheme({
       secondary: '#23272D',
       100: '#1F242A',
       200: '#2E343C',
-      300: '#3F4750'
+      300: '#3F4750',
+      400: '#9DA0A1'
     },
     yellow: {
       100: '#E2D26C',
@@ -33,7 +34,7 @@ const theme = extendTheme({
     white: {
       100: '#fff',
       200: '#F2F1EF',
-      300: '#F2E2EE'
+      300: '#686B6C'
     },
     blue: {
       100: '#0353e9',

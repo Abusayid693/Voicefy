@@ -1,5 +1,4 @@
 import DashboardSideBar from 'components/DashboardSideBar';
-import Editor from 'containers/Editor';
 import {useRouter} from 'next/router';
 import useAuth from '../../hooks/useAuth';
 
@@ -14,8 +13,8 @@ const Index = () => {
   return (
     <>
       {auth.isAuthenticated() ? (
-        <DashboardSideBar activeIndex={0}>
-          <Editor />
+        <DashboardSideBar activeIndex={3}>
+          <h1>Please first login</h1>
         </DashboardSideBar>
       ) : (
         <h1>Please first login</h1>
