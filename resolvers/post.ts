@@ -1,20 +1,25 @@
-import {Post} from '../entities/Post';
-import {Resolver, Query, Arg, Mutation} from 'type-graphql';
+import {Arg, Mutation, Query, Resolver} from 'type-graphql';
 import {getConnection} from 'typeorm';
+import {Post} from '../entities/Post';
 
 @Resolver()
 export class PostResolver {
   @Query(() => Post, {nullable: true})
-  post(
-    // @Arg("id", ()=> Int) id: number,
-    @Arg('id') id: number
-  ) {
+  post(@Arg('id') id: number) {
     return Post.findOne(id);
   }
 
   @Query(() => [Post], {nullable: true})
-  posts(): Promise<Post[]> {
-    return Post.find();
+  async posts(@Arg('limit') limit: number): Promise<Post[]> {
+    const postLimit = Math.min(50, limit);
+    const result = await getConnection()
+      .getRepository(Post)
+      .createQueryBuilder()
+      .orderBy('"createdAt"', 'DESC')
+      .take(postLimit)
+      .getMany();
+
+    return result;
   }
 
   @Mutation(() => Post)
