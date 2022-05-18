@@ -31,6 +31,7 @@ export const InputField: React.FC<containerProps> = props => {
         type={props.type}
         id={props.name}
         placeholder={props.placeholder}
+        color={'white.100'}
       />
       <FormErrorMessage>{error}</FormErrorMessage>
     </FormControl>
@@ -55,6 +56,7 @@ export const SecureInputField: React.FC<containerProps> = props => {
           id={props.name}
           placeholder={props.placeholder}
           borderColor={'white.100'}
+          color={'white.100'}
         />
         <InputRightElement width="4.5rem">
           <Button h="1.75rem" size="sm" onClick={handleClick} variant="primary">
