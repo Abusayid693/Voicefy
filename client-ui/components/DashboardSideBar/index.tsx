@@ -58,7 +58,7 @@ const Index: React.FC<{
         h={'100vh'}
         position={'relative'}
       >
-        <VStack marginBottom="10vh" marginTop={'5vh'}>
+        <VStack marginBottom="5vh" marginTop={'5vh'}>
           <ThemeToggle />
         </VStack>
         <VStack marginBottom="70vh">
