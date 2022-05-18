@@ -1,4 +1,10 @@
-import {Asleep20, Logout20} from '@carbon/icons-react';
+import {
+  Dashboard20,
+  DashboardReference20,
+  FolderMoveTo20,
+  Logout20,
+  TableOfContents20
+} from '@carbon/icons-react';
 import {
   Avatar,
   AvatarBadge,
@@ -17,23 +23,23 @@ import colors from 'style/mode';
 const routes = [
   {
     name: 'Dashboard',
-    icon: <Asleep20 />,
+    icon: <DashboardReference20 />,
     routeTo: '/dashboard'
   },
 
   {
     name: 'Saved',
-    icon: <Asleep20 />,
+    icon: <FolderMoveTo20 />,
     routeTo: '/dashboard/saved'
   },
   {
     name: 'Analytics',
-    icon: <Asleep20 />,
+    icon: <Dashboard20 />,
     routeTo: '/dashboard/analytics'
   },
   {
     name: 'Voices',
-    icon: <Asleep20 />,
+    icon: <TableOfContents20 />,
     routeTo: '/dashboard/voices'
   }
 ];
@@ -56,6 +62,9 @@ const Index: React.FC<{
           <ThemeToggle />
         </VStack>
         <VStack marginBottom="70vh">
+          <Text fontSize={15} fontWeight={300} alignSelf={'self-start'}>
+            MENU
+          </Text>
           {routes.map((item, index) => (
             <Link href={item.routeTo}>
               <Button
@@ -63,7 +72,7 @@ const Index: React.FC<{
                 aria-label={`${index}`}
                 leftIcon={item.icon}
                 bg={colors.fgd_6[colorMode]}
-                borderRightRadius={0}
+                borderRadius={0}
                 fontSize={14}
                 justifyContent="space-between"
                 color={
@@ -88,6 +97,9 @@ const Index: React.FC<{
           ))}
         </VStack>
         <VStack position={'absolute'} bottom="30">
+          <Text fontSize={15} fontWeight={300} alignSelf={'self-start'}>
+            PROFILE
+          </Text>
           <HStack
             w={'180px'}
             marginBottom={4}
@@ -95,7 +107,8 @@ const Index: React.FC<{
               bg: colors.fgd_6[colorMode]
             }}
             borderRadius={4}
-            p={4}
+            pt={4}
+            pb={4}
           >
             <Avatar size="sm">
               <AvatarBadge boxSize="0.85em" bg="green.500" />
@@ -125,7 +138,7 @@ const Index: React.FC<{
           </Button>
         </VStack>
       </VStack>
-      <Box w={'90%'}>{children}</Box>
+      <Box w={'86%'}>{children}</Box>
     </HStack>
   );
 };
