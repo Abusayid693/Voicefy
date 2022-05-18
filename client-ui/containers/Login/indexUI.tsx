@@ -41,7 +41,6 @@ const LoginUI: React.FC<{
               password: values.password
             }
           });
-          console.log(response);
           if (response.data?.login.errors) {
             setErrors(ErrorFormat(response.data?.login.errors));
           } else if (response.data?.login.user) {

@@ -25,6 +25,7 @@ const useTtsVoice = () => {
       setData(res);
       cache.set(key, res);
     } catch (error) {
+      console.log(error);
       toast({
         title: 'Error',
         description: 'Something went wrong with our server, try again later.',
