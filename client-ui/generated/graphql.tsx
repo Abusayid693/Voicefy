@@ -44,7 +44,10 @@ export type Mutation = {
 };
 
 export type MutationCreatePostsArgs = {
+  count: Scalars['Int'];
+  service: Scalars['String'];
   title: Scalars['String'];
+  url: Scalars['String'];
 };
 
 export type MutationDeletePostArgs = {
@@ -66,10 +69,14 @@ export type MutationUpdatePostArgs = {
 
 export type Post = {
   __typename?: 'Post';
+  count: Scalars['Float'];
   createdAt: Scalars['String'];
+  creatorId: Scalars['Float'];
   id: Scalars['Float'];
+  service: Scalars['String'];
   title: Scalars['String'];
   updatedAt: Scalars['String'];
+  url: Scalars['String'];
 };
 
 export type Query = {
@@ -102,6 +109,25 @@ export type UserResponse = {
 export type UsernamePasswordInput = {
   password: Scalars['String'];
   username: Scalars['String'];
+};
+
+export type CreatePostMutationVariables = Exact<{
+  title: Scalars['String'];
+  service: Scalars['String'];
+  count: Scalars['Int'];
+  url: Scalars['String'];
+}>;
+
+export type CreatePostMutation = {
+  __typename?: 'Mutation';
+  createPosts: {
+    __typename?: 'Post';
+    title: string;
+    service: string;
+    count: number;
+    url: string;
+    createdAt: string;
+  };
 };
 
 export type LoginMutationVariables = Exact<{
@@ -150,7 +176,17 @@ export type PostsQueryVariables = Exact<{
 
 export type PostsQuery = {
   __typename?: 'Query';
-  posts?: Array<{__typename?: 'Post'; title: string}> | null | undefined;
+  posts?:
+    | Array<{
+        __typename?: 'Post';
+        title: string;
+        service: string;
+        count: number;
+        url: string;
+        createdAt: string;
+      }>
+    | null
+    | undefined;
 };
 
 export type SessionCheckQueryVariables = Exact<{[key: string]: never}>;
@@ -163,6 +199,68 @@ export type SessionCheckQuery = {
     | undefined;
 };
 
+export const CreatePostDocument = gql`
+  mutation createPost(
+    $title: String!
+    $service: String!
+    $count: Int!
+    $url: String!
+  ) {
+    createPosts(title: $title, service: $service, count: $count, url: $url) {
+      title
+      service
+      count
+      url
+      createdAt
+    }
+  }
+`;
+export type CreatePostMutationFn = Apollo.MutationFunction<
+  CreatePostMutation,
+  CreatePostMutationVariables
+>;
+
+/**
+ * __useCreatePostMutation__
+ *
+ * To run a mutation, you first call `useCreatePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
+ *   variables: {
+ *      title: // value for 'title'
+ *      service: // value for 'service'
+ *      count: // value for 'count'
+ *      url: // value for 'url'
+ *   },
+ * });
+ */
+export function useCreatePostMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreatePostMutation,
+    CreatePostMutationVariables
+  >
+) {
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useMutation<CreatePostMutation, CreatePostMutationVariables>(
+    CreatePostDocument,
+    options
+  );
+}
+export type CreatePostMutationHookResult = ReturnType<
+  typeof useCreatePostMutation
+>;
+export type CreatePostMutationResult =
+  Apollo.MutationResult<CreatePostMutation>;
+export type CreatePostMutationOptions = Apollo.BaseMutationOptions<
+  CreatePostMutation,
+  CreatePostMutationVariables
+>;
 export const LoginDocument = gql`
   mutation Login($username: String!, $password: String!) {
     login(options: {password: $password, username: $username}) {
@@ -330,6 +428,10 @@ export const PostsDocument = gql`
   query Posts($limit: Int!) {
     posts(limit: $limit) {
       title
+      service
+      count
+      url
+      createdAt
     }
   }
 `;

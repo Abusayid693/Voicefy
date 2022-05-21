@@ -1,0 +1,14 @@
+mutation createPost(
+  $title: String!
+  $service: String!
+  $count: Int!
+  $url: String!
+) {
+  createPosts(title: $title, service: $service, count: $count, url: $url) {
+    title
+    service
+    count
+    url
+    createdAt
+  }
+}

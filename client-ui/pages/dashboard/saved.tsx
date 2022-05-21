@@ -1,28 +1,24 @@
 import DashboardSideBar from 'components/DashboardSideBar';
 import {usePostsQuery} from 'generated/graphql';
 import {useRouter} from 'next/router';
+import Container from '../../containers/Saved';
 import useAuth from '../../hooks/useAuth';
 
 const Index = () => {
   const auth = useAuth();
   const router = useRouter();
 
-  const {data} = usePostsQuery({
+  const {data, loading} = usePostsQuery({
     variables: {
       limit: 10
     }
   });
 
-  console.log('data : ', data);
-
-  // useEffect(() => {
-  //   if (!auth.isAuthenticated() && !auth.loading) router.push('/');
-  // }, [auth.isAuthenticated(), auth.loading]);
-
   return (
     <>
       {auth.isAuthenticated() ? (
         <DashboardSideBar activeIndex={1}>
+          {loading ? <>loading....</> : <Container data={data?.posts} />}
           {data?.posts?.map((item: any) => JSON.stringify(item))}
         </DashboardSideBar>
       ) : (
