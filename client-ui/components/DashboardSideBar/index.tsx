@@ -19,6 +19,7 @@ import ThemeToggle from 'components/ThemeSwitch';
 import Link from 'next/link';
 import {ReactNode} from 'react';
 import colors from 'style/mode';
+import DashboardHeader from '../DashboardHeader';
 
 const routes = [
   {
@@ -51,10 +52,14 @@ const Index: React.FC<{
   const {colorMode} = useColorMode();
 
   return (
-    <HStack justifyContent={'space-between'} bg={colors.fgd_5[colorMode]}>
+    <HStack
+      justifyContent={'space-between'}
+      bg={colors.fgd_5[colorMode]}
+      alignItems={'flex-start'}
+    >
       <VStack
-        bg={colors.fgd_5[colorMode]}
-        w={'200px'}
+        bg={colors.fgd_8_r[colorMode]}
+        w={'240px'}
         h={'100vh'}
         position={'relative'}
       >
@@ -62,34 +67,37 @@ const Index: React.FC<{
           <ThemeToggle />
         </VStack>
         <VStack marginBottom="70vh">
-          <Text fontSize={15} fontWeight={300} alignSelf={'self-start'}>
-            MENU
-          </Text>
           {routes.map((item, index) => (
             <Link href={item.routeTo}>
               <Button
                 key={item.name}
                 aria-label={`${index}`}
                 leftIcon={item.icon}
-                bg={colors.fgd_6[colorMode]}
-                borderRadius={0}
+                bg={colors.fgd_6_r[colorMode]}
+                borderRadius={10}
                 fontSize={14}
                 justifyContent="space-between"
                 color={
                   activeIndex === index
-                    ? colors.fgd_3[colorMode]
-                    : colors.fgd_7[colorMode]
+                    ? colors.fgd_3_r[colorMode]
+                    : colors.fgd_7_r[colorMode]
                 }
                 w={'180px'}
-                borderLeftWidth={2}
-                borderColor={
-                  activeIndex === index
-                    ? colors.fgd_3[colorMode]
-                    : colors.fgd_6[colorMode]
-                }
                 _hover={{
-                  bg: colors.fgd_6[colorMode]
+                  bg: colors.fgd_6_r[colorMode]
                 }}
+                _before={
+                  activeIndex === index
+                    ? {
+                        content: `""`,
+                        width: '1px',
+                        bg: colors.fgd_3_r[colorMode],
+                        height: '100%',
+                        position: 'absolute',
+                        left: '-10px'
+                      }
+                    : undefined
+                }
               >
                 {item.name}
               </Button>
@@ -97,15 +105,21 @@ const Index: React.FC<{
           ))}
         </VStack>
         <VStack position={'absolute'} bottom="30">
-          <Text fontSize={15} fontWeight={300} alignSelf={'self-start'}>
+          <Text
+            fontSize={15}
+            fontWeight={300}
+            color={colors.fgd_3_r[colorMode]}
+            alignSelf={'self-start'}
+          >
             PROFILE
           </Text>
           <HStack
             w={'180px'}
             marginBottom={4}
             _hover={{
-              bg: colors.fgd_6[colorMode]
+              bg: colors.fgd_6_r[colorMode]
             }}
+            bg={colors.fgd_6_r[colorMode]}
             borderRadius={4}
             pt={4}
             pb={4}
@@ -117,6 +131,7 @@ const Index: React.FC<{
               alignItems={'flex-start'}
               justifyContent="flex-start"
               textAlign={'left'}
+              color={colors.fgd_3_r[colorMode]}
             >
               <Text lineHeight={1}>Rehan</Text>
               <Text fontSize={10} lineHeight={0}>
@@ -127,18 +142,21 @@ const Index: React.FC<{
           <Button
             aria-label=""
             leftIcon={<Logout20 />}
-            bg={colors.fgd_6[colorMode]}
-            color={colors.fgd_3[colorMode]}
+            bg={colors.fgd_6_r[colorMode]}
+            color={colors.fgd_3_r[colorMode]}
             w={'180px'}
             _hover={{
-              bg: colors.fgd_6[colorMode]
+              bg: colors.fgd_6_r[colorMode]
             }}
           >
             Logout
           </Button>
         </VStack>
       </VStack>
-      <Box w={'86%'}>{children}</Box>
+      <Box w={'86%'} position={'relative'}>
+        <DashboardHeader />
+        {children}
+      </Box>
     </HStack>
   );
 };

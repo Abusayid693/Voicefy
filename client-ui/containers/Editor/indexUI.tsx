@@ -42,16 +42,18 @@ const EditorUI: React.FC<{
     <Box
       display={'flex'}
       flexDirection="column"
-      bg={'transparent'}
       width={'100%'}
+      bg={colors.fgd_2[colorMode]}
+      p={4}
+      borderRadius={5}
     >
       {/* <EditorHeading /> */}
       <Grid
         templateColumns="repeat(3, 1fr)"
         gridRowGap={30}
         templateRows="repeat(2, 1fr)"
-        bg={colors.fgd_5[colorMode]}
         p={10}
+        bg={'transparent'}
       >
         <CustomDropdown
           onChangeEvent={(e: any) =>
