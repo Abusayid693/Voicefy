@@ -1,5 +1,9 @@
 query Posts($limit: Int!) {
   posts(limit: $limit){
-    title
+    title,
+    service,
+    count,
+    url,
+    createdAt
   }
 }

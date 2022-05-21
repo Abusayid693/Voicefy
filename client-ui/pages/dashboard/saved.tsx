@@ -8,7 +8,7 @@ const Index = () => {
   const auth = useAuth();
   const router = useRouter();
 
-  const {data} = usePostsQuery({
+  const {data, loading} = usePostsQuery({
     variables: {
       limit: 10
     }
@@ -18,7 +18,7 @@ const Index = () => {
     <>
       {auth.isAuthenticated() ? (
         <DashboardSideBar activeIndex={1}>
-          <Container />
+          {loading ? <>loading....</> : <Container data={data?.posts} />}
           {data?.posts?.map((item: any) => JSON.stringify(item))}
         </DashboardSideBar>
       ) : (

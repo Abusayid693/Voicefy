@@ -24,7 +24,6 @@ export class PostResolver {
   @UseMiddleware(protect)
   async posts(
     @Arg('limit', () => Int, {nullable: true}) limit: number,
-    // @Arg('creatorId', () => Int) creatorId: number,
     @Ctx() {req}: MyContext
   ): Promise<Post[]> {
     const query = getConnection()
@@ -42,8 +41,21 @@ export class PostResolver {
 
   @Mutation(() => Post)
   @UseMiddleware(protect)
-  async createPosts(@Arg('title') title: string, @Ctx() {req}: MyContext) {
-    const post = Post.create({title, creatorId: req.user.id}).save();
+  async createPosts(
+    @Arg('title') title: string,
+    @Arg('service') service: string,
+    @Arg('count', () => Int, {nullable: false}) count: number,
+    @Arg('url', () => String, {nullable: false}) url: string,
+
+    @Ctx() {req}: MyContext
+  ) {
+    const post = Post.create({
+      title,
+      creatorId: req.user.id,
+      service,
+      count,
+      url
+    }).save();
     return post;
   }
 

@@ -17,41 +17,16 @@ import {
   useColorMode,
   VStack
 } from '@chakra-ui/react';
+import {AudioPlayer} from 'elements';
+import useModalState from 'hooks/useModalState';
 import colors from 'style/mode';
 
-const tableData = [
-  {
-    date: '01-04-20',
-    service: 'AWS',
-    count: '14',
-    download: '',
-    play: ''
-  },
-  {
-    date: '01-04-20',
-    service: 'AWS',
-    count: '14',
-    download: '',
-    play: ''
-  },
-  {
-    date: '01-04-20',
-    service: 'AWS',
-    count: '14',
-    download: '',
-    play: ''
-  },
-  {
-    date: '01-04-20',
-    service: 'AWS',
-    count: '14',
-    download: '',
-    play: ''
-  }
-];
-
-const Index = () => {
+const Index: React.FC<{
+  data: any;
+}> = ({data}) => {
   const {colorMode} = useColorMode();
+  const {isOpen, setOpen, setClose} = useModalState();
+
   return (
     <VStack width={'100%'} bg={colors.fgd_2[colorMode]} p={2} borderRadius={5}>
       <HStack mb={5} w="100%" justifyContent={'space-between'}>
@@ -71,7 +46,7 @@ const Index = () => {
           </Select>
         </HStack>
       </HStack>
-
+      <AudioPlayer url={data[0].url} isOpen={isOpen} onClose={setClose} />
       <TableContainer width={'100%'}>
         <Table variant="simple">
           <TableCaption>Imperial to metric conversion factors</TableCaption>
@@ -85,14 +60,13 @@ const Index = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {tableData.map((item, k: number) => (
+            {data.map((item: any, k: number) => (
               <Tr>
-                <Td>{item.date}</Td>
-                <Td>{item.count}</Td>
+                <Td>{item.createdAt}</Td>
                 <Td>{item.service}</Td>
-
+                <Td>{item.count}</Td>
                 <Td>
-                  <Button>
+                  <Button onClick={setOpen}>
                     <DownloadIcon />
                   </Button>
                 </Td>

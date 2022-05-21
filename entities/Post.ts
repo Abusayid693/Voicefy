@@ -29,5 +29,17 @@ export class Post extends BaseEntity {
 
   @Field()
   @Column()
+  service!: string;
+
+  @Field()
+  @Column()
+  count!: number;
+
+  @Field()
+  @Column()
+  url!: string;
+
+  @Field()
+  @Column()
   creatorId: number;
 }
