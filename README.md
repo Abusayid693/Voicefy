@@ -1,41 +1,17 @@
-# Eather-Server application  [Deployed Link]()
+# Voicefy  [Deployed Link]()
 
 
-This repository contains a backend code for Eather application built using [Node JS](), [postgresSQL with Amazon RDS](), [Redis]() for session management etc.
+This repository contains a backend code and client code for Voicefy application built using [Node JS](), [postgresSQL with Amazon RDS](), [Next js]() etc.
 
+
+![Preview](https://i.imgur.com/HowG3i8.png)
 
 ## Prerequisites
 
 - [NodeJS]() version 14+
 - [PostgresSQL]()
 - [Redis]()
-
-## Get Database Ready
-
-Connect With PostgresSQL and run the following initial queries
-
-```sql
-create table "post" (
-    "id" serial primary key,
-    "created_at" timestamptz(0) not null,
-    "updated_at" timestamptz(0) not null,
-    "title" text not null
-);
-
-  create table "user" (
-    "id" serial primary key,
-    "created_at" timestamptz(0) not null,
-    "updated_at" timestamptz(0) not null,
-    "username" text not null,
-    "password" text not null
-);
-alter table
-    "user"
-add
-    constraint "user_username_unique" unique ("username");
-  
--- ...... MORE QUERIES IN MIGRATION
-```
+- [AWS]
 
 ## GraphQL
 
