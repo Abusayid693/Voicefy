@@ -56,6 +56,7 @@ const Index: React.FC<{
       justifyContent={'space-between'}
       bg={colors.fgd_5[colorMode]}
       alignItems={'flex-start'}
+      // maxH="100vh"
     >
       <VStack
         bg={colors.fgd_8_r[colorMode]}
@@ -86,18 +87,6 @@ const Index: React.FC<{
                 _hover={{
                   bg: colors.fgd_6_r[colorMode]
                 }}
-                _before={
-                  activeIndex === index
-                    ? {
-                        content: `""`,
-                        width: '1px',
-                        bg: colors.fgd_3_r[colorMode],
-                        height: '100%',
-                        position: 'absolute',
-                        left: '-10px'
-                      }
-                    : undefined
-                }
               >
                 {item.name}
               </Button>
@@ -153,7 +142,7 @@ const Index: React.FC<{
           </Button>
         </VStack>
       </VStack>
-      <Box w={'86%'} position={'relative'}>
+      <Box w={'86%'} position={'relative'} overflowY="scroll" maxH="100vh">
         <DashboardHeader />
         {children}
       </Box>
