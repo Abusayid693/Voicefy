@@ -1,9 +1,10 @@
 query Posts($limit: Int!) {
   posts(limit: $limit){
-    title,
-    service,
-    count,
-    url,
+    language
+    service
+    gender
+    url
     createdAt
+    voiceId
   }
 }

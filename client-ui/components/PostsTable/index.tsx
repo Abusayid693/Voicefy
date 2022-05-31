@@ -1,11 +1,7 @@
 import {CloudDownload20} from '@carbon/icons-react';
 import {DownloadIcon} from '@chakra-ui/icons';
-import React from 'react';
 import {
   Button,
-  Heading,
-  HStack,
-  Select,
   Table,
   TableCaption,
   TableContainer,
@@ -15,12 +11,11 @@ import {
   Th,
   Thead,
   Tr,
-  useColorMode,
-  VStack
+  useColorMode
 } from '@chakra-ui/react';
 import {AudioPlayer} from 'elements';
 import useModalState from 'hooks/useModalState';
-import colors from 'style/mode';
+import React from 'react';
 
 const Index: React.FC<{
   data: any;
@@ -38,7 +33,9 @@ const Index: React.FC<{
             <Tr>
               <Th>Date</Th>
               <Th>service</Th>
-              <Th>count</Th>
+              <Th>language</Th>
+              <Th>gender</Th>
+              <Th>voiceId</Th>
               <Th>download</Th>
               <Th>play</Th>
             </Tr>
@@ -48,7 +45,9 @@ const Index: React.FC<{
               <Tr>
                 <Td>{item.createdAt}</Td>
                 <Td>{item.service}</Td>
-                <Td>{item.count}</Td>
+                <Td>{item.language}</Td>
+                <Td>{item.gender}</Td>
+                <Td>{item.voiceId}</Td>
                 <Td>
                   <Button onClick={setOpen}>
                     <DownloadIcon />

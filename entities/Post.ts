@@ -25,15 +25,19 @@ export class Post extends BaseEntity {
 
   @Field()
   @Column()
-  title!: string;
-
-  @Field()
-  @Column()
   service!: string;
 
   @Field()
   @Column()
-  count!: number;
+  language!: string;
+
+  @Field()
+  @Column()
+  gender!: string;
+
+  @Field()
+  @Column()
+  voiceId!: string;
 
   @Field()
   @Column()
