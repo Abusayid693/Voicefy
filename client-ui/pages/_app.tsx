@@ -13,6 +13,7 @@ import Footer from 'components/Footer';
 import ThemeProvider from 'contexts/Theme';
 import 'style/_reset.css';
 import {AuthProvider} from '../contexts/Auth';
+import {PostsProvider} from 'contexts/Posts';
 
 const uploadLink = createUploadLink({
   uri: 'http://localhost:4000/graphql'
@@ -47,14 +48,16 @@ function MyApp({Component, pageProps}) {
     <ApolloProvider client={client}>
       <ThemeProvider>
         <AuthProvider>
-          <Box
-            backgroundImage={
-              'linear-gradient( 102.4deg,  rgba(253,189,85,1) 7.8%, rgba(249,131,255,1) 100.3% );'
-            }
-            height={20}
-          />
-          <Component {...pageProps} />
-          <Footer />
+          <PostsProvider>
+            <Box
+              backgroundImage={
+                'linear-gradient( 102.4deg,  rgba(253,189,85,1) 7.8%, rgba(249,131,255,1) 100.3% );'
+              }
+              height={20}
+            />
+            <Component {...pageProps} />
+            <Footer />
+          </PostsProvider>
         </AuthProvider>
       </ThemeProvider>
     </ApolloProvider>

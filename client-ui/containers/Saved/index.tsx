@@ -46,7 +46,7 @@ const Index: React.FC<{
           </Select>
         </HStack>
       </HStack>
-      <AudioPlayer url={data[0].url} isOpen={isOpen} onClose={setClose} />
+      <AudioPlayer url={data[0]?.url} isOpen={isOpen} onClose={setClose} />
       <TableContainer width={'100%'}>
         <Table variant="simple">
           <TableCaption>Imperial to metric conversion factors</TableCaption>
