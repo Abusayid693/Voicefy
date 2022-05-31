@@ -56,11 +56,10 @@ const Index: React.FC<{
       justifyContent={'space-between'}
       bg={colors.fgd_5[colorMode]}
       alignItems={'flex-start'}
-      // maxH="100vh"
     >
       <VStack
         bg={colors.fgd_8_r[colorMode]}
-        w={'240px'}
+        w={'280px'}
         h={'100vh'}
         position={'relative'}
       >
