@@ -5,10 +5,9 @@ const Footer = () => {
   return (
     <HStack
       bg={'black.primary'}
-      borderTop="1px"
-      borderColor={'yellow.100'}
       justifyContent="space-between"
       p={'1% 10%'}
+      h={300}
     >
       <VStack alignItems={'flex-start'}>
         <Heading color={'white.100'} fontSize={18}>
