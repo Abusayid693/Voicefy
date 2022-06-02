@@ -1,14 +1,14 @@
-import DashboardSideBar from 'components/DashboardSideBar';
-import useAuth from '../../hooks/useAuth';
+import {HStack} from '@chakra-ui/react';
 import CreateVoice from 'components/CreateVoice';
-import {HStack, Button} from '@chakra-ui/react';
+import DashboardSideBar from 'components/DashboardSideBar';
 import usePosts from 'hooks/usePosts';
 import {PostsSmall} from '../../containers/Saved';
+import useAuth from '../../hooks/useAuth';
 
 const Index = () => {
   const auth = useAuth();
-  const {posts5, loading, updatePosts} = usePosts();
-  console.log('loading :', loading);
+  const {posts5, loading} = usePosts();
+
   return (
     <>
       {auth.isAuthenticated() ? (
@@ -16,7 +16,6 @@ const Index = () => {
           <HStack mb={10}>
             <CreateVoice />
             <CreateVoice />
-            <Button onClick={updatePosts}>Fetch posts</Button>
           </HStack>
           {loading ? <>loading....</> : <PostsSmall data={posts5} />}
         </DashboardSideBar>

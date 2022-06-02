@@ -77,6 +77,43 @@ mutation {
   }
 ```
 
+3. Analytics
+
+```graphql
+query total {
+  analyticsTotalSavedVoices
+}
+
+query totalTotalVoicesUsed {
+  analyticsTotalVoicesUsed {
+    key
+    count
+  }
+}
+
+query totalLanguagesUsed {
+  analyticsTotalLanguagesUsed {
+    key
+    count
+  }
+}
+
+query totalGenderUsed {
+  analyticsTotalGenderUsed {
+    key
+    count
+  }
+}
+
+query totalServicesUsed {
+  analyticsTotalServicesUsed {
+    key
+    count
+  }
+}
+```
+
+
 ## Isolated routes
 
 1. S3 Image Upload

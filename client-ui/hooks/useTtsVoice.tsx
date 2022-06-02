@@ -2,15 +2,19 @@ import {useToast} from '@chakra-ui/react';
 import {useState} from 'react';
 import {ttsVoiceService} from '../services/RestAPI';
 
-const initialState = {
-  statusCode: null,
-  url: null
-};
+interface Idata {
+  statusCode: number;
+  url: string;
+  language: string;
+  gender: string;
+  service: string;
+  voiceId: string;
+}
 const cache = new Map();
 
 const useTtsVoice = () => {
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState(initialState);
+  const [data, setData] = useState<Idata>();
   const toast = useToast();
 
   const convertTextToAudio = async (form: any) => {
@@ -37,7 +41,7 @@ const useTtsVoice = () => {
     setLoading(false);
   };
 
-  const resetCachedData = () => setData(initialState);
+  const resetCachedData = () => setData(undefined);
 
   return {data, resetCachedData, loading, convertTextToAudio};
 };

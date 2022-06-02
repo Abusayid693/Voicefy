@@ -1,14 +1,17 @@
+# Write your query or mutation here
 mutation createPost(
-  $title: String!
+  $language: String!
   $service: String!
-  $count: Int!
+  $gender: String!
+  $voiceId: String!
   $url: String!
 ) {
-  createPosts(title: $title, service: $service, count: $count, url: $url) {
-    title
+  createPosts(language: $language, service: $service, gender: $gender, url: $url, voiceId: $voiceId) {
+    language
     service
-    count
+    gender
     url
     createdAt
+    voiceId
   }
 }

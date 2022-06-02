@@ -1,6 +1,7 @@
 import {RepeatIcon} from '@chakra-ui/icons';
 import {Box, Button, Grid, IconButton, useColorMode} from '@chakra-ui/react';
 import {Slider} from 'carbon-components-react';
+import SavePosts from 'components/SavePosts';
 import {AudioPlayer, CustomDropdown, Flexbox, TextInputArea} from 'elements';
 import useModalState from 'hooks/useModalState';
 import useTtsVoice from 'hooks/useTtsVoice';
@@ -138,10 +139,16 @@ const EditorUI: React.FC<{
         )}
         {data?.url && (
           <>
+            <SavePosts
+              language={data?.language}
+              service={data?.service}
+              gender={data?.gender}
+              url={data?.url}
+              voiceId={data?.voiceId}
+            />
             <Button rightIcon={<RepeatIcon />} pl={8} pr={8} onClick={setOpen}>
               Play
             </Button>
-            (
             <AudioPlayer url={data.url} isOpen={isOpen} onClose={setClose} />
           </>
         )}

@@ -11,6 +11,7 @@ import {MyContext} from './@types/types';
 import db from './db.config';
 import fileUpload from './isolated/s3/file.upload';
 import tts from './isolated/tts/tts.route';
+import {AnalyticsResolver} from './resolvers/analytics';
 import {HelloResolver} from './resolvers/hello';
 import {PostResolver} from './resolvers/post';
 import {UserResolver} from './resolvers/user';
@@ -40,7 +41,7 @@ const main = async () => {
   const apolloServer = new ApolloServer({
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
     schema: await buildSchema({
-      resolvers: [HelloResolver, PostResolver, UserResolver],
+      resolvers: [HelloResolver, PostResolver, UserResolver, AnalyticsResolver],
       validate: false
     }),
     context: ({req, res}): MyContext => ({req, res})

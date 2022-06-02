@@ -1,4 +1,5 @@
 import {Request, Response} from 'express';
+import {Field, ObjectType} from 'type-graphql';
 
 export interface IFile {
   name: String;
@@ -21,3 +22,12 @@ export type MyContext = {
   req: IRequest;
   res: Response;
 };
+
+@ObjectType()
+export class ItotalServicesUsed {
+  @Field()
+  key!: string;
+
+  @Field()
+  count!: string;
+}

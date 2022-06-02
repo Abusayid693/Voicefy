@@ -42,18 +42,20 @@ export class PostResolver {
   @Mutation(() => Post)
   @UseMiddleware(protect)
   async createPosts(
-    @Arg('title') title: string,
+    @Arg('language') language: string,
     @Arg('service') service: string,
-    @Arg('count', () => Int, {nullable: false}) count: number,
+    @Arg('gender') gender: string,
+    @Arg('voiceId') voiceId: string,
     @Arg('url', () => String, {nullable: false}) url: string,
 
     @Ctx() {req}: MyContext
   ) {
     const post = Post.create({
-      title,
+      language,
       creatorId: req.user.id,
       service,
-      count,
+      gender,
+      voiceId,
       url
     }).save();
     return post;
@@ -63,12 +65,12 @@ export class PostResolver {
   @UseMiddleware(protect)
   async updatePost(
     @Arg('id') id: number,
-    @Arg('title', () => String, {nullable: true}) title: string
+    @Arg('voiceId', () => String, {nullable: true}) voiceId: string
   ): Promise<Post | null> {
     const result = await getConnection()
       .createQueryBuilder()
       .update(Post)
-      .set({title})
+      .set({voiceId})
       .where('id = :id', {
         id
       })

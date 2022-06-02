@@ -16,6 +16,7 @@ import {
   VStack
 } from '@chakra-ui/react';
 import ThemeToggle from 'components/ThemeSwitch';
+import useAuth from 'hooks/useAuth';
 import Link from 'next/link';
 import {ReactNode} from 'react';
 import colors from 'style/mode';
@@ -50,6 +51,8 @@ const Index: React.FC<{
   children: ReactNode;
 }> = ({activeIndex = 0, children}) => {
   const {colorMode} = useColorMode();
+
+  const {currentUser} = useAuth();
 
   return (
     <HStack
@@ -121,9 +124,9 @@ const Index: React.FC<{
               textAlign={'left'}
               color={colors.fgd_3_r[colorMode]}
             >
-              <Text lineHeight={1}>Rehan</Text>
+              <Text lineHeight={1}>{currentUser?.username}</Text>
               <Text fontSize={10} lineHeight={0}>
-                Rehan
+                {currentUser?.email}
               </Text>
             </VStack>
           </HStack>

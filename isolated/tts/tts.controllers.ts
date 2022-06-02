@@ -15,21 +15,22 @@ export const cloudVoice = (req: Request, res: Response, next: NextFunction) => {
   switch (provider) {
     case 'aws': {
       const input = getParamsObjectForPolly(ssmlText, VoiceId, lan);
-      return ttsPollyVoice(input, res, next);
+      return ttsPollyVoice(input, res, req, next);
     }
     case 'ibm': {
       const input = getParamsObjectForIbmWatson(ssmlText, VoiceId, lan);
-      return ttsIbmWatsonVoice(res, input);
+      return ttsIbmWatsonVoice(res, req, input);
     }
     default:
       const input = getParamsObjectForPolly(ssmlText, VoiceId, lan);
-      return ttsPollyVoice(input, res, next);
+      return ttsPollyVoice(input, res, req, next);
   }
 };
 
 export const ttsPollyVoice = (
   params: any,
   res: Response,
+  req: Request,
   next: NextFunction
 ) => {
   polly.synthesizeSpeech(params, (error, data) => {
@@ -37,12 +38,12 @@ export const ttsPollyVoice = (
       returnError(new Api404Error(error.message), res);
     }
     if (data?.AudioStream instanceof Buffer) {
-      storeVoiceInAWS(res, data.AudioStream);
+      storeVoiceInAWS(req, res, data.AudioStream);
     }
   });
 };
 
-export const ttsIbmWatsonVoice = (res: Response, params: any) => {
+export const ttsIbmWatsonVoice = (res: Response, req: Request, params: any) => {
   console.log(params);
   ibmTts
     .synthesize(params)
@@ -50,7 +51,7 @@ export const ttsIbmWatsonVoice = (res: Response, params: any) => {
       return ibmTts.repairWavHeaderStream(response.result as Readable);
     })
     .then(buffer => {
-      storeVoiceInAWS(res, buffer);
+      storeVoiceInAWS(req, res, buffer);
     })
     .catch(err => {
       returnError(new Api404Error(err.message), res);

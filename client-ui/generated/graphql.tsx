@@ -44,10 +44,11 @@ export type Mutation = {
 };
 
 export type MutationCreatePostsArgs = {
-  count: Scalars['Int'];
+  gender: Scalars['String'];
+  language: Scalars['String'];
   service: Scalars['String'];
-  title: Scalars['String'];
   url: Scalars['String'];
+  voiceId: Scalars['String'];
 };
 
 export type MutationDeletePostArgs = {
@@ -64,19 +65,20 @@ export type MutationRegisterArgs = {
 
 export type MutationUpdatePostArgs = {
   id: Scalars['Float'];
-  title?: InputMaybe<Scalars['String']>;
+  voiceId?: InputMaybe<Scalars['String']>;
 };
 
 export type Post = {
   __typename?: 'Post';
-  count: Scalars['Float'];
   createdAt: Scalars['String'];
   creatorId: Scalars['Float'];
+  gender: Scalars['String'];
   id: Scalars['Float'];
+  language: Scalars['String'];
   service: Scalars['String'];
-  title: Scalars['String'];
   updatedAt: Scalars['String'];
   url: Scalars['String'];
+  voiceId: Scalars['String'];
 };
 
 export type Query = {
@@ -112,9 +114,10 @@ export type UsernamePasswordInput = {
 };
 
 export type CreatePostMutationVariables = Exact<{
-  title: Scalars['String'];
+  language: Scalars['String'];
   service: Scalars['String'];
-  count: Scalars['Int'];
+  gender: Scalars['String'];
+  voiceId: Scalars['String'];
   url: Scalars['String'];
 }>;
 
@@ -122,11 +125,12 @@ export type CreatePostMutation = {
   __typename?: 'Mutation';
   createPosts: {
     __typename?: 'Post';
-    title: string;
+    language: string;
     service: string;
-    count: number;
+    gender: string;
     url: string;
     createdAt: string;
+    voiceId: string;
   };
 };
 
@@ -179,11 +183,12 @@ export type PostsQuery = {
   posts?:
     | Array<{
         __typename?: 'Post';
-        title: string;
+        language: string;
         service: string;
-        count: number;
+        gender: string;
         url: string;
         createdAt: string;
+        voiceId: string;
       }>
     | null
     | undefined;
@@ -194,24 +199,32 @@ export type SessionCheckQueryVariables = Exact<{[key: string]: never}>;
 export type SessionCheckQuery = {
   __typename?: 'Query';
   Me?:
-    | {__typename?: 'EatherUser'; id: number; username: string}
+    | {__typename?: 'EatherUser'; id: number; username: string; email: string}
     | null
     | undefined;
 };
 
 export const CreatePostDocument = gql`
   mutation createPost(
-    $title: String!
+    $language: String!
     $service: String!
-    $count: Int!
+    $gender: String!
+    $voiceId: String!
     $url: String!
   ) {
-    createPosts(title: $title, service: $service, count: $count, url: $url) {
-      title
+    createPosts(
+      language: $language
+      service: $service
+      gender: $gender
+      url: $url
+      voiceId: $voiceId
+    ) {
+      language
       service
-      count
+      gender
       url
       createdAt
+      voiceId
     }
   }
 `;
@@ -233,9 +246,10 @@ export type CreatePostMutationFn = Apollo.MutationFunction<
  * @example
  * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
  *   variables: {
- *      title: // value for 'title'
+ *      language: // value for 'language'
  *      service: // value for 'service'
- *      count: // value for 'count'
+ *      gender: // value for 'gender'
+ *      voiceId: // value for 'voiceId'
  *      url: // value for 'url'
  *   },
  * });
@@ -427,11 +441,12 @@ export type AuthTestingQueryResult = Apollo.QueryResult<
 export const PostsDocument = gql`
   query Posts($limit: Int!) {
     posts(limit: $limit) {
-      title
+      language
       service
-      count
+      gender
       url
       createdAt
+      voiceId
     }
   }
 `;
@@ -481,6 +496,7 @@ export const SessionCheckDocument = gql`
     Me {
       id
       username
+      email
     }
   }
 `;

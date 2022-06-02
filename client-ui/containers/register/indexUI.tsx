@@ -1,10 +1,8 @@
-import {Button} from '@chakra-ui/react';
-import {Formik, Form} from 'formik';
-import {Container} from '../../components/Container';
-import {InputField, SecureInputField} from '../../components/inputField';
-import {ErrorFormat} from '../../util/error';
+import {Box, Button, Heading} from '@chakra-ui/react';
+import {Form, Formik} from 'formik';
 import ProfileUploader from '../../components/ImageUpload';
-import {Heading} from '@chakra-ui/react';
+import {InputField, SecureInputField} from '../../components/inputField';
+import {ErrorFormat} from '../../util/utils';
 
 const RegisterUI: React.FC<{
   registerMutation: any;
@@ -12,7 +10,14 @@ const RegisterUI: React.FC<{
   formValidation: any;
 }> = ({registerMutation, router, formValidation}) => {
   return (
-    <Container varient="small">
+    <Box
+      width={'100vw'}
+      mt={0}
+      height="100vh"
+      mx={'auto'}
+      bg="black.primary"
+      padding={'0 35%'}
+    >
       <Heading as="h3" size="xl" isTruncated marginBottom={10} marginTop={20}>
         Register
       </Heading>
@@ -62,7 +67,7 @@ const RegisterUI: React.FC<{
           </Form>
         )}
       </Formik>
-    </Container>
+    </Box>
   );
 };
 export default RegisterUI;
