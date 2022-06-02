@@ -30,3 +30,10 @@ export const isAnyNull = (obj: Record<string, any>): boolean => {
   for (const key in obj) if (obj[key] === null || undefined) return true;
   return false;
 };
+
+export const getSortedObj = (sortBy: string, data: any) => {
+  if (!sortBy.length) return data;
+  return data
+    .slice(0)
+    .sort((a: any, b: any) => a[sortBy].localeCompare(b[sortBy]));
+};
