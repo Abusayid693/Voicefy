@@ -12,7 +12,7 @@ import colors from 'style/mode';
 import useAuth from '../../hooks/useAuth';
 
 const UserPanel = () => {
-  const {logout} = useAuth();
+  const {logout, currentUser} = useAuth();
   const {colorMode} = useColorMode();
   return (
     <Menu>

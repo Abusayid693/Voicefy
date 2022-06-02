@@ -12,6 +12,8 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({
   const [currentUser, setCurrentUser] = useState<any>(null);
   const {data, error, loading} = useSessionCheckQuery();
 
+  console.log(currentUser);
+
   useEffect(() => {
     if (data) {
       setCurrentUser(data.Me);

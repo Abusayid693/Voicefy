@@ -40,6 +40,7 @@ export type Mutation = {
   deletePost: Scalars['Boolean'];
   login: UserResponse;
   register: UserResponse;
+  updatePost?: Maybe<Post>;
 };
 
 export type MutationCreatePostsArgs = {
@@ -60,6 +61,11 @@ export type MutationLoginArgs = {
 
 export type MutationRegisterArgs = {
   options: UsernamePasswordInput;
+};
+
+export type MutationUpdatePostArgs = {
+  id: Scalars['Float'];
+  voiceId?: InputMaybe<Scalars['String']>;
 };
 
 export type Post = {
@@ -193,7 +199,7 @@ export type SessionCheckQueryVariables = Exact<{[key: string]: never}>;
 export type SessionCheckQuery = {
   __typename?: 'Query';
   Me?:
-    | {__typename?: 'EatherUser'; id: number; username: string}
+    | {__typename?: 'EatherUser'; id: number; username: string; email: string}
     | null
     | undefined;
 };
@@ -490,6 +496,7 @@ export const SessionCheckDocument = gql`
     Me {
       id
       username
+      email
     }
   }
 `;
