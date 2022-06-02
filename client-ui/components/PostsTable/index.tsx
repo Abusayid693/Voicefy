@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react';
 import {AudioPlayer} from 'elements';
 import useModalState from 'hooks/useModalState';
+import usePosts from 'hooks/usePosts';
 import React from 'react';
 
 const Index: React.FC<{
@@ -22,11 +23,13 @@ const Index: React.FC<{
 }> = ({data}) => {
   const {colorMode} = useColorMode();
   const {isOpen, setOpen, setClose} = useModalState();
+  const {updatePosts} = usePosts();
 
   return (
     <React.Fragment>
       <AudioPlayer url={data[0]?.url} isOpen={isOpen} onClose={setClose} />
       <TableContainer width={'100%'}>
+        <Button onClick={updatePosts}>Reload</Button>
         <Table variant="simple">
           <TableCaption>Imperial to metric conversion factors</TableCaption>
           <Thead>

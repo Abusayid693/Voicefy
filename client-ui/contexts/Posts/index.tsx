@@ -29,7 +29,7 @@ export const PostsProvider: React.FC<{children: React.ReactNode}> = ({
   const value = {
     posts,
     loading: loading || networkStatus === NetworkStatus.refetch,
-    posts5: [...posts.slice(0, 5), ...posts.slice(6)],
+    posts5: [...posts.slice(0, 5)],
     updatePosts
   };
 

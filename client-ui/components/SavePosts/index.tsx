@@ -10,13 +10,30 @@ const Index: React.FC<{
   url: string;
   voiceId: string;
 }> = ({language, service, gender, url, voiceId}) => {
-  const [mutateFn, {data, loading, error}] = useCreatePostMutation();
-  const {updatePosts} = usePosts();
-  console.log({language, service, gender, url, voiceId});
-
-  console.log('New post : ', data);
-
   const toast = useToast();
+
+  const [mutateFn, {loading}] = useCreatePostMutation({
+    onError: () => {
+      toast({
+        title: 'Error',
+        description: 'Something went wrong with our server, try again later.',
+        status: 'error',
+        duration: 2000,
+        isClosable: true
+      });
+    },
+    onCompleted: () => {
+      toast({
+        title: 'Successfully saved',
+        description: 'We ve created your account for you.',
+        status: 'success',
+        duration: 2000,
+        isClosable: true
+      });
+    }
+  });
+
+  const {updatePosts} = usePosts();
 
   const createNewPost = async () => {
     await mutateFn({
@@ -30,16 +47,6 @@ const Index: React.FC<{
     });
     await updatePosts();
   };
-
-  if (error) {
-    toast({
-      title: 'Error',
-      description: 'Something went wrong with our server, try again later.',
-      status: 'error',
-      duration: 2000,
-      isClosable: true
-    });
-  }
 
   return (
     <Button

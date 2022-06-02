@@ -1,7 +1,7 @@
 import DashboardSideBar from 'components/DashboardSideBar';
+import usePosts from 'hooks/usePosts';
 import Container from '../../containers/Saved';
 import useAuth from '../../hooks/useAuth';
-import usePosts from 'hooks/usePosts';
 
 const Index = () => {
   const auth = useAuth();
@@ -12,7 +12,6 @@ const Index = () => {
       {auth.isAuthenticated() ? (
         <DashboardSideBar activeIndex={1}>
           {loading ? <>loading....</> : <Container data={posts} />}
-          {posts?.map((item: any) => JSON.stringify(item))}
         </DashboardSideBar>
       ) : (
         <h1>Please first login</h1>
