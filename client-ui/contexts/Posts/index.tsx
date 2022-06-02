@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {PostsContext} from 'hooks/usePosts';
-import {usePostsQuery} from 'generated/graphql';
 import {NetworkStatus} from '@apollo/client';
+import {usePostsQuery} from 'generated/graphql';
+import {PostsContext} from 'hooks/usePosts';
+import React, {useEffect, useState} from 'react';
 
 export const PostsProvider: React.FC<{children: React.ReactNode}> = ({
   children
@@ -10,7 +10,7 @@ export const PostsProvider: React.FC<{children: React.ReactNode}> = ({
 
   const {data, loading, refetch, networkStatus} = usePostsQuery({
     variables: {
-      limit: 10
+      limit: 100
     },
     notifyOnNetworkStatusChange: true
   });
@@ -21,7 +21,7 @@ export const PostsProvider: React.FC<{children: React.ReactNode}> = ({
 
   const updatePosts = async () => {
     const {data: data2} = await refetch({
-      limit: 3
+      limit: 100
     });
     setPosts(data2?.posts);
   };

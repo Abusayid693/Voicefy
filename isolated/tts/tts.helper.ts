@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import {Response} from 'express';
+import {Request, Response} from 'express';
 import {AWS_BUCKET_NAME} from '../../local.config';
 import {returnError} from '../../middlewares/errorHandler';
 import {InternalServerError} from '../../utils/errorResponse';
@@ -35,7 +35,19 @@ const getAWSBucketLink = (file: string) => {
   return `https://${AWS_BUCKET_NAME}.s3.ap-south-1.amazonaws.com/${file}`;
 };
 
-export const storeVoiceInAWS = (res: Response, stream: any) => {
+const getResponseObject = (req: Request, url: string) => {
+  const {VoiceId, lan, provider} = req.body;
+
+  return {
+    VoiceId,
+    language: lan,
+    service: provider,
+    url,
+    gender: 'F'
+  };
+};
+
+export const storeVoiceInAWS = (req: Request, res: Response, stream: any) => {
   const randomBytes = crypto.randomBytes(64).toString('hex');
 
   const key = `${randomBytes}.mp3`;
@@ -50,6 +62,14 @@ export const storeVoiceInAWS = (res: Response, stream: any) => {
     if (error) {
       returnError(new InternalServerError('S3 object error'), res);
     }
-    res.status(200).send(new TTSSuccessResponse(getAWSBucketLink(key)));
+
+    const {VoiceId, language, service, url, gender} = getResponseObject(
+      req,
+      getAWSBucketLink(key)
+    );
+
+    res
+      .status(200)
+      .send(new TTSSuccessResponse(url, service, language, gender, VoiceId));
   });
 };
