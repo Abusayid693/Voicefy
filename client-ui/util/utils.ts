@@ -37,3 +37,8 @@ export const getSortedObj = (sortBy: string, data: any) => {
     .slice(0)
     .sort((a: any, b: any) => a[sortBy].localeCompare(b[sortBy]));
 };
+
+export const getFormatedDateFromTimeStamp = (timeStamp: string) => {
+  let d = new Date(parseInt(timeStamp));
+  return d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear();
+};

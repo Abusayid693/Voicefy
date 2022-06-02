@@ -17,17 +17,30 @@ import {AudioPlayer} from 'elements';
 import useModalState from 'hooks/useModalState';
 import usePosts from 'hooks/usePosts';
 import React from 'react';
+import {getFormatedDateFromTimeStamp} from 'util/utils';
+
+const PlayButton: React.FC<{
+  url: string;
+}> = ({url}) => {
+  const {isOpen, setOpen, setClose} = useModalState();
+  return (
+    <React.Fragment>
+      {isOpen && <AudioPlayer url={url} isOpen={isOpen} onClose={setClose} />}
+      <Button onClick={setOpen}>
+        <DownloadIcon />
+      </Button>
+    </React.Fragment>
+  );
+};
 
 const Index: React.FC<{
   data: any;
 }> = ({data}) => {
   const {colorMode} = useColorMode();
-  const {isOpen, setOpen, setClose} = useModalState();
   const {updatePosts} = usePosts();
 
   return (
     <React.Fragment>
-      <AudioPlayer url={data[0]?.url} isOpen={isOpen} onClose={setClose} />
       <TableContainer width={'100%'}>
         <Button onClick={updatePosts}>Reload</Button>
         <Table variant="simple">
@@ -46,15 +59,13 @@ const Index: React.FC<{
           <Tbody>
             {data.map((item: any, k: number) => (
               <Tr>
-                <Td>{item.createdAt}</Td>
+                <Td>{getFormatedDateFromTimeStamp(item.createdAt)}</Td>
                 <Td>{item.service}</Td>
                 <Td>{item.language}</Td>
                 <Td>{item.gender}</Td>
                 <Td>{item.voiceId}</Td>
                 <Td>
-                  <Button onClick={setOpen}>
-                    <DownloadIcon />
-                  </Button>
+                  <PlayButton url={item.url} />
                 </Td>
 
                 <Td>
