@@ -4,7 +4,7 @@
 This repository contains a backend code and client code for Voicefy application built using [Node JS](), [postgresSQL with Amazon RDS](), [Next js]() etc.
 
 
-![Preview](https://i.imgur.com/HowG3i8.png)
+![Preview](https://i.imgur.com/wZSeU0e.png)
 
 ## Prerequisites
 
