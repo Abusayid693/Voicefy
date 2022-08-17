@@ -36,14 +36,14 @@ const getAWSBucketLink = (file: string) => {
 };
 
 const getResponseObject = (req: Request, url: string) => {
-  const {VoiceId, lan, provider} = req.body;
+  const {VoiceId, lan, provider, gender} = req.body;
 
   return {
     VoiceId,
     language: lan,
     service: provider,
     url,
-    gender: 'F'
+    gender
   };
 };
 

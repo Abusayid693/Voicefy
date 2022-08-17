@@ -36,7 +36,8 @@ const EditorUI: React.FC<{
     provider: 'aws',
     ssmlText: formData.text,
     VoiceId: formData.voice,
-    lan: formData.language
+    lan: formData.language,
+    gender: formData.gender
   };
 
   return (

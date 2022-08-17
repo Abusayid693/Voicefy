@@ -1,20 +1,36 @@
+import {HStack, VStack} from '@chakra-ui/react';
 import DashboardSideBar from 'components/DashboardSideBar';
-import {useRouter} from 'next/router';
 import useAuth from '../../hooks/useAuth';
+
+//--
+import {
+  AnalyticsTotalGenderUsed,
+  AnalyticsTotalLanguagesUsed,
+  AnalyticsTotalSavedVoices,
+  AnalyticsTotalServicesUsed,
+  AnalyticsTotalVoicesUsed
+} from 'containers/Analytics';
 
 const Index = () => {
   const auth = useAuth();
-  const router = useRouter();
-
-  // useEffect(() => {
-  //   if (!auth.isAuthenticated() && !auth.loading) router.push('/');
-  // }, [auth.isAuthenticated(), auth.loading]);
 
   return (
     <>
       {auth.isAuthenticated() ? (
         <DashboardSideBar activeIndex={2}>
-          <h1>Please first login</h1>
+          <VStack alignItems={'flex-start'} gap="30px">
+            <HStack justifyContent={'flex-start'} alignItems="flex-start">
+              <AnalyticsTotalGenderUsed />
+              <AnalyticsTotalSavedVoices />
+            </HStack>
+            <hr />
+            <AnalyticsTotalVoicesUsed />
+            <hr />
+            <AnalyticsTotalLanguagesUsed />
+            <hr />
+            <hr />
+            <AnalyticsTotalServicesUsed />
+          </VStack>
         </DashboardSideBar>
       ) : (
         <h1>Please first login</h1>
