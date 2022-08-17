@@ -1,0 +1,6 @@
+query analyticsTotalServicesUsed {
+  analyticsTotalServicesUsed {
+    key
+    count
+  }
+}

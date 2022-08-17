@@ -1,0 +1,6 @@
+query analyticsTotalVoicesUsed {
+  analyticsTotalVoicesUsed {
+    key
+    count
+  }
+}

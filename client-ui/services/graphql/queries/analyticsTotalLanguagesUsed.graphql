@@ -1,0 +1,6 @@
+query analyticsTotalLanguagesUsed {
+  analyticsTotalLanguagesUsed {
+    key
+    count
+  }
+}

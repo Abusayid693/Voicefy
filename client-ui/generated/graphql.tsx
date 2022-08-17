@@ -34,6 +34,12 @@ export type FieldError = {
   message: Scalars['String'];
 };
 
+export type ItotalServicesUsed = {
+  __typename?: 'ItotalServicesUsed';
+  count: Scalars['String'];
+  key: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createPosts: Post;
@@ -84,6 +90,11 @@ export type Post = {
 export type Query = {
   __typename?: 'Query';
   Me?: Maybe<EatherUser>;
+  analyticsTotalGenderUsed?: Maybe<Array<ItotalServicesUsed>>;
+  analyticsTotalLanguagesUsed?: Maybe<Array<ItotalServicesUsed>>;
+  analyticsTotalSavedVoices?: Maybe<Scalars['String']>;
+  analyticsTotalServicesUsed?: Maybe<Array<ItotalServicesUsed>>;
+  analyticsTotalVoicesUsed?: Maybe<Array<ItotalServicesUsed>>;
   hello: Scalars['String'];
   post?: Maybe<Post>;
   posts?: Maybe<Array<Post>>;
@@ -168,6 +179,63 @@ export type RegisterMutation = {
       | undefined;
     user?: {__typename?: 'EatherUser'; username: string} | null | undefined;
   };
+};
+
+export type AnalyticsTotalGenderUsedQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type AnalyticsTotalGenderUsedQuery = {
+  __typename?: 'Query';
+  analyticsTotalGenderUsed?:
+    | Array<{__typename?: 'ItotalServicesUsed'; key: string; count: string}>
+    | null
+    | undefined;
+};
+
+export type AnalyticsTotalLanguagesUsedQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type AnalyticsTotalLanguagesUsedQuery = {
+  __typename?: 'Query';
+  analyticsTotalLanguagesUsed?:
+    | Array<{__typename?: 'ItotalServicesUsed'; key: string; count: string}>
+    | null
+    | undefined;
+};
+
+export type AnalyticsTotalSavedVoicesQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type AnalyticsTotalSavedVoicesQuery = {
+  __typename?: 'Query';
+  analyticsTotalSavedVoices?: string | null | undefined;
+};
+
+export type AnalyticsTotalServicesUsedQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type AnalyticsTotalServicesUsedQuery = {
+  __typename?: 'Query';
+  analyticsTotalServicesUsed?:
+    | Array<{__typename?: 'ItotalServicesUsed'; key: string; count: string}>
+    | null
+    | undefined;
+};
+
+export type AnalyticsTotalVoicesUsedQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type AnalyticsTotalVoicesUsedQuery = {
+  __typename?: 'Query';
+  analyticsTotalVoicesUsed?:
+    | Array<{__typename?: 'ItotalServicesUsed'; key: string; count: string}>
+    | null
+    | undefined;
 };
 
 export type AuthTestingQueryVariables = Exact<{[key: string]: never}>;
@@ -384,6 +452,293 @@ export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<
   RegisterMutation,
   RegisterMutationVariables
+>;
+export const AnalyticsTotalGenderUsedDocument = gql`
+  query analyticsTotalGenderUsed {
+    analyticsTotalGenderUsed {
+      key
+      count
+    }
+  }
+`;
+
+/**
+ * __useAnalyticsTotalGenderUsedQuery__
+ *
+ * To run a query within a React component, call `useAnalyticsTotalGenderUsedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAnalyticsTotalGenderUsedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAnalyticsTotalGenderUsedQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAnalyticsTotalGenderUsedQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    AnalyticsTotalGenderUsedQuery,
+    AnalyticsTotalGenderUsedQueryVariables
+  >
+) {
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useQuery<
+    AnalyticsTotalGenderUsedQuery,
+    AnalyticsTotalGenderUsedQueryVariables
+  >(AnalyticsTotalGenderUsedDocument, options);
+}
+export function useAnalyticsTotalGenderUsedLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AnalyticsTotalGenderUsedQuery,
+    AnalyticsTotalGenderUsedQueryVariables
+  >
+) {
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useLazyQuery<
+    AnalyticsTotalGenderUsedQuery,
+    AnalyticsTotalGenderUsedQueryVariables
+  >(AnalyticsTotalGenderUsedDocument, options);
+}
+export type AnalyticsTotalGenderUsedQueryHookResult = ReturnType<
+  typeof useAnalyticsTotalGenderUsedQuery
+>;
+export type AnalyticsTotalGenderUsedLazyQueryHookResult = ReturnType<
+  typeof useAnalyticsTotalGenderUsedLazyQuery
+>;
+export type AnalyticsTotalGenderUsedQueryResult = Apollo.QueryResult<
+  AnalyticsTotalGenderUsedQuery,
+  AnalyticsTotalGenderUsedQueryVariables
+>;
+export const AnalyticsTotalLanguagesUsedDocument = gql`
+  query analyticsTotalLanguagesUsed {
+    analyticsTotalLanguagesUsed {
+      key
+      count
+    }
+  }
+`;
+
+/**
+ * __useAnalyticsTotalLanguagesUsedQuery__
+ *
+ * To run a query within a React component, call `useAnalyticsTotalLanguagesUsedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAnalyticsTotalLanguagesUsedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAnalyticsTotalLanguagesUsedQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAnalyticsTotalLanguagesUsedQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    AnalyticsTotalLanguagesUsedQuery,
+    AnalyticsTotalLanguagesUsedQueryVariables
+  >
+) {
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useQuery<
+    AnalyticsTotalLanguagesUsedQuery,
+    AnalyticsTotalLanguagesUsedQueryVariables
+  >(AnalyticsTotalLanguagesUsedDocument, options);
+}
+export function useAnalyticsTotalLanguagesUsedLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AnalyticsTotalLanguagesUsedQuery,
+    AnalyticsTotalLanguagesUsedQueryVariables
+  >
+) {
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useLazyQuery<
+    AnalyticsTotalLanguagesUsedQuery,
+    AnalyticsTotalLanguagesUsedQueryVariables
+  >(AnalyticsTotalLanguagesUsedDocument, options);
+}
+export type AnalyticsTotalLanguagesUsedQueryHookResult = ReturnType<
+  typeof useAnalyticsTotalLanguagesUsedQuery
+>;
+export type AnalyticsTotalLanguagesUsedLazyQueryHookResult = ReturnType<
+  typeof useAnalyticsTotalLanguagesUsedLazyQuery
+>;
+export type AnalyticsTotalLanguagesUsedQueryResult = Apollo.QueryResult<
+  AnalyticsTotalLanguagesUsedQuery,
+  AnalyticsTotalLanguagesUsedQueryVariables
+>;
+export const AnalyticsTotalSavedVoicesDocument = gql`
+  query analyticsTotalSavedVoices {
+    analyticsTotalSavedVoices
+  }
+`;
+
+/**
+ * __useAnalyticsTotalSavedVoicesQuery__
+ *
+ * To run a query within a React component, call `useAnalyticsTotalSavedVoicesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAnalyticsTotalSavedVoicesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAnalyticsTotalSavedVoicesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAnalyticsTotalSavedVoicesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    AnalyticsTotalSavedVoicesQuery,
+    AnalyticsTotalSavedVoicesQueryVariables
+  >
+) {
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useQuery<
+    AnalyticsTotalSavedVoicesQuery,
+    AnalyticsTotalSavedVoicesQueryVariables
+  >(AnalyticsTotalSavedVoicesDocument, options);
+}
+export function useAnalyticsTotalSavedVoicesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AnalyticsTotalSavedVoicesQuery,
+    AnalyticsTotalSavedVoicesQueryVariables
+  >
+) {
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useLazyQuery<
+    AnalyticsTotalSavedVoicesQuery,
+    AnalyticsTotalSavedVoicesQueryVariables
+  >(AnalyticsTotalSavedVoicesDocument, options);
+}
+export type AnalyticsTotalSavedVoicesQueryHookResult = ReturnType<
+  typeof useAnalyticsTotalSavedVoicesQuery
+>;
+export type AnalyticsTotalSavedVoicesLazyQueryHookResult = ReturnType<
+  typeof useAnalyticsTotalSavedVoicesLazyQuery
+>;
+export type AnalyticsTotalSavedVoicesQueryResult = Apollo.QueryResult<
+  AnalyticsTotalSavedVoicesQuery,
+  AnalyticsTotalSavedVoicesQueryVariables
+>;
+export const AnalyticsTotalServicesUsedDocument = gql`
+  query analyticsTotalServicesUsed {
+    analyticsTotalServicesUsed {
+      key
+      count
+    }
+  }
+`;
+
+/**
+ * __useAnalyticsTotalServicesUsedQuery__
+ *
+ * To run a query within a React component, call `useAnalyticsTotalServicesUsedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAnalyticsTotalServicesUsedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAnalyticsTotalServicesUsedQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAnalyticsTotalServicesUsedQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    AnalyticsTotalServicesUsedQuery,
+    AnalyticsTotalServicesUsedQueryVariables
+  >
+) {
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useQuery<
+    AnalyticsTotalServicesUsedQuery,
+    AnalyticsTotalServicesUsedQueryVariables
+  >(AnalyticsTotalServicesUsedDocument, options);
+}
+export function useAnalyticsTotalServicesUsedLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AnalyticsTotalServicesUsedQuery,
+    AnalyticsTotalServicesUsedQueryVariables
+  >
+) {
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useLazyQuery<
+    AnalyticsTotalServicesUsedQuery,
+    AnalyticsTotalServicesUsedQueryVariables
+  >(AnalyticsTotalServicesUsedDocument, options);
+}
+export type AnalyticsTotalServicesUsedQueryHookResult = ReturnType<
+  typeof useAnalyticsTotalServicesUsedQuery
+>;
+export type AnalyticsTotalServicesUsedLazyQueryHookResult = ReturnType<
+  typeof useAnalyticsTotalServicesUsedLazyQuery
+>;
+export type AnalyticsTotalServicesUsedQueryResult = Apollo.QueryResult<
+  AnalyticsTotalServicesUsedQuery,
+  AnalyticsTotalServicesUsedQueryVariables
+>;
+export const AnalyticsTotalVoicesUsedDocument = gql`
+  query analyticsTotalVoicesUsed {
+    analyticsTotalVoicesUsed {
+      key
+      count
+    }
+  }
+`;
+
+/**
+ * __useAnalyticsTotalVoicesUsedQuery__
+ *
+ * To run a query within a React component, call `useAnalyticsTotalVoicesUsedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAnalyticsTotalVoicesUsedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAnalyticsTotalVoicesUsedQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAnalyticsTotalVoicesUsedQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    AnalyticsTotalVoicesUsedQuery,
+    AnalyticsTotalVoicesUsedQueryVariables
+  >
+) {
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useQuery<
+    AnalyticsTotalVoicesUsedQuery,
+    AnalyticsTotalVoicesUsedQueryVariables
+  >(AnalyticsTotalVoicesUsedDocument, options);
+}
+export function useAnalyticsTotalVoicesUsedLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AnalyticsTotalVoicesUsedQuery,
+    AnalyticsTotalVoicesUsedQueryVariables
+  >
+) {
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useLazyQuery<
+    AnalyticsTotalVoicesUsedQuery,
+    AnalyticsTotalVoicesUsedQueryVariables
+  >(AnalyticsTotalVoicesUsedDocument, options);
+}
+export type AnalyticsTotalVoicesUsedQueryHookResult = ReturnType<
+  typeof useAnalyticsTotalVoicesUsedQuery
+>;
+export type AnalyticsTotalVoicesUsedLazyQueryHookResult = ReturnType<
+  typeof useAnalyticsTotalVoicesUsedLazyQuery
+>;
+export type AnalyticsTotalVoicesUsedQueryResult = Apollo.QueryResult<
+  AnalyticsTotalVoicesUsedQuery,
+  AnalyticsTotalVoicesUsedQueryVariables
 >;
 export const AuthTestingDocument = gql`
   query AuthTesting {

@@ -1,0 +1,6 @@
+query analyticsTotalGenderUsed {
+  analyticsTotalGenderUsed {
+    key
+    count
+  }
+}
