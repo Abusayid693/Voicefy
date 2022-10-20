@@ -29,7 +29,7 @@ Voicefy is a web-application that allows users to generate best audio experience
   - [AWS RDS](https://aws.amazon.com/rds/) - Amazon Relational Database Service is a distributed relational database service by Amazon Web Services. 
   - [AWS EC2](https://aws.amazon.com/ec2/) - Amazon Elastic Compute Cloud (Amazon EC2) provides scalable computing capacity in the Amazon Web Services (AWS) Cloud.
 - [IBM Watson](https://www.ibm.com/cloud/watson-text-to-speech) - cloud service that enables you to convert written text into natural-sounding audio in a variety of languages and voices
-- [GrapgQL](https://graphql.org) - GraphQL is an open-source data query and manipulation language for APIs, and a runtime for fulfilling queries with existing data
+- [GraphQL](https://graphql.org) - GraphQL is an open-source data query and manipulation language for APIs, and a runtime for fulfilling queries with existing data
 - [Next js](https://nextjs.org) - Next.js is an open-source web development framework created by Vercel enabling React-based web applications
 
 ## Prerequisites
